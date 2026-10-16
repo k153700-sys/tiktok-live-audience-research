@@ -1,0 +1,3512 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="30~59세 여성 TikTok LIVE 시청자와 후원자에 관한 연구, 시장 페르소나, Match 전략과 관계 운영 기준">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+  <title>KYE TikTok LIVE Audience Research</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #171715;
+      --muted: #6b6963;
+      --paper: #f5f2eb;
+      --panel: #fffdf8;
+      --line: #d9d3c6;
+      --accent: #916d2d;
+      --accent-soft: #eee2c9;
+      --deep: #292722;
+      --success: #e6efe6;
+      --shadow: 0 18px 45px rgba(40, 34, 24, .08);
+      --radius: 22px;
+      --sans: "Noto Sans KR", "Noto Sans CJK KR", "Noto Sans", Arial, sans-serif;
+      --serif: "Noto Serif KR", "Noto Serif CJK KR", "Noto Serif", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.72; }
+    button, input { font: inherit; }
+    .skip { position: absolute; left: -9999px; top: 0; }
+    .skip:focus { left: 16px; top: 16px; z-index: 20; padding: 10px 14px; background: #fff; color: #111; border-radius: 8px; }
+    .layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 100vh; }
+    aside { position: sticky; top: 0; height: 100vh; padding: 28px 22px; background: var(--deep); color: #f7f2e8; overflow-y: auto; }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #b99b62; border-radius: 50%; color: #e8cc96; font-weight: 800; letter-spacing: .08em; }
+    .brand strong { display: block; font-size: 15px; letter-spacing: .08em; }
+    .brand small { color: #b9b4aa; }
+    .search { width: 100%; margin-bottom: 18px; padding: 11px 13px; border: 1px solid #4a4740; border-radius: 12px; background: #211f1b; color: #fff; outline: none; }
+    .search:focus { border-color: #c7a96f; box-shadow: 0 0 0 3px rgba(199,169,111,.15); }
+    .nav { display: grid; gap: 6px; }
+    .nav-item { width: 100%; display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 10px; border: 0; border-radius: 10px; background: transparent; color: #ded9cf; text-align: left; cursor: pointer; }
+    .nav-item span { color: #a28d66; font-size: 12px; padding-top: 3px; }
+    .nav-item:hover, .nav-item.active { background: #3a352d; color: #fff; }
+    .aside-note { margin-top: 22px; padding: 14px; border-top: 1px solid #48443c; color: #aaa59b; font-size: 12px; }
+    main { min-width: 0; }
+    .hero { padding: 78px clamp(24px, 6vw, 88px) 58px; background: linear-gradient(145deg, #fbf9f4 0%, #eee5d4 100%); border-bottom: 1px solid var(--line); }
+    .hero-inner { max-width: 1040px; margin: 0 auto; }
+    .kicker { margin: 0 0 10px; color: var(--accent); font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 850px; margin: 0; font-family: var(--serif); font-size: clamp(42px, 7vw, 78px); line-height: 1.05; letter-spacing: -.055em; }
+    .hero-copy { max-width: 760px; margin: 24px 0 0; color: #4f4b43; font-size: clamp(17px, 2vw, 21px); }
+    .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 9px 13px; background: rgba(255,255,255,.7); border: 1px solid #dbcfb9; border-radius: 999px; font-size: 13px; }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #527654; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+    .summary-card { min-height: 140px; padding: 20px; background: rgba(255,255,255,.72); border: 1px solid #ddd4c3; border-radius: 18px; }
+    .summary-card strong { display: block; margin-bottom: 8px; font-size: 25px; font-family: var(--serif); }
+    .summary-card span { color: #5f5a51; font-size: 14px; }
+    .promise { max-width: 1040px; margin: 28px auto 0; padding: 24px; border-left: 4px solid var(--accent); background: #fffaf0; border-radius: 0 16px 16px 0; }
+    .promise strong { color: var(--accent); }
+    .content { max-width: 1100px; margin: 0 auto; padding: 46px clamp(20px, 5vw, 70px) 100px; }
+    .document-section { scroll-margin-top: 24px; margin: 0 0 28px; padding: clamp(24px, 4vw, 48px); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .section-lead { margin-bottom: 30px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .section-lead h2 { margin: 0; font-family: var(--serif); font-size: clamp(28px, 4vw, 44px); line-height: 1.15; letter-spacing: -.03em; }
+    .eyebrow { margin: 0 0 8px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+    .prose { max-width: 860px; }
+    .prose h1 { margin: 10px 0 26px; font-size: 34px; line-height: 1.2; letter-spacing: -.025em; }
+    .prose h2 { margin: 48px 0 16px; padding-top: 10px; font-size: 28px; line-height: 1.3; border-top: 1px solid #e7e1d6; }
+    .prose h3 { margin: 32px 0 12px; color: #342f27; font-size: 21px; }
+    .prose h4 { margin: 24px 0 8px; font-size: 17px; }
+    .prose p { margin: 0 0 15px; }
+    .prose li { margin-bottom: 6px; }
+    .prose blockquote { margin: 22px 0; padding: 16px 20px; border-left: 4px solid var(--accent); background: #f8f1e3; color: #4e473b; }
+    .prose code { padding: 2px 6px; border-radius: 6px; background: #eee9df; color: #6b4c1b; font-size: .9em; overflow-wrap: anywhere; }
+    .prose pre { overflow-x: auto; padding: 18px; border-radius: 14px; background: #24231f; color: #f6f1e8; }
+    .prose table { width: 100%; margin: 22px 0; border-collapse: collapse; display: block; overflow-x: auto; font-size: 14px; }
+    .prose th, .prose td { min-width: 130px; padding: 10px 12px; border: 1px solid #d8d1c5; text-align: left; vertical-align: top; }
+    .prose th { background: #f1eadc; }
+    .prose a { color: #72511c; text-underline-offset: 3px; }
+    .notice { margin-top: 22px; padding: 18px 20px; border: 1px solid #d4c39f; background: #fff8e8; border-radius: 14px; color: #5c4d31; }
+    .no-results { display: none; padding: 40px; text-align: center; color: var(--muted); }
+    .mobile-bar { display: none; }
+    footer { padding: 34px; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: 13px; }
+    @media (max-width: 980px) {
+      .layout { display: block; }
+      aside { position: fixed; z-index: 10; inset: 0 18% 0 0; height: 100vh; transform: translateX(-105%); transition: transform .2s ease; box-shadow: 20px 0 60px rgba(0,0,0,.2); }
+      body.menu-open aside { transform: translateX(0); }
+      .mobile-bar { position: sticky; top: 0; z-index: 8; display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: rgba(245,242,235,.92); border-bottom: 1px solid var(--line); backdrop-filter: blur(10px); }
+      .mobile-bar button { padding: 8px 11px; border: 1px solid var(--line); background: #fff; border-radius: 10px; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding-top: 48px; }
+    }
+    @media (max-width: 620px) {
+      h1 { font-size: 43px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary-card { min-height: auto; }
+      .document-section { padding: 22px 18px; border-radius: 16px; }
+      .prose h1 { font-size: 28px; }
+      .prose h2 { font-size: 24px; }
+      aside { inset-right: 10%; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 바로가기</a>
+  <div class="layout">
+    <aside aria-label="문서 목차">
+      <div class="brand"><div class="brand-mark">K</div><div><strong>KYE RESEARCH</strong><small>TikTok LIVE Strategy</small></div></div>
+      <label for="search" class="sr-only">문서 검색</label>
+      <input id="search" class="search" type="search" placeholder="문서 안에서 검색" autocomplete="off">
+      <nav class="nav"><button class="nav-item" data-target="research-foundation"><span>01</span>연구의 출발점과 핵심 심리</button>
+<button class="nav-item" data-target="market-personas"><span>02</span>30~59세 여성 시장 페르소나 12</button>
+<button class="nav-item" data-target="motive-tags"><span>03</span>시청·관계·후원 동기 태그 20</button>
+<button class="nav-item" data-target="match-strategy"><span>04</span>LIVE Match 수익·경쟁 전략</button>
+<button class="nav-item" data-target="relationship-playbook"><span>05</span>관계 운영 플레이북</button>
+<button class="nav-item" data-target="validation-plan"><span>06</span>현장 검증 계획</button>
+<button class="nav-item" data-target="policy"><span>07</span>TikTok 공식 정책과 운영 경계</button>
+<button class="nav-item" data-target="sources"><span>08</span>출처와 근거 수준</button></nav>
+      <p class="aside-note">이 문서는 공개 통계·학술 연구·TikTok 공식 정책과 운영 가설을 구분합니다. 페르소나의 실제 비중과 전환 효과는 KYE 계정에서 검증해야 합니다.</p>
+    </aside>
+    <main id="main">
+      <div class="mobile-bar"><strong>KYE Research</strong><button id="menuButton" type="button" aria-expanded="false">목차</button></div>
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="kicker">Audience · Relationship · Match</p>
+          <h1>30~59세 여성 TikTok LIVE 시청자·후원자 연구</h1>
+          <p class="hero-copy">누가 방송에 들어오고, 무엇 때문에 머물며, 어떤 경험이 재방문·팬 정체성·자발적 후원으로 이어지는지 정리한 KYE 운영 자료입니다.</p>
+          <div class="status">문헌·정책 조사 완료 · 시장 적용은 검증 중</div>
+          <div class="summary-grid">
+            <div class="summary-card"><strong>12</strong><span>삶의 조건과 자기상이 다른 여성 시장 페르소나</span></div>
+            <div class="summary-card"><strong>20</strong><span>한 사람에게 복수로 붙는 시청·관계·후원 동기</span></div>
+            <div class="summary-card"><strong>7단계</strong><span>발견에서 지속 가능한 주요 후원자까지의 경로</span></div>
+            <div class="summary-card"><strong>10주</strong><span>가설을 실제 방송 자료로 줄이고 고치는 기본 검증안</span></div>
+          </div>
+          <div class="promise"><strong>중심 방향</strong><br>멋있어서 들어왔다가, 편안해서 머물고, 정확히 기억되고 신뢰가 생겨 다시 찾아오며, Match에서 자신의 기여가 실제 결과를 바꾸는 경험을 통해 자발적으로 응원하게 만듭니다.</div>
+        </div>
+      </section>
+      <div class="content">
+        <div id="noResults" class="no-results">검색어와 일치하는 문서가 없습니다.</div>
+        <article class="document-section" id="research-foundation" data-search="연구의 출발점과 핵심 심리">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 01</p>
+          <h2>연구의 출발점과 핵심 심리</h2>
+        </header>
+        <div class="prose"><h1 id="_1">시청자에서 지속 가능한 주요 후원자까지: 연구 기반 모델</h1>
+<p>작성일: 2026-10-16<br>
+상태: <strong>1차 연구·TikTok 공식 정책·kye의 현재 확정 프로필을 종합한 전략 기반</strong>. 실제 타깃 시청자와 방송 데이터로 검증하기 전까지 세부 경로는 가설이다.</p>
+<h2 id="0">0. 이 문서를 읽는 기준</h2>
+<p>이 문서는 서로 다른 수준의 정보를 섞지 않기 위해 다음 표지를 사용한다.</p>
+<ul>
+<li><strong>[연구 결과]</strong> 외부 1차 연구가 직접 관찰하거나 분석한 결과. 표본·플랫폼·문화권의 한계가 있다.</li>
+<li><strong>[정책 확인]</strong> TikTok 공식 문서에서 확인한 허용·제한 기준.</li>
+<li><strong>[로컬 확정 사실]</strong> 사용자가 직접 밝히거나 현재 프로젝트에서 명시적으로 합의한 kye의 목표·성향·운영 원칙.</li>
+<li><strong>[전략 가설]</strong> 연구와 로컬 사실을 연결해 만든 실행 제안. 실제 LIVE에서 검증해야 한다.</li>
+<li><strong>[관찰 신호]</strong> 가설이 맞는지 방송에서 확인할 행동 자료. 사람의 내면이나 경제력을 확정하는 진단이 아니다.</li>
+</ul>
+<p>핵심 원칙은 간단하다.</p>
+<blockquote>
+<p><strong>사람을 결제시키는 기술을 찾는 것이 아니라, 계속 보고 싶고 함께 키우고 싶은 온라인 경험을 만든다. 후원은 그 가치에 대한 성인의 자발적 선택이어야 한다.</strong></p>
+</blockquote>
+<p>후원액은 관계 가치나 경제력을 그대로 보여 주지 않는다. 큰 금액이 부담 없는 사람과 무리해서 보내는 사람을 반드시 구분해야 하며, 그 구분을 더 많은 지출을 끌어내는 데 사용해서는 안 된다.</p>
+<hr>
+<h2 id="1">1. 출발점: 현재 확정된 목적과 제약</h2>
+<h3 id="11">1.1 사업과 관계의 목적</h3>
+<ul>
+<li><strong>[로컬 확정 사실]</strong> 최종 목표는 kye의 팬과 주요 후원자를 만들고 지속 가능한 수익을 키우는 것이다. 특히 대부분의 후원이 발생하는 Match의 팀 경쟁·기여 경쟁·지위 경쟁을 실제 수익 구조로 다룬다. 다만 구걸, 죄책감, 거짓 연애 가능성이나 사적 관계를 차지하기 위한 불안 경쟁으로 결제를 유도하지 않는다. <code>[L1 §1-1] [L2 §2] [M1]</code></li>
+<li><strong>[로컬 확정 사실]</strong> 팬이 얻어야 할 가치는 즐거움, 인정, 소속감, 새로운 관점, 응원할 가치, 함께 성장하는 경험이다. <code>[L1 §1-1] [L2 §2]</code></li>
+<li><strong>[로컬 확정 사실]</strong> 관계는 LIVE·공개 커뮤니티·합의된 온라인 소통 안에서 완결한다. 면대면 만남이나 연애 발전 가능성을 후원의 보상으로 암시하지 않는다. <code>[L1 §1-1] [P1 §5]</code></li>
+<li><strong>[로컬 확정 사실]</strong> 브랜드의 중심은 “멋있어서 들어왔다가, 편안해서 머물고, 신뢰가 생겨 다시 찾아오는 LIVE”이다. <code>[L1 §1]</code></li>
+<li><strong>[로컬 확정 사실]</strong> kye는 완성된 카리스마를 연기하기보다 진지함·생각의 깊이·예의·사람을 함부로 대하지 않는 태도를 기반으로 위트·생동감·남성적 존재감·정중한 힘을 키우는 방향에 동의했다. <code>[L1 §2] [L2 §6]</code></li>
+</ul>
+<h3 id="12-tiktok-live">1.2 TikTok LIVE라는 환경</h3>
+<ul>
+<li><strong>[로컬 확정 사실]</strong> TikTok LIVE는 처음부터 끝까지 따라보는 프로그램보다 매 순간 새 사람이 들어오는 열린 방에 가깝다. 한 사람과 긴 대화보다 5~20초 안에 이해되는 반응과 전체가 끼는 전환이 필요하다. <code>[L4 §2, §5]</code></li>
+<li><strong>[전략 가설]</strong> 따라서 kye의 ‘깊이’는 긴 상담이 아니라 정확한 한마디, 반복 방문을 기억하는 태도, 갈등에서도 중심을 지키는 모습으로 보여 주는 편이 적합하다. 이는 현재 운영 원칙과 브랜드를 연결한 가설이다. <code>[L1 §3~4] [L4 §3~6]</code></li>
+</ul>
+<hr>
+<h2 id="2">2. 시청자는 무엇을 얻으러 오는가</h2>
+<p>한 시청자에게 여러 욕구가 동시에 있을 수 있다. 아래 유형은 사람을 고정 분류하는 성격표가 아니라, <strong>그날 그 사람이 LIVE를 이용하는 목적</strong>을 읽기 위한 모델이다.</p>
+<h3 id="21">2.1 기분 전환과 편안한 자극</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 라이브 시청에는 오락, 감정적 즐거움, 긴장 완화, 힘든 일에서 잠시 주의를 돌리는 기능이 포함된다. 일부 연구에서는 시청 시간과도 관련됐다. <code>[R1] [R2] [R3]</code></li>
+<li><strong>[전략 가설]</strong> kye에게 필요한 기본 상품은 ‘깊은 관계’ 이전에 <strong>부담 없이 들어와 기분이 조금 좋아지는 시간</strong>이다.</li>
+<li><strong>[kye가 지금 줄 수 있는 것]</strong> 정중한 환영, 차분한 화면, 쉬운 선택 질문, 짧은 반응, 과장하지 않는 따뜻함.</li>
+<li><strong>[더 개발할 것]</strong> 댓글이 없을 때도 유지되는 진행, 짧은 장난, 표정과 목소리의 강약, 침묵 뒤 자연스러운 전환.</li>
+<li><strong>[관찰 신호]</strong> 말없이 머무는 시간, 가벼운 질문에 첫 댓글을 다는 비율, “편하다/분위기 좋다”는 표현, 비슷한 시간대 재방문.</li>
+<li><strong>[한계]</strong> 스트레스나 외로움이 있다고 추정해 개인 DM이나 후원 요청으로 연결하면 안 된다.</li>
+</ul>
+<h3 id="22">2.2 알아봐 주는 경험</h3>
+<ul>
+<li><strong>[연구 한계]</strong> TikTok에서 일반 채팅 인정의 효과를 직접 검증했다고 소개된 한 자료는 출처 감사에서 확인되지 않아 근거에서 제외했다. 따라서 TikTok에서 어떤 인정 방식이 후원을 높인다고 아직 단정할 수 없다. <code>[E3]</code></li>
+<li><strong>[연구 결과]</strong> 가상선물은 감사·지원뿐 아니라 진행자와의 상호작용을 매개하는 행위로도 보고됐다. <code>[R5]</code></li>
+<li><strong>[전략 가설]</strong> 중요한 것은 이름을 크게 외치는 기술보다 <strong>그 사람이 한 말을 정확히 받고 방송의 일부로 만드는 것</strong>이다.</li>
+<li><strong>[kye가 지금 줄 수 있는 것]</strong> 댓글 핵심을 짧게 되짚고, 답한 뒤 전체 질문으로 넓히는 세심한 반응.</li>
+<li><strong>[더 개발할 것]</strong> 재방문자 기억 기록, 이름·취향·지난 대화를 과하지 않게 이어 주는 방식, 여러 댓글 사이의 공정한 배분.</li>
+<li><strong>[관찰 신호]</strong> 답변 뒤 추가 댓글, 자신의 경험을 조금 더 말함, 다음 방문에서 지난 대화를 먼저 언급함.</li>
+<li><strong>[한계]</strong> 인정 욕구가 보인다는 이유로 결제자만 알아봐 주거나, 관심을 일부러 끊었다가 선물 후 되돌려 주지 않는다.</li>
+</ul>
+<h3 id="23">2.3 소속과 가벼운 공동체</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 사회적 교류와 공동체 감각은 시청·정서적 연결·일부 유료 행동과 관련됐다. 시청자끼리의 관계도 선물과 팬 공동체의 의미를 만들 수 있다. <code>[R1] [R2] [R6]</code></li>
+<li><strong>[전략 가설]</strong> kye 혼자 모든 정서적 보상을 제공하는 구조보다, 새 시청자도 끼고 기존 시청자도 서로 환영하는 <strong>열린 라운지</strong>가 재방문에 더 안전하다.</li>
+<li><strong>[kye가 지금 줄 수 있는 것]</strong> 누구나 답할 수 있는 질문, 새 사람을 배제하지 않는 설명, 예의와 경계를 지키는 분위기.</li>
+<li><strong>[더 개발할 것]</strong> 반복 코너, 공동체 언어, 무료 기여를 알아보는 방식, 팬끼리의 갈등과 서열을 막는 운영 규칙.</li>
+<li><strong>[관찰 신호]</strong> 시청자끼리 자연스럽게 인사함, 신규에게 맥락을 알려 줌, 선물 없이도 분위기를 돕는 행동, 방송 일정에 맞춘 재방문.</li>
+<li><strong>[한계]</strong> 고액 후원자에게 다른 시청자를 지휘·평가·통제할 권한을 주면 공동체가 개인 후원자의 사유물로 변할 수 있다.</li>
+</ul>
+<h3 id="24">2.4 매력적인 남성 호스트를 보는 즐거움</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 신뢰감과 매력은 정서적 애착과, 현장감·오락성은 몰입과 연결됐으며 애착과 몰입은 선물 의도와 관련됐다. 다만 중국의 횡단 설문이므로 인과와 타깃 전이는 제한된다. <code>[R8]</code></li>
+<li><strong>[연구 결과]</strong> 여성 팬이 남성 진행자에게 외모·재능·다정한 상호작용·특별한 팬 지위 때문에 선물한 질적 사례가 있으나 핵심 표본이 6명인 미심사 중국 연구라 일반화할 수 없다. <code>[R14]</code></li>
+<li><strong>[전략 가설]</strong> kye는 연애 가능성을 팔지 않고도 외모, 정돈된 화면, 눈맞춤, 목소리, 자기 페이스, 예의 있는 자신감으로 <strong>보는 즐거움과 남성적 존재감</strong>을 줄 수 있다.</li>
+<li><strong>[kye가 지금 줄 수 있는 것]</strong> 깔끔함을 지향하는 태도, 차분함, 예의, 진지함, 함부로 대하지 않는 인상.</li>
+<li><strong>[더 개발할 것]</strong> 조명·구도·의상·자세, 안정된 시선, 말끝과 속도, 장난과 여백, 공격받을 때 품위 있게 흐름을 되찾는 진행력.</li>
+<li><strong>[관찰 신호]</strong> 외모뿐 아니라 목소리·분위기·자세·말투에 대한 반응, 입장 후 체류, 클립 저장·공유, 같은 시간대 재방문.</li>
+<li><strong>[한계]</strong> 여성 시청을 외로움이나 대리 연애로 환원하지 않는다. 실제 연애 기대를 유지시켜 수익화하지 않는다.</li>
+</ul>
+<h3 id="25">2.5 관점·성장·응원할 이유</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 정보 탐색과 교육적 가치는 시청·구독·디지털 후원의 한 동기로 보고됐다. 창작자의 지속을 돕고 싶다는 동기도 유료 구독과 관련됐다. <code>[R1] [R2] [R4]</code></li>
+<li><strong>[전략 가설]</strong> kye의 생각 깊이와 성장 과정은 완성된 전문가 강의보다, 짧은 관점과 실제 개선이 쌓이는 <strong>성장 서사</strong>로 가치가 생길 가능성이 높다.</li>
+<li><strong>[kye가 지금 줄 수 있는 것]</strong> 진지하게 생각한 짧은 답, 자신의 부족함을 과장 없이 인정하는 태도, 사람을 가볍게 재단하지 않는 관점.</li>
+<li><strong>[더 개발할 것]</strong> 노래·진행·스타일 중 팬이 변화를 볼 수 있는 성장 축, 목표와 결과를 투명하게 공유하는 방식, 정기적인 진척 콘텐츠.</li>
+<li><strong>[관찰 신호]</strong> 조언이나 변화 과정을 다시 묻는 댓글, “처음보다 좋아졌다”는 피드백, 특정 성장 목표에 대한 자발적 응원.</li>
+<li><strong>[한계]</strong> 미완성을 생활고나 동정 서사로 바꾸지 않는다. 팬에게 kye의 자존감이나 생계를 책임지게 하지 않는다.</li>
+</ul>
+<hr>
+<h2 id="3">3. 왜 머물고 다시 오는가</h2>
+<h3 id="31">3.1 체류를 만드는 것은 ‘진입 장벽이 낮은 즉시 가치’다</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 오락, 긴장 완화, 사회적 교류, 현장감과 몰입은 시청과 관련된다. <code>[R1] [R2] [R8]</code></li>
+<li><strong>[로컬 확정 사실]</strong> 처음 온 사람도 앞 맥락 없이 5~20초 안에 참여할 수 있어야 한다. <code>[L4 §5]</code></li>
+<li><strong>[전략 가설]</strong> 첫 체류는 깊은 유대보다 화면의 정돈, 진행 중인 행동, 쉬운 질문, 빠르고 따뜻한 반응에서 시작된다.</li>
+</ul>
+<h3 id="32">3.2 재방문을 만드는 것은 ‘예측 가능한 새로움’이다</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 힘든 시기에 라이브가 하루의 구조와 예측 가능한 연결을 제공한 질적 사례가 있다. <code>[R3]</code></li>
+<li><strong>[전략 가설]</strong> 같은 시간·같은 기본 분위기·반복 코너는 안정감을 주고, 매회 다른 질문·작은 도전·성장 진척은 지루함을 막는다.</li>
+<li><strong>[전략 가설]</strong> kye에게 적합한 약속은 “매번 완전히 새로운 쇼”보다 <strong>올 때마다 편안하지만 한 가지는 달라지는 방</strong>이다.</li>
+</ul>
+<h3 id="33">3.3 팬이 되는 계기는 ‘내가 이 방과 이 사람을 안다’는 정체성이다</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 관계 정체성은 무료·유료 선물 의도와, 공개적 지위 정체성은 특히 유료 선물 의도와 관련됐다. <code>[R7]</code></li>
+<li><strong>[전략 가설]</strong> 안전한 팬 정체성은 <code>얼마를 썼는가</code>가 아니라 <code>어떤 분위기를 함께 만들었고 어떤 성장을 지켜봤는가</code>에 두어야 한다.</li>
+<li><strong>[관찰 신호]</strong> 팬이 kye의 원칙이나 코너를 자신의 말로 설명함, 새 시청자를 자연스럽게 환영함, 방송의 변화를 기억함.</li>
+</ul>
+<h3 id="34">3.4 신뢰는 큰 감동 한 번보다 일관된 작은 증거에서 생긴다</h3>
+<ul>
+<li><strong>[로컬 확정 사실]</strong> kye의 브랜드에서 신뢰는 반복되는 환영, 기억, 세심한 한마디와 일관된 태도로 쌓는다. <code>[L1 §4] [L4 §3~4]</code></li>
+<li><strong>[전략 가설]</strong> 이름을 기억하면서도 선을 지키고, 선물 유무와 무관하게 기본 존중을 유지하고, 공격 앞에서 비굴하거나 폭발하지 않는 모습이 kye의 핵심 차별점이 될 수 있다.</li>
+</ul>
+<hr>
+<h2 id="4">4. 왜 후원하는가</h2>
+<p>후원은 한 가지 심리의 결과가 아니다. 같은 선물에도 다음 이유가 겹칠 수 있다.</p>
+<table>
+<thead>
+<tr>
+<th>가능한 후원 이유</th>
+<th>근거 수준</th>
+<th>안전한 충족 방식</th>
+<th>넘지 말아야 할 선</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>콘텐츠가 즐거워서 감사 표현</td>
+<td><strong>[연구 결과]</strong> <code>[R4] [R5]</code></td>
+<td>구체적으로 감사하고 좋은 방송으로 돌려줌</td>
+<td>선물을 재미의 입장료로 만들기</td>
+</tr>
+<tr>
+<td>방송과 창작을 계속하게 돕고 싶어서</td>
+<td><strong>[연구 결과]</strong> <code>[R4]</code></td>
+<td>목표·사용처·결과를 투명하게 공유</td>
+<td>생활고·동정·죄책감 압박</td>
+</tr>
+<tr>
+<td>진행자에게 내 반응이 닿았다는 느낌</td>
+<td><strong>[연구 결과]</strong> <code>[R5]</code></td>
+<td>결제 전 댓글도 읽고 맥락 있는 반응 제공</td>
+<td>관심과 답장을 유료 상품처럼 판매</td>
+</tr>
+<tr>
+<td>팬이라는 정체성과 소속 표현</td>
+<td><strong>[연구 결과]</strong> <code>[R6] [R7]</code></td>
+<td>무료·소액·고액 모두의 기여 경로 마련</td>
+<td>‘진짜 팬 = 큰손’ 서열화</td>
+</tr>
+<tr>
+<td>배지·이모트·자료 등 명확한 혜택</td>
+<td><strong>[연구 결과]</strong> <code>[R4]</code></td>
+<td>가격과 내용을 공개한 비배타적 온라인 혜택</td>
+<td>사적 친밀감·연애·만남을 혜택으로 판매</td>
+</tr>
+<tr>
+<td>공개적인 가시성과 지위</td>
+<td><strong>[연구 결과]</strong> <code>[R7]</code></td>
+<td>기여를 예의 있게 인정하되 감사 강도에 상한 설정</td>
+<td>재산·충성 경쟁, 타인 통제권 부여</td>
+</tr>
+<tr>
+<td>받은 호의를 공동체에 돌려주고 싶어서</td>
+<td><strong>[연구 결과]</strong> Twitch 자연실험 <code>[R11]</code></td>
+<td>자발적 나눔을 허용하되 보답 의무를 없앰</td>
+<td>수령자 공개 추적, ‘받았으니 갚아라’ 압박</td>
+</tr>
+<tr>
+<td>몰입한 순간을 더 크게 만들고 싶어서</td>
+<td><strong>[연구 결과]</strong> <code>[R8]</code></td>
+<td>특별 코너·성장 목표·공동 성취와 연결</td>
+<td>흥분 상태에서 연속 고액 결제 재촉</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[연구 결과]</strong> 참여와 채팅은 선물 여부와 관련되지만, 참여가 많다고 지출액이 항상 커지는 것은 아니다. 대규모 실제 로그에서도 참여 지표와 선물 수량의 관계는 측정 방식에 따라 달랐다. <code>[R10]</code></p>
+<p><strong>[전략 가설]</strong> 그러므로 적극적인 댓글러를 곧바로 ‘큰손 후보’로 분류하지 않는다. 먼저 그 사람이 무엇을 즐기고 어떤 방식으로 기여하는지 본다. 후원 가능성보다 관계 적합성과 자발성을 먼저 확인한다.</p>
+<hr>
+<h2 id="5">5. 시청자에서 주요 후원자까지의 경로</h2>
+<p>이 경로는 사람을 밀어 올리는 판매 깔때기가 아니다. 각 단계에서 시청자가 실제 가치를 얻고, 원하면 다음 단계로 이동하는 <strong>자발적 관계 경로</strong>다.</p>
+<h3 id="1_1">단계 1. 발견: “잠깐 볼 이유가 있다”</h3>
+<ul>
+<li><strong>가치:</strong> 정돈된 외형, 즉시 보이는 분위기, 짧은 볼거리.</li>
+<li><strong>kye의 과제:</strong> 3초 안에 멋·편안함·현재 하고 있는 일을 보여 준다.</li>
+<li><strong>다음 단계 신호:</strong> 스크롤을 멈춤, 짧은 체류, 프로필 확인.</li>
+<li><strong>근거:</strong> <code>[L1 §3~4] [L4 §2, §4]</code>; 몰입 관련 연구 <code>[R8]</code>.</li>
+</ul>
+<h3 id="2_1">단계 2. 참여: “나도 한마디 할 수 있다”</h3>
+<ul>
+<li><strong>가치:</strong> 쉬운 질문, 댓글을 정확히 받는 반응, 누구나 끼는 흐름.</li>
+<li><strong>kye의 과제:</strong> 한 사람에게 답한 뒤 곧바로 전체에 연다.</li>
+<li><strong>다음 단계 신호:</strong> 첫 댓글, 반복 댓글, 다른 시청자 반응.</li>
+<li><strong>근거:</strong> 디지털 선물과 상호작용 연구 <code>[R5]</code>; 운영 원칙 <code>[L4 §5]</code>.</li>
+</ul>
+<h3 id="3_1">단계 3. 재방문: “여기는 다시 와도 같은 기본 신뢰가 있다”</h3>
+<ul>
+<li><strong>가치:</strong> 일정한 분위기, 기억, 반복 코너, 예측 가능한 방송 시간.</li>
+<li><strong>kye의 과제:</strong> 재방문자의 이전 맥락을 짧게 이어 주되 신규를 배제하지 않는다.</li>
+<li><strong>다음 단계 신호:</strong> 자발적 재방문, 지난 대화 언급, 일정 질문.</li>
+<li><strong>근거:</strong> 사회적 통합·일상 구조 <code>[R1] [R2] [R3]</code>; <code>[L4 §6]</code>.</li>
+</ul>
+<h3 id="4_1">단계 4. 팬 정체성: “나는 이 사람과 이 방의 방향을 좋아한다”</h3>
+<ul>
+<li><strong>가치:</strong> kye의 원칙, 성장 이야기, 공동체 안에서의 비결제 기여.</li>
+<li><strong>kye의 과제:</strong> 반복되는 말·코너·태도로 브랜드 약속을 증명한다.</li>
+<li><strong>다음 단계 신호:</strong> 공유, 신규 환영, 방송의 변화와 목표를 기억함.</li>
+<li><strong>근거:</strong> 관계·공동체·정체성 연구 <code>[R6] [R7]</code>.</li>
+</ul>
+<h3 id="5_1">단계 5. 첫 후원: “이 경험과 성장을 돕고 싶다”</h3>
+<ul>
+<li><strong>가치:</strong> 후원이 어떤 콘텐츠·성장에 연결되는지 이해함. 선택권이 보장됨.</li>
+<li><strong>kye의 과제:</strong> 짧고 사실에 맞게 선택지를 알리고, 금액보다 맥락에 감사한다.</li>
+<li><strong>다음 단계 신호:</strong> 자발적 선물, 선물 후 편안한 잔류, 결과에 관심을 보임.</li>
+<li><strong>근거:</strong> 디지털 후원·감사·지원 <code>[R4] [R5]</code>; 정책 <code>[P1 §3~4]</code>.</li>
+</ul>
+<h3 id="6">단계 6. 반복 후원: “내 지원이 낭비되지 않고 관계도 왜곡되지 않는다”</h3>
+<ul>
+<li><strong>가치:</strong> 결과 공유, 일관된 감사, 예산 존중, 결제하지 않는 날에도 같은 기본 대우.</li>
+<li><strong>kye의 과제:</strong> 후원 직후 추가 요구를 하지 않고, 약속한 개선 결과를 보여 준다.</li>
+<li><strong>다음 단계 신호:</strong> 서로 다른 방송에서 자발적으로 지원, 특정 목표의 진행을 확인함.</li>
+<li><strong>근거:</strong> 지원·혜택 동기 <code>[R4]</code>; 통제감 <code>[R9]</code>; 정책 <code>[P1 §4~5]</code>.</li>
+</ul>
+<h3 id="7">단계 7. 지속 가능한 주요 후원: “나는 감당 가능한 범위에서 장기 성장을 돕는다”</h3>
+<ul>
+<li><strong>가치:</strong> 큰 기여가 실제 성장으로 이어지는 의미, 온라인 안에서의 품위 있는 인정, 공동 성취.</li>
+<li><strong>kye의 과제:</strong> 감사의 깊이는 높이되 독점적 애정·사적 접근·운영 권력은 팔지 않는다. 큰 선물 뒤에는 중단과 예산 존중 메시지를 준다.</li>
+<li><strong>지속 가능 신호:</strong> 본인이 부담 없다고 명확히 표현하고, 추가 압박 없이도 장기간 일관되게 지원하며, 결제하지 않는 기간에도 관계가 안정적임.</li>
+<li><strong>위험 신호:</strong> 경쟁 중 급격한 증액, 후회·불안·숨김·빚·생활비 언급, 선물 대가로 독점성 요구, 감정이 흔들릴 때만 반복 결제.</li>
+<li><strong>근거:</strong> 고가 선물의 경쟁·불안 경로 <code>[R12]</code>; 행동통제 <code>[R9]</code>; 정책과 로컬 경계 <code>[P1 §5] [L1 §1-1]</code>.</li>
+</ul>
+<hr>
+<h2 id="6_1">6. 주요 후원자가 될 수 있는 ‘경로’의 차이</h2>
+<p>아래는 연구가 특정한 고정 인물 유형이 아니라 <strong>후원의 의미가 커지는 방식에 대한 전략 가설</strong>이다. 한 사람이 여러 경로를 함께 가질 수 있다.</p>
+<h3 id="61">6.1 콘텐츠 후원자 경로</h3>
+<ul>
+<li><strong>[전략 가설]</strong> 즐거움과 방송 품질을 높게 평가하고, 지속 제작을 돕는 데 의미를 둔다.</li>
+<li><strong>가치 설계:</strong> 정기 코너, 더 나은 화면·음향, 특별 방송, 결과 보고.</li>
+<li><strong>kye 적합성:</strong> 수익 목표와 사용처를 숨기지 않는 정직함, 준비된 진행과 성장.</li>
+<li><strong>확인할 신호:</strong> “이 코너 계속 해 달라”, 장비·콘텐츠 개선 결과에 관심.</li>
+<li><strong>근거 바탕:</strong> 창작 지원·혜택 <code>[R4]</code>, 정책상 공개 목적 설계 <code>[P1 §5]</code>.</li>
+</ul>
+<h3 id="62">6.2 성장 동행자 경로</h3>
+<ul>
+<li><strong>[전략 가설]</strong> 완성된 스타를 소비하기보다, 가능성이 있는 사람이 실력을 쌓는 과정을 돕는 데 의미를 둔다.</li>
+<li><strong>가치 설계:</strong> 작은 목표, 전후 비교, 피드백 반영, 달성 결과를 함께 축하.</li>
+<li><strong>kye 적합성:</strong> 위트·진행·노래·존재감을 실제로 키워 가는 현재 브랜드.</li>
+<li><strong>확인할 신호:</strong> 이전과 지금을 비교함, 다음 목표를 묻고 결과를 보러 돌아옴.</li>
+<li><strong>주의:</strong> 팬의 돈을 kye의 감정 안정이나 자기 가치 증명의 책임으로 바꾸지 않는다.</li>
+<li><strong>근거 바탕:</strong> 지원 동기 <code>[R4]</code>; 로컬 브랜드 <code>[L1 §2]</code>.</li>
+</ul>
+<h3 id="63">6.3 공동체 후원자 경로</h3>
+<ul>
+<li><strong>[전략 가설]</strong> kye 개인뿐 아니라 자신이 편안하게 머무는 방과 사람들의 연결을 유지하고 싶어 한다.</li>
+<li><strong>가치 설계:</strong> 신규 환영, 무료 기여 인정, 팬끼리의 예의, 공동 목표.</li>
+<li><strong>kye 적합성:</strong> 사람을 함부로 대하지 않는 태도와 정중한 경계.</li>
+<li><strong>확인할 신호:</strong> 다른 시청자를 돕고, 분위기를 살리고, 갈등을 키우지 않음.</li>
+<li><strong>주의:</strong> 후원액을 이유로 관리자·문지기·징계자의 권한을 자동 부여하지 않는다.</li>
+<li><strong>근거 바탕:</strong> 공동체와 시청자 간 관계 <code>[R1] [R6]</code>.</li>
+</ul>
+<h3 id="64">6.4 인정·정체성 후원자 경로</h3>
+<ul>
+<li><strong>[전략 가설]</strong> 자신의 취향과 기여가 눈에 보이고 기억되는 데 만족을 느낀다.</li>
+<li><strong>가치 설계:</strong> 구체적인 감사, 기여 맥락 기억, 공개 범위 선택, 무료 기여와 분리된 투명한 기록.</li>
+<li><strong>kye 적합성:</strong> 짧고 정확히 알아봐 주는 반응.</li>
+<li><strong>확인할 신호:</strong> 자신이 도운 결과나 방송에서의 역할을 언급함.</li>
+<li><strong>주의:</strong> 더 큰 금액을 보내야만 존재가 보이게 만들거나, 순위로 인간적 가치를 매기지 않는다.</li>
+<li><strong>근거 바탕:</strong> 인정·관계·지위 <code>[R5] [R7]</code>.</li>
+</ul>
+<h3 id="65-match">6.5 Match·몰입형 엔터테인먼트 후원자 경로</h3>
+<ul>
+<li><strong>[로컬 확정 사실+전략 가설]</strong> TikTok LIVE에서는 대부분의 후원이 Match에서 발생한다. 후원자는 재미뿐 아니라 팀 소속, 점수에 대한 영향력, 역전, 공개 인정과 역할을 위해 지출할 수 있다. <code>[M1]</code></li>
+<li><strong>가치 설계:</strong> 명확한 시간·규칙·점수·역할이 있는 경기, 결정적 기여의 구체적 인정, 좋아요와 댓글로도 참여 가능한 공동 목표.</li>
+<li><strong>kye 적합성:</strong> 앞으로 개발할 에너지 모드와 위트, 흐름을 되살리는 진행력.</li>
+<li><strong>확인할 신호:</strong> 특정 코너나 매치 때 참여가 커지고 이후에도 만족감을 표현함.</li>
+<li><strong>주의:</strong> 점수·팀 기여·경기 역할의 경쟁은 운영하되, K의 애정·사적 관계·인간적 가치를 차지하려는 불안 경쟁으로 넘어가면 막는다.</li>
+<li><strong>근거 바탕:</strong> 몰입 <code>[R8]</code>, 고가 선물 경쟁 경로 <code>[R12]</code>, 공식 Match 제약 <code>[P1 §4-D]</code>.</li>
+</ul>
+<hr>
+<h2 id="7_1">7. ‘경제적 여유가 큰 후원’과 ‘부담을 떠안은 후원’ 구분</h2>
+<h3 id="71">7.1 알 수 있는 것과 알 수 없는 것</h3>
+<ul>
+<li><strong>[연구 결과]</strong> 선물 행동에는 본인이 감당하고 통제할 수 있다는 인식이 중요하다. <code>[R9]</code></li>
+<li><strong>[정책 확인]</strong> TikTok은 이용자가 일일 Gift limit 알림을 설정할 수 있게 한다. <code>[P1 §2]</code></li>
+<li><strong>[전략 가설]</strong> kye는 시청자의 소득·자산을 캐묻거나 선물액만으로 경제력을 판정하지 않는다. 방송에서 볼 수 있는 것은 <code>지출 행동의 안정성</code>과 <code>본인이 표현하는 통제감</code>뿐이다.</li>
+</ul>
+<h3 id="72">7.2 비교적 지속 가능해 보이는 신호</h3>
+<p>다음은 경제력을 확정하는 증거가 아니라 <strong>압박을 줄여도 자발성과 안정성이 유지되는지</strong> 보는 신호다.</p>
+<ul>
+<li>후원하지 않는 날에도 편안하게 참여한다.</li>
+<li>경쟁이나 애정 확인 없이 스스로 시점과 금액을 정한다.</li>
+<li>“오늘은 여기까지”라는 말에 불안이나 분노 없이 멈춘다.</li>
+<li>후원의 목적과 결과에 관심을 가지며 일회성 과시보다 장기적으로 일관된다.</li>
+<li>선물 대가로 독점적 DM, 연애 가능성, 타인보다 높은 대우를 요구하지 않는다.</li>
+</ul>
+<h3 id="73">7.3 부담 가능성이 있는 신호</h3>
+<ul>
+<li>생활비·빚·가족 몰래 결제·후회·환불·금액 통제 실패를 말한다.</li>
+<li>다른 후원자에게 밀릴까 봐 급히 금액을 올린다.</li>
+<li>kye가 실망하거나 떠날까 봐 보내야 한다고 말한다.</li>
+<li>큰 선물 직후 정서적으로 흔들리거나 대가를 강하게 요구한다.</li>
+<li>반복해서 한도 해제, 추가 충전, 무리한 목표를 말한다.</li>
+</ul>
+<h3 id="74">7.4 운영 대응</h3>
+<ul>
+<li><strong>[전략 가설]</strong> 큰 선물에는 더 큰 선물을 부르는 고조 반응보다 구체적인 감사와 “오늘은 충분합니다. 예산을 먼저 지켜 주세요”라는 정지 신호를 준다.</li>
+<li>부담 신호가 보이면 공개적으로 망신 주지 않고 추가 요청과 경쟁을 멈춘다.</li>
+<li>DM에서도 지출을 설득하지 않는다. 필요하면 TikTok의 한도 기능을 안내하고 휴식을 권한다.</li>
+<li>지원 규모가 줄어도 기본 대우를 바꾸지 않는다.</li>
+<li>주요 후원자 여부는 한 번의 최고액이 아니라 <strong>시간에 걸친 자발성·안정성·관계 적합성</strong>으로 판단한다.</li>
+</ul>
+<hr>
+<h2 id="8-kye">8. kye가 지금 줄 수 있는 가치와 개발해야 할 가치</h2>
+<table>
+<thead>
+<tr>
+<th>가치</th>
+<th>현재 제공 가능성</th>
+<th>지금 가능한 형태</th>
+<th>개발 과제</th>
+<th>근거 구분</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>예의와 안전감</td>
+<td>높음</td>
+<td>함부로 대하지 않기, 짧고 정중한 경계</td>
+<td>공격 상황의 문장과 복귀 동작 훈련</td>
+<td><strong>[로컬 확정 사실]</strong> <code>[L1 §2, §4] [L2 §6]</code></td>
+</tr>
+<tr>
+<td>생각의 깊이</td>
+<td>중간~높음</td>
+<td>한두 문장으로 핵심을 짚기</td>
+<td>긴 설명을 5~20초 단위로 압축</td>
+<td><strong>[로컬 확정 사실]</strong> <code>[L1 §4] [L4 §3~5]</code></td>
+</tr>
+<tr>
+<td>편안한 관심</td>
+<td>중간</td>
+<td>댓글을 정확히 받고 전체로 넓히기</td>
+<td>기억 기록과 댓글 배분</td>
+<td><strong>[전략 가설]</strong>, 인접 연구 <code>[R5]</code></td>
+</tr>
+<tr>
+<td>깔끔한 남성적 첫인상</td>
+<td>잠재력 있음, 실제 화면 미검증</td>
+<td>단정한 자세·의상·배경의 기본 정리</td>
+<td>조명·구도·시선·표정·스타일 실험</td>
+<td><strong>[로컬 확정 사실/미검증]</strong> <code>[L1 §4, §6] [L2 §7]</code></td>
+</tr>
+<tr>
+<td>위트와 생동감</td>
+<td>현재 약하다고 본인이 느낌</td>
+<td>준비한 선택 질문, 작은 장난</td>
+<td>즉흥 반응, 리듬, 표정, 전환 훈련</td>
+<td><strong>[로컬 확정 사실]</strong> <code>[L2 §3, §6]</code></td>
+</tr>
+<tr>
+<td>안정된 카리스마</td>
+<td>방향 합의, 구현 미검증</td>
+<td>말의 여유, 기준을 지키는 태도</td>
+<td>자기 페이스, 갈등 대응, 흐름 회수</td>
+<td><strong>[로컬 확정 사실+전략 가설]</strong> <code>[L1 §2~4]</code></td>
+</tr>
+<tr>
+<td>반복해서 볼 콘텐츠</td>
+<td>부족</td>
+<td>소통 중심의 짧은 반복 동작</td>
+<td>대표 코너 1~2개와 시간 구조</td>
+<td><strong>[로컬 확정 사실]</strong> <code>[L2 §1]</code></td>
+</tr>
+<tr>
+<td>성장 동행 경험</td>
+<td>설계 가능</td>
+<td>진행·스타일 개선을 공개 목표로 제시</td>
+<td>측정 가능한 목표와 결과 공유</td>
+<td><strong>[전략 가설]</strong> <code>[R4] [L1 §2]</code></td>
+</tr>
+<tr>
+<td>노래 가치</td>
+<td>현재 주력 부적합</td>
+<td>무리해 전면에 내세우지 않음</td>
+<td>실력·선곡·특색이 생긴 뒤 작은 시험</td>
+<td><strong>[로컬 확정 사실]</strong> <code>[L2 §1]</code></td>
+</tr>
+<tr>
+<td>주요 후원자 관리</td>
+<td>원칙은 있음, 운영 체계 미구축</td>
+<td>감사·예산 존중·온라인 경계</td>
+<td>후원 기록, 감사 기준, DM 규칙, 결과 보고</td>
+<td><strong>[로컬 확정 사실+전략 가설]</strong> <code>[P1 §5]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>[전략 가설]</strong> 지금 가장 믿을 만한 출발 상품은 <code>완성된 쇼맨 kye</code>가 아니라 <strong>깔끔하고 정중한 남성이 짧고 정확하게 사람을 알아봐 주며, 위트와 존재감을 실제로 키워 가는 LIVE</strong>다. 이 방향은 현재 강점을 과장하지 않으면서 성장 자체를 팬이 지켜볼 가치로 바꾼다.</p>
+<hr>
+<h2 id="9">9. 로버트 그린 전략서의 윤리적 번역</h2>
+<p>이 절은 책을 실증 근거로 사용하지 않는다. <strong>[로컬 확정 사실]</strong> 프로젝트는 《유혹의 기술》을 존재감·호기심·대조·완급·기억에 남는 경험의 렌즈로, 《전쟁의 기술》을 포지셔닝·선택과 집중·준비·타이밍·관계 지형의 렌즈로 쓰기로 했다. <code>[L2 §5] [L3 §전략 사례와 책]</code></p>
+<h3 id="91">9.1 《유혹의 기술》에서 가져올 수 있는 것</h3>
+<table>
+<thead>
+<tr>
+<th>렌즈</th>
+<th>윤리적 번역</th>
+<th>kye 적용 가설</th>
+<th>버리는 해석</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>존재감</td>
+<td>상대의 자율성을 빼앗지 않고 화면과 태도에 집중할 이유를 만듦</td>
+<td>정돈된 화면, 안정된 시선, 말의 여유</td>
+<td>성적 자극 과장, 거짓 자신감</td>
+</tr>
+<tr>
+<td>호기심</td>
+<td>모든 것을 한 번에 설명하지 않고 다음에 볼 작은 이유를 남김</td>
+<td>다음 방송의 성장 목표·코너 예고</td>
+<td>관계 상태를 일부러 불분명하게 해 기대를 붙잡기</td>
+</tr>
+<tr>
+<td>대조</td>
+<td>강함과 따뜻함, 진지함과 위트를 함께 보여 기억점을 만듦</td>
+<td>정중한 힘 + 편안한 장난</td>
+<td>냉대 뒤 보상으로 감정 흔들기</td>
+</tr>
+<tr>
+<td>완급</td>
+<td>방송 리듬을 조절해 피로와 단조로움을 줄임</td>
+<td>에너지 모드와 라운지 모드 전환</td>
+<td>관심을 일부러 끊어 불안을 만들기</td>
+</tr>
+<tr>
+<td>개인화</td>
+<td>상대가 실제로 한 말을 기억하고 맥락 있게 반응</td>
+<td>재방문자의 취향·지난 말 한 가지 기억</td>
+<td>정보를 수집해 취약점·지출 압박에 사용</td>
+</tr>
+<tr>
+<td>이야기</td>
+<td>결과뿐 아니라 성장 과정에 참여할 의미를 줌</td>
+<td>위트·진행·노래 성장의 전후 기록</td>
+<td>동정과 구원 욕구를 자극하는 과장된 고난 서사</td>
+</tr>
+</tbody>
+</table>
+<h3 id="92">9.2 《전쟁의 기술》에서 가져올 수 있는 것</h3>
+<table>
+<thead>
+<tr>
+<th>렌즈</th>
+<th>윤리적 번역</th>
+<th>kye 적용 가설</th>
+<th>버리는 해석</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>포지셔닝</td>
+<td>모든 호스트를 따라 하지 않고 kye가 신뢰받을 자리를 정함</td>
+<td>‘정중한 힘과 깊이 + 훈련되는 위트’</td>
+<td>경쟁자 비방과 모방</td>
+</tr>
+<tr>
+<td>선택과 집중</td>
+<td>지금 잘할 수 있는 가치부터 반복해 증명</td>
+<td>소통·첫인상·기억을 먼저, 노래는 준비 뒤 시험</td>
+<td>약점을 숨기기 위한 허세</td>
+</tr>
+<tr>
+<td>준비</td>
+<td>즉흥성도 질문·전환·갈등 문장을 준비해 받침</td>
+<td>짧은 질문 목록, 댓글 없는 구간 진행, 경계 문장</td>
+<td>대화를 조종하는 비밀 대본</td>
+</tr>
+<tr>
+<td>타이밍</td>
+<td>시청자의 상태와 방송 흐름에 맞게 제안</td>
+<td>충분한 가치 뒤 한 번만 선택 가능한 Gifts 안내</td>
+<td>감정이 흔들린 순간을 노린 결제 요구</td>
+</tr>
+<tr>
+<td>주도권</td>
+<td>사람을 지배하는 것이 아니라 방의 기준과 흐름을 지킴</td>
+<td>무례를 짧게 막고 전체 참여로 복귀</td>
+<td>팬을 복종시키거나 충성을 시험</td>
+</tr>
+<tr>
+<td>관계 지형</td>
+<td>개인 한 명뿐 아니라 신규·기존 팬·조용한 시청자 전체를 봄</td>
+<td>한 사람의 댓글을 전체 질문으로 확대</td>
+<td>큰손 중심의 파벌과 질투 설계</td>
+</tr>
+<tr>
+<td>장기전</td>
+<td>순간 최고 매출보다 신뢰와 반복 후원의 지속성을 봄</td>
+<td>예산 존중, 결과 보고, 일관된 대우</td>
+<td>단기 고액을 위해 관계를 소모</td>
+</tr>
+</tbody>
+</table>
+<p><strong>[전략 가설]</strong> 두 책의 유용한 공통점은 ‘사람을 조종하는 법’이 아니라 <strong>주의와 관계에는 구조가 있으므로 우연에 맡기지 말고 준비하라</strong>는 렌즈다. 그러나 효과가 있을 수 있다는 것과 사용해도 된다는 것은 다르다. 자율성·사실성·예산 통제를 해치는 기법은 수익 효과와 무관하게 제외한다.</p>
+<hr>
+<h2 id="10">10. 명시적으로 배제하는 전술</h2>
+<p>다음 전술은 연구에서 작동 가능성이 보이더라도, TikTok 정책·kye의 브랜드·지속 가능한 관계 기준에 맞지 않아 사용하지 않는다.</p>
+<ol>
+<li><strong>거짓 연애와 미래 암시</strong>: “계속 보내면 더 가까워진다”, 데이트·만남·연애 발전을 기대하게 만들기. <code>[P1 §4-B, §5] [L1 §1-1]</code></li>
+<li><strong>의도적인 냉온 반복</strong>: 관심을 끊어 불안하게 한 뒤 선물하면 다시 따뜻하게 대하기. <code>[L1 §1-1]</code></li>
+<li><strong>관계 불안을 이용한 질투와 삼각관계</strong>: Match의 점수·기여 경쟁이 아니라, 다른 팬과 K의 애정·사적 관계·여성으로서의 가치를 돈으로 경쟁시키기. 고가 선물과 관련될 수 있지만 관계를 결제 압력으로 바꾸는 위험한 경로다. <code>[R12] [M1]</code></li>
+<li><strong>구걸과 생활고 압박</strong>: 개인 경제난·동정·죄책감으로 Gifts를 요구하기. <code>[P1 §3]</code></li>
+<li><strong>후원을 사랑의 증명으로 요구</strong>: “진짜 팬이면”, “나를 아끼면” 같은 문장. <code>[P1 §4-E]</code></li>
+<li><strong>큰손 서열과 공개 망신</strong>: 금액 순위로 인간적 가치·충성·발언권을 매기기. <code>[R7] [P1 §4-C]</code></li>
+<li><strong>유료 인간 대우</strong>: 결제자만 댓글을 읽고, 비결제자는 무시하기. 선물과 상호작용의 관계를 다룬 인접 연구 및 프로젝트 운영 원칙과 맞지 않는다. <code>[R5] [L4]</code></li>
+<li><strong>흥분 상태의 연속 결제 재촉</strong>: 큰 선물 직후 카운트다운·배틀·추가 목표로 몰아붙이기. <code>[R9] [R12]</code></li>
+<li><strong>과도한 호혜 의무</strong>: 받은 사람에게 “이제 갚아야 한다”고 공개 압박하기. <code>[R11]</code></li>
+<li><strong>고액 후원자의 운영 지배</strong>: 다른 시청자를 통제·징계하거나 kye의 사적 관계를 독점하게 하기. <code>[R6] [P1 §4-C, §5]</code></li>
+<li><strong>유료 경품·사적 보상</strong>: 지역 법률과 별도 약관 확인 없이 Gifts를 응모권이나 개인 보상과 교환하기. <code>[P1 §4-D]</code></li>
+<li><strong>취약성 표적화</strong>: 외로움·스트레스·상실·애착 불안을 DM 전환 점수로 사용하기. <code>[R3] [P1 §4-B]</code></li>
+<li><strong>팬의 경제력 추궁</strong>: 직업·소득·자산을 캐묻거나 과시 신호로 지출 한도를 추정하기.</li>
+<li><strong>가짜 희소성과 허위 약속</strong>: 방송 종료·관계 단절·보상 제공을 거짓으로 내세워 즉시 결제를 요구하기. <code>[P1 §3]</code></li>
+</ol>
+<hr>
+<h2 id="11_1">11. 실행 판단을 위한 통합 모델</h2>
+<p>방송의 각 선택은 다음 다섯 질문을 통과해야 한다.</p>
+<ol>
+<li><strong>시청자 가치:</strong> 선물하지 않아도 지금 얻는 즐거움·인정·소속·관점이 있는가?</li>
+<li><strong>kye 적합성:</strong> kye의 현재 강점에서 시작하거나 현실적으로 훈련 가능한가?</li>
+<li><strong>자율성:</strong> 거절하거나 아무것도 보내지 않아도 기본 관계와 존중이 유지되는가?</li>
+<li><strong>지속 가능성:</strong> 한 번의 고액보다 재방문·신뢰·감당 가능한 지원을 키우는가?</li>
+<li><strong>검증 가능성:</strong> 어떤 행동 자료로 이 가설이 맞거나 틀렸다고 판단할 수 있는가?</li>
+</ol>
+<h3 id="_2">우선순위 공식</h3>
+<p><strong>[전략 가설]</strong> 현재 kye의 실행 순서는 다음이 가장 타당하다.</p>
+<blockquote>
+<p><strong>첫인상 정돈 → 무료 참여가 쉬운 진행 → 정확한 짧은 인정 → 반복 방문의 기억 → 보이는 성장 목표 → 선택 가능한 후원 → 결과 공유와 예산 존중</strong></p>
+</blockquote>
+<p>후원 요청 문구부터 다듬는 것보다, 선물 없이도 다시 올 이유를 먼저 만드는 것이 순서상 앞선다. 연구에서도 참여·소속·콘텐츠 가치·지원 동기가 후원과 함께 나타나며, TikTok 정책도 콘텐츠가 먼저인 운영을 요구한다. <code>[R1] [R4] [R10] [P1 §3~4]</code></p>
+<hr>
+<h2 id="12">12. 증거의 한계와 앞으로 검증할 것</h2>
+<h3 id="121">12.1 현재 근거가 말할 수 없는 것</h3>
+<ul>
+<li><strong>[연구 한계]</strong> 30~59세의 경제력 있는 미국·유럽 여성, 특히 남성 TikTok LIVE 진행자에게 큰 선물을 하는 사람만 직접 대표하는 연구는 거의 없다. <code>[E1 §먼저 알아둘 한계]</code></li>
+<li><strong>[연구 한계]</strong> Twitch 연구는 젊은 남성 중심인 경우가 많고, 가상선물 연구의 다수는 중국·대만·한국 플랫폼이다. 동기의 존재는 참고할 수 있지만 효과 크기와 표현 방식을 그대로 옮길 수 없다. <code>[E1 §먼저 알아둘 한계]</code></li>
+<li><strong>[연구 한계]</strong> 여러 연구가 횡단 설문과 ‘선물 의도’를 사용한다. 애착·몰입·관계감과 후원의 관련성은 보여도 어느 쪽이 원인인지 확정하기 어렵다. <code>[R7] [R8] [R9] [R12]</code></li>
+<li><strong>[연구 한계]</strong> 여성→남성 진행자 후원의 직접 질적 연구는 극소표본·미심사 자료다. 이상적 파트너 상상은 가능한 한 경로일 뿐 일반 원인이 아니다. <code>[R14]</code></li>
+<li><strong>[로컬 한계]</strong> kye의 실제 시청자 국가·언어·성별·연령, 재방문자, 반응이 좋았던 순간, 화면·목소리·말투의 매력은 아직 확인되지 않았다. <code>[L2 §7]</code></li>
+<li><strong>[정책 한계]</strong> LIVE Gifts 제공 지역과 계정 자격은 실제 계정에서 재확인해야 하며, 유럽도 적용 지역을 하나로 묶을 수 없다. <code>[P1 §2, §8]</code></li>
+</ul>
+<h3 id="122">12.2 다음 자료가 있어야 가설을 좁힐 수 있다</h3>
+<ol>
+<li>실제 LIVE 녹화에서 입장 후 30초 체류, 첫 댓글, 이탈 지점을 구간별로 본다.</li>
+<li>신규·재방문·무료 참여·첫 후원·반복 후원을 별도 행동으로 기록한다.</li>
+<li>후원액보다 후원 전후의 맥락, 이후 재방문, 결제하지 않는 날의 관계 안정성을 본다.</li>
+<li>시청자가 좋아한 이유를 선택형 질문과 익명 설문으로 묻는다. <code>외로움</code>이나 <code>연애 욕구</code>를 전제로 질문하지 않는다.</li>
+<li>미국·유럽 30~59세 여성 인터뷰에서는 시청 이유, 남성 호스트에게 기대하는 경계, 인정받고 싶은 방식, 불쾌한 압박, 후원 예산 통제 방식을 직접 확인한다.</li>
+<li>화면·환영·질문·반응·성장 목표를 한 번에 모두 바꾸지 않고 작은 실험으로 나눠 비교한다. <code>[L3 §작은 실험]</code></li>
+<li>주요 후원자 경로는 최소 여러 주의 반복 행동이 확인되기 전까지 확정 페르소나로 승격하지 않는다.</li>
+</ol>
+<h3 id="123">12.3 현재 결론의 확신도</h3>
+<ul>
+<li><strong>높음:</strong> 구걸·기만·감정 압박·거짓 교환을 피해야 한다는 정책 경계. <code>[P1]</code></li>
+<li><strong>중간:</strong> 오락, 긴장 완화, 상호작용, 소속, 지원, 인정, 혜택, 정체성이 라이브 시청·후원과 관련된다는 큰 구조. <code>[R1~R12] [R14~R15]</code></li>
+<li><strong>중간 이하:</strong> 그 구조가 미국·유럽 30~59세 여성에게 어느 정도로 작동하는지.</li>
+<li><strong>낮음:</strong> 어떤 동기가 kye의 실제 주요 후원자를 가장 잘 설명할지, kye의 어떤 표현이 고액이면서도 지속 가능한 후원으로 이어질지.</li>
+</ul>
+<hr>
+<h2 id="13">13. 출처 포인터</h2>
+<h3 id="_3">프로젝트·로컬 자료</h3>
+<ul>
+<li><strong>[L1]</strong> <code>../CREATOR_PROFILE/BRAND_CORE.md</code> — 합의된 브랜드, 사업 목적, 관계 경계, 현재 크리에이터 정체성.</li>
+<li><strong>[L2]</strong> <code>../CREATOR_PROFILE/KYE_PROFILE.md</code> — 사용자 직접 진술, 현재 어려움, 확인된 방향, 아직 미검증인 항목.</li>
+<li><strong>[L3]</strong> <code>../CREATOR_PROFILE/ASSESSMENT_METHOD.md</code> — 분석 방법, 전략서의 사용 범위, 안전한 관계 원칙.</li>
+<li><strong>[L4]</strong> <code>../CREATOR_PROFILE/TIKTOK_LIVE_PRINCIPLES.md</code> — TikTok식 짧은 대화 단위, 신규 참여, 반복 방문과 신뢰 원칙.</li>
+<li><strong>[P1]</strong> <code>TIKTOK_OFFICIAL_POLICY_FOUNDATION_2026-10-16.md</code> — TikTok 공식 정책과 이를 운영 규칙으로 바꾼 설계 해석.</li>
+<li><strong>[E1]</strong> <code>PRIMARY_EVIDENCE_LIVESTREAM_WATCHING_GIFTING.md</code> — 아래 1차 연구의 방법·표본·발견·확신도·적용 한계를 정리한 근거표.</li>
+<li><strong>[M1]</strong> <code>03_LIVE_MATCH_STRATEGY.md</code> — K가 직접 설명한 Match의 중심 수익 구조와 이에 맞춰 수정한 경쟁·질투·관심 배분 원칙.</li>
+</ul>
+<h3 id="1_2">1차 연구</h3>
+<ul>
+<li><strong>[R1]</strong> Hilvert-Bruce et al. (2018), <em>Social motivations of live-streaming viewer engagement on Twitch</em>. DOI <code>10.1016/j.chb.2018.02.013</code>.</li>
+<li><strong>[R2]</strong> Sjöblom &amp; Hamari (2017), <em>Why do people watch others play video games?</em> DOI <code>10.1016/j.chb.2016.10.019</code>.</li>
+<li><strong>[R3]</strong> de Wit et al. (2020), <em>Live Streams on Twitch Help Viewers Cope With Difficult Periods in Life</em>. DOI <code>10.3389/fpsyg.2020.586975</code>.</li>
+<li><strong>[R4]</strong> Wohn et al. (2019), <em>Understanding Digital Patronage</em>. DOI <code>10.1145/3311350.3347160</code>.</li>
+<li><strong>[R5]</strong> Yu et al. (2020), <em>Understanding How Digital Gifting Influences Social Interaction on Live Streams</em>. DOI <code>10.1145/3338286.3340144</code>.</li>
+<li><strong>[R6]</strong> <em>Digital gifting in personal brand communities of live-streaming</em>. DOI <code>10.1080/13527266.2021.1910327</code>.</li>
+<li><strong>[R7]</strong> <em>Examining gifting behavior on live streaming platforms: An identity-based motivation model</em>. DOI <code>10.1016/j.im.2020.103406</code>.</li>
+<li><strong>[R8]</strong> <em>What Drives Gift-giving Intention in Live Streaming?</em> DOI <code>10.1080/10447318.2021.1885224</code>.</li>
+<li><strong>[R9]</strong> <em>Understanding Virtual Gifting in Live Streaming by the Theory of Planned Behavior</em>. DOI <code>10.1155/2022/8148077</code>.</li>
+<li><strong>[R10]</strong> Kim et al. (2018), <em>Impact of viewer engagement on gift-giving in live video streaming</em>. DOI <code>10.1016/j.tele.2018.03.014</code>.</li>
+<li><strong>[R11]</strong> <em>The Spread of Virtual Gifting in Live Streaming: The Case of Twitch</em>. DOI <code>10.1609/icwsm.v20i1.42693</code>.</li>
+<li>
+<p><strong>[R12]</strong> <em>Influencing factors of users’ shift to buying expensive virtual gifts in live streaming</em>. PMCID <code>PMC9748564</code>.</p>
+</li>
+<li>
+<p><strong>[R14]</strong> <em>On female audience sending virtual gifts to male streamers on Douyin</em>. arXiv <code>2112.01919</code>; 미심사·극소표본 자료.</p>
+</li>
+<li><strong>[R15]</strong> <em>The More Engaged, the More Generous</em> — 중국 단일 e스포츠 채널 패널 로그. 상세 URL과 표본은 <code>[E1]</code> 참조.</li>
+</ul>
+<h2 id="_4">최종 요약</h2>
+<ul>
+<li><strong>[연구 결과]</strong> 사람들은 오락만이 아니라 긴장 완화, 상호작용, 소속, 인정, 정체성, 창작 지원과 몰입 때문에 라이브를 보고 후원할 수 있다.</li>
+<li><strong>[로컬 확정 사실]</strong> kye는 정중한 힘과 깊이를 기반으로 위트와 존재감을 키우며, 온라인 안에서 완결되는 자발적 후원 관계를 만들고자 한다.</li>
+<li><strong>[전략 가설]</strong> kye에게 가장 적합한 주요 후원자 경로는 <code>멋있는 첫인상 → 편안한 무료 참여 → 정확한 인정 → 반복되는 신뢰 → 보이는 성장 → 자발적 지원 → 결과 공유와 예산 존중</code>이다.</li>
+<li><strong>[경계]</strong> 경제력은 선물액만으로 판단하지 않는다. Match의 팀·점수·기여 경쟁은 운영하되 불안·연애 기대·죄책감·사적 관계 서열을 이용한 고액 전환은 사용하지 않는다.</li>
+<li><strong>[남은 검증]</strong> 실제 타깃과 kye의 LIVE 자료가 없으므로, 어떤 욕구와 경로가 핵심 매출로 이어지는지는 아직 확정할 수 없다.</li>
+</ul></div>
+      </article><article class="document-section" id="market-personas" data-search="30~59세 여성 시장 페르소나 12">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 02</p>
+          <h2>30~59세 여성 시장 페르소나 12</h2>
+        </header>
+        <div class="prose"><h1 id="3059-tiktok-live">미국·유럽 30~59세 여성 TikTok LIVE 시장 페르소나 가설</h1>
+<ul>
+<li>작성일: 2026-10-16</li>
+<li>상태: <strong>공개 인구자료·LIVE 후원 연구·K의 목표를 결합한 검증 전 시장 가설</strong></li>
+<li>운영 목적: 시청자를 단순한 욕구나 Gift 규모로 분류하지 않고, <strong>삶의 조건과 자기상이 다른 한 사람</strong>으로 이해해 K의 진행·기억·Match·후속 대응을 달리한다.</li>
+<li>적용 단계: 시장 가설 → 반복 행동 관찰 → 잠정 분류 → 대응 실험 → 유지·수정</li>
+<li>완료 상태: 12개 전인적 페르소나의 운영 필드 정리 완료. 유형별 비중과 실제 전환 효과는 계정 데이터로 검증해야 한다.</li>
+<li>보조 문서: <code>02_BEHAVIOR_MOTIVE_TAGS.md</code></li>
+</ul>
+<h2 id="_1">표준 필드 지도: 이 문서를 현장에서 쓰는 순서</h2>
+<p>각 페르소나는 아래와 같은 고정 구조로 읽고 기록한다.</p>
+<ol>
+<li><strong>사람의 모습:</strong> 삶의 조건, 자기상, 관계 방식, 여가·소비 방식. 직업은 가능한 생활 맥락을 떠올리기 위한 예시일 뿐 성격이나 후원 성향을 결정하지 않는다.</li>
+<li><strong>핵심 욕구:</strong> 그 사람이 K의 방에서 원하는 경험, 지키고 싶은 정체성, 편안한 관계 방식, 즐기는 오락을 나눠 본다.</li>
+<li><strong>K가 대하는 법:</strong> 말투, 대화 깊이, 공개 인정, Match 역할, DM·후속 연락의 범위를 실제 행동으로 정한다.</li>
+<li><strong>팬 전환 경로:</strong> 첫 관심 → 체류 → 재방문 → 애착·팀 정체성 → 자발적 후원으로 이어지는 조건을 가설로 둔다. 어느 단계도 Gift를 의무로 만들지 않는다.</li>
+<li><strong>K가 준비하고 길러야 할 것:</strong> 콘텐츠, 진행 기술, 기억·기록, 화면·목소리·리더십을 구체적으로 준비한다.</li>
+<li><strong>떠나게 만드는 행동:</strong> 이 사람이 불편해하거나 신뢰를 거둘 가능성이 큰 행동을 사전에 막는다.</li>
+<li><strong>동기 태그:</strong> P01~P20은 사람이 아니라 그날의 시청·참여·후원 목적이다. 한 사람에게 여러 태그를 붙일 수 있고 일반 LIVE와 Match에서 달라질 수 있다.</li>
+<li><strong>검증 신호:</strong> 실제 발언과 여러 방문에서 반복된 행동으로 가설을 확인하거나 폐기한다.</li>
+</ol>
+<h2 id="k">K 브랜드와 관계 운영의 공통 기준</h2>
+<ul>
+<li><strong>첫인상:</strong> 정돈된 화면, 외모 관리, 차분한 목소리와 절제된 남성적 존재감으로 멈춰 볼 이유를 만든다.</li>
+<li><strong>머무는 이유:</strong> 소란이나 과장 대신 편안함, 짧고 정확한 대화, 점점 좋아지는 위트를 준다.</li>
+<li><strong>다시 오는 이유:</strong> 본인이 공개한 안전한 정보를 정확히 기억하고, 모르는 것은 꾸며 내지 않으며, 후원 전후 태도를 함부로 바꾸지 않는다.</li>
+<li><strong>Match의 역할:</strong> 평소 LIVE에서 쌓은 선호·신뢰·기억을 점수, 시간, 팀 역할, 가시적 결과가 있는 게임으로 활성화하는 핵심 수익 장치다.</li>
+<li><strong>경쟁의 경계:</strong> 점수와 역할을 두고 경쟁하게 할 수는 있지만 K의 사랑, 사적 접근권, 여성으로서의 가치, 다른 팬을 밀어낼 권리를 두고 경쟁시키지 않는다.</li>
+<li><strong>관계 범위:</strong> 관계는 온라인 안에서 이어 간다. DM은 일정, 공개 콘텐츠, 감사, 요청받은 피드백 확인을 중심으로 하고 오프라인 만남이나 연애 가능성을 암시하지 않는다.</li>
+<li><strong>금전 경계:</strong> 선물을 구걸하지 않고, 허위 위기·거짓 로맨스·죄책감·과소비 압박을 쓰지 않는다. 기본 존중은 누구에게나 주되 반복적·결정적 기여에는 더 정확하고 깊은 운영상 인정을 줄 수 있다.</li>
+</ul>
+<h2 id="_2">먼저 알아둘 근거와 한계</h2>
+<p>공개 자료에서는 다음 사실까지 확인할 수 있다.</p>
+<ul>
+<li>미국 성인의 TikTok 이용률은 30~49세 44%, 50~64세 30%이며 여성 전체 이용률은 42%였다.</li>
+<li>영국 TikTok 월간 도달률은 여성 46%, 35~54세 45%였고, TikTok 이용자 중 LIVE 시청 경험은 35~44세 18%, 45~54세 9%, 55~64세 8%였다.</li>
+<li>프랑스 TikTok 이용률은 25~39세 53%, 40~59세 34%였다.</li>
+<li>TikTok 이용률, 경제력, LIVE 시청, Gift 경험은 서로 다른 변수다.</li>
+</ul>
+<p>그러나 <strong>30~59세 여성 TikTok LIVE 시청자의 직업·소득·가족 상태·성격을 교차한 시장 분포는 공개 근거가 없다.</strong> 아래 12개 유형의 시장 비중도 확인되지 않았다. 직업은 시간 통제, 책임, 사회적 위치, 노출 위험, 지출 방식을 생각하기 위한 예시이며 결정적 분류 기준이 아니다.</p>
+<p>이 문서는 연구 결과를 그대로 옮긴 인구 세분표가 아니라, K가 실제 사람을 더 잘 대하기 위한 <strong>운영 가설</strong>이다. 한 번의 댓글이나 Gift로 직업, 소득, 가족 상태, 외로움, 연애 욕구를 추정하지 않는다. 본인의 자발적 설명과 서로 다른 세 번 이상 방문에서 반복된 행동을 우선한다.</p>
+<h2 id="_3">동기 태그 기준표</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>동기</th>
+<th>ID</th>
+<th>동기</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P01</td>
+<td>하루 전환</td>
+<td>P11</td>
+<td>공정성 확인</td>
+</tr>
+<tr>
+<td>P02</td>
+<td>생활 의식</td>
+<td>P12</td>
+<td>신뢰 검증</td>
+</tr>
+<tr>
+<td>P03</td>
+<td>조용한 감상</td>
+<td>P13</td>
+<td>성장 응원</td>
+</tr>
+<tr>
+<td>P04</td>
+<td>생각 교환</td>
+<td>P14</td>
+<td>구체 개선 후원</td>
+</tr>
+<tr>
+<td>P05</td>
+<td>위트 시험</td>
+<td>P15</td>
+<td>형식 공동설계</td>
+</tr>
+<tr>
+<td>P06</td>
+<td>감각 큐레이션</td>
+<td>P16</td>
+<td>가치 배분</td>
+</tr>
+<tr>
+<td>P07</td>
+<td>기억 확인</td>
+<td>P17</td>
+<td>순간 완성</td>
+</tr>
+<tr>
+<td>P08</td>
+<td>분위기 점화</td>
+<td>P18</td>
+<td>게임 전략</td>
+</tr>
+<tr>
+<td>P09</td>
+<td>새사람 연결</td>
+<td>P19</td>
+<td>품위 있는 인정</td>
+</tr>
+<tr>
+<td>P10</td>
+<td>공동체 돌봄</td>
+<td>P20</td>
+<td>비공개 선호 후원</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="m01-30">M01. 성취를 알아봐 주길 바라는 30대 전문직 여성</h2>
+<h3 id="_4">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 30대 초중반~후반. 변호사, 컨설턴트, 의료인, 금융·테크·대기업 관리자처럼 판단과 책임이 많은 생활의 예시다.</li>
+<li><strong>자기상:</strong> 유능하고 기준이 높으며 쉽게 휘둘리지 않는 사람으로 보이고 싶다. 아첨과 과잉 친절을 빠르게 알아챌 수 있다.</li>
+<li><strong>여가·소비 방식:</strong> 업무가 끝난 늦은 시간에 짧고 질 좋은 전환을 원한다. 자주 흩뿌리기보다 움직일 가치가 분명한 순간에 선택적으로 쓸 수 있다.</li>
+</ul>
+<h3 id="_5">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 정돈된 남성을 보며 긴장을 바꾸되, 지적 수준이 낮아지는 느낌 없이 가볍게 즐기고 싶다.</li>
+<li><strong>정체성:</strong> 돈이나 직함보다 판단력, 안목, 타이밍이 좋은 사람으로 인정받고 싶다.</li>
+<li><strong>관계:</strong> K와 대등하게 의견을 주고받고 싶지만 그를 관리하거나 구제하는 역할은 원하지 않는다.</li>
+<li><strong>오락:</strong> 재치 있는 응수, 짧은 생각 교환, Match의 전략적 역전과 결정타를 즐길 수 있다.</li>
+</ul>
+<h3 id="k_1">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 차분하고 간결하게 말한다. 지나친 존칭, 비굴한 감탄, 성공한 여성이라는 상투적 추켜세우기를 피한다.</li>
+<li><strong>대화:</strong> 의견의 이유를 묻고 K도 자기 견해를 짧게 낸다. 무조건 맞장구치지 않고 다른 생각도 예의 있게 유지한다.</li>
+<li><strong>인정:</strong> “판단이 정확했다”, “그 타이밍이 흐름을 바꿨다”처럼 능력과 영향을 구체적으로 인정한다.</li>
+<li><strong>Match:</strong> 점수 차이·남은 시간·필요 행동을 정확히 말하고 전략가, 수비, 마무리 같은 게임 역할을 준다. 사랑이나 충성의 증명으로 요청하지 않는다.</li>
+<li><strong>DM·후속:</strong> 요청받은 일정·결과·자료만 간결하게 보낸다. 직업, 소득, 사생활을 캐거나 Gift 뒤 연락 빈도를 갑자기 늘리지 않는다.</li>
+</ul>
+<h3 id="_6">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 세련된 외모, 정돈된 화면, 흔들리지 않는 말투가 비교 시청 중 멈출 이유를 만든다.</li>
+<li><strong>체류:</strong> 수준 있는 짧은 대화와 아직 완성 중인 위트가 ‘외모만 있는 사람은 아니다’라는 판단을 만든다.</li>
+<li><strong>재방문:</strong> 지난 관점이나 Match 판단을 정확히 기억하고, 모르는 것을 꾸며 내지 않을 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> K가 자기 중심을 지키면서도 그녀의 전략적 기여를 팀의 역사로 남길 때 ‘내가 선택한 팀’이 된다.</li>
+<li><strong>자발적 후원:</strong> 판단이 결과를 바꿀 수 있는 Match의 결정적 순간, 또는 실제 성장·개선이 확인되는 순간에 일어날 수 있다.</li>
+</ol>
+<h3 id="k_2">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 관점이 갈리는 짧은 질문, 세련된 일상 선택, 기술·진행 성장의 증거, 전략성이 보이는 Match 회고.</li>
+<li><strong>진행 기술:</strong> 30초 안에 관찰·견해·전체 질문으로 확장하는 능력과 공격적이지 않은 응수.</li>
+<li><strong>기억·기록:</strong> 공개된 관심사, 이전 견해, 선호하는 인정 방식, Match 역할과 결과를 최소한으로 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> 깔끔한 스타일, 낮고 또렷한 속도, 조언을 듣되 최종 결정을 책임지는 태도를 유지한다.</li>
+</ul>
+<h3 id="_7">떠나게 만드는 행동</h3>
+<ul>
+<li>직업이나 경제력을 상상해 아첨하기, 모든 의견에 복종하기, 큰 Gift 뒤 연애성 애칭을 붙이기.</li>
+<li>근거 없는 자신감, 지적 허세, 반복되는 약속 불이행, 다른 큰 후원자 앞에서 기준을 바꾸기.</li>
+<li>Match에서 패배 책임을 돌리거나 ‘이 정도도 못 해 주느냐’고 능력과 충성심을 자극하기.</li>
+</ul>
+<h3 id="_8">붙을 수 있는 동기 태그</h3>
+<p><code>P04 생각 교환</code>, <code>P05 위트 시험</code>, <code>P11 공정성 확인</code>, <code>P12 신뢰 검증</code>, <code>P17 순간 완성</code>, <code>P19 품위 있는 인정</code></p>
+<h3 id="_9">확인할 신호</h3>
+<p>대화 수준을 시험하는 질문, 과장된 칭찬에 대한 거리감, 짧은 체류 뒤 반복 방문, 전략 정보에 대한 반응, Match 결정타, 구체적 공개 감사 뒤의 잔류·재방문을 본다.</p>
+<hr>
+<h2 id="m02-30">M02. 취향과 독립성이 강한 30대 도시형 여성</h2>
+<h3 id="_10">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 프리랜서, 창작자, 마케팅·디자인·테크 종사자, 1인 사업자처럼 시간과 취향을 스스로 구성하는 생활의 예시다.</li>
+<li><strong>자기상:</strong> 남들과 다른 취향이 있고 스스로 선택하는 사람이다. 소속되더라도 통제받는 느낌을 싫어한다.</li>
+<li><strong>여가·소비 방식:</strong> 여러 콘텐츠를 빠르게 비교하고 재미·새로움·미감을 따라 움직인다. 좋아하는 장면이나 콘셉트에 선택 표시로 후원할 수 있다.</li>
+</ul>
+<h3 id="_11">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 차갑지 않은 세련됨, 예상 밖의 위트, K만의 분위기를 발견하고 싶다.</li>
+<li><strong>정체성:</strong> 유행을 무조건 따르지 않고 자기 취향으로 선택하는 독립적인 사람으로 남고 싶다.</li>
+<li><strong>관계:</strong> 가깝게 느껴져도 출석, 소속, 사적 친밀함을 강요받지 않는 느슨한 연결을 원한다.</li>
+<li><strong>오락:</strong> 음악·의상·화면·코너의 변주, 제한된 선택 참여, 가벼운 문화·취향 대화를 즐길 수 있다.</li>
+</ul>
+<h3 id="k_3">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 감각적이되 과장하지 않는다. 유행어를 억지로 따라 하기보다 K의 자연스러운 말투와 절제된 장난을 유지한다.</li>
+<li><strong>대화:</strong> 취향의 이유를 묻고 다름을 재미로 다룬다. K의 선택 기준도 분명히 말한다.</li>
+<li><strong>인정:</strong> “그 디테일을 알아봤다”, “그 선택이 이 장면의 방향을 잡았다”처럼 안목과 참여를 인정한다.</li>
+<li><strong>Match:</strong> 팀 참여는 선택지로 제시한다. 전술과 순간 재미를 살리되 팬덤 충성 경쟁이나 큰손 중심의 폐쇄성을 만들지 않는다.</li>
+<li><strong>DM·후속:</strong> 먼저 친밀감을 밀어붙이지 않는다. 요청받은 콘셉트 결과나 공개 일정만 보내고, 결석 이유·연애 상태·오프라인 만남을 묻지 않는다.</li>
+</ul>
+<h3 id="_12">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 세련된 첫 화면과 K 특유의 절제된 남성미가 흔한 LIVE와 구별된다.</li>
+<li><strong>체류:</strong> 화면만 예쁜 것이 아니라 편안한 반응과 발전하는 위트가 있다는 점이 확인된다.</li>
+<li><strong>재방문:</strong> 콘셉트가 변해도 K의 기준과 온도가 유지되고, 의견을 받되 휘둘리지 않을 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 폐쇄적 팬덤이 아니라 ‘취향이 좋은 열린 방을 함께 다듬는다’는 정체성이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 마음에 든 장면, 실험 형식의 성공, 세련된 Match 절정에 선택 표시로 일어날 수 있다.</li>
+</ol>
+<h3 id="k_4">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 음악·스타일·배경·말투를 한 방향으로 묶은 콘셉트와 두세 개 선택지로 참여하는 미니 실험.</li>
+<li><strong>진행 기술:</strong> 취향 차이를 논쟁으로 만들지 않고 재치 있는 비교와 전체 질문으로 확장하는 능력.</li>
+<li><strong>기억·기록:</strong> 선호 색감·음악·코너, 공개 인정 강도, 반응한 실험을 기록하되 취향을 고정된 성격으로 단정하지 않는다.</li>
+<li><strong>화면·목소리·리더십:</strong> 더하기보다 덜어내는 화면 판단, 편안한 저음, 의견을 반영하면서 최종 콘셉트를 책임지는 리더십.</li>
+</ul>
+<h3 id="_13">떠나게 만드는 행동</h3>
+<ul>
+<li>출석 요구, 결석 추궁, 팬덤 내부 언어로 진입 장벽 만들기, 취향 의견을 충성도 검사로 쓰기.</li>
+<li>유행·명품을 무작정 복제하기, 한 후원자의 취향에 전체 브랜드를 넘기기, 공개 장난을 사적 호감으로 확대하기.</li>
+<li>Gift를 보내야 투표권이나 창작 영향력을 준다고 암시하기.</li>
+</ul>
+<h3 id="_14">붙을 수 있는 동기 태그</h3>
+<p><code>P03 조용한 감상</code>, <code>P04 생각 교환</code>, <code>P05 위트 시험</code>, <code>P06 감각 큐레이션</code>, <code>P15 형식 공동설계</code></p>
+<h3 id="_15">확인할 신호</h3>
+<p>화면·음악·의상에 대한 구체적 반응, 독창적인 코너에서의 재방문, 선택 결과를 확인하러 오는 행동, 통제성 표현 뒤 이탈, 장면 완성 직후의 자발적 Gift를 본다.</p>
+<hr>
+<h2 id="m03-3040">M03. 책임을 내려놓고 자기 시간을 찾는 30~40대 여성</h2>
+<h3 id="_16">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 의료·교육·행정·서비스직, 직장과 양육을 함께 하는 사람, 가족 돌봄 책임이 큰 사람의 예시다.</li>
+<li><strong>자기상:</strong> 책임감 있고 버티는 사람이지만 방송에서까지 누군가를 돌보거나 힘든 사정을 설명하고 싶지는 않다.</li>
+<li><strong>여가·소비 방식:</strong> 퇴근·가사·돌봄이 끝난 밤에 짧은 휴식을 찾는다. 말이나 Gift가 적어도 꾸준히 돌아올 수 있다.</li>
+</ul>
+<h3 id="_17">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 설명하지 않아도 긴장이 내려가고 성인으로서 자기 시간을 되찾는 경험을 원한다.</li>
+<li><strong>정체성:</strong> 불쌍하거나 지친 사람으로 규정되지 않고, 자기 삶을 감당하는 온전한 사람으로 대우받고 싶다.</li>
+<li><strong>관계:</strong> 따뜻한 남성의 관심은 좋지만 상담 대상, 돌봄 제공자, 감정적 의존 관계가 되고 싶지는 않다.</li>
+<li><strong>오락:</strong> 밝고 쉬운 질문, 짧은 웃음, 예측 가능한 코너, 부담 없는 Match 참여를 선호할 수 있다.</li>
+</ul>
+<h3 id="k_5">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 낮고 편안하게 환영하되 “오늘도 많이 힘드셨죠”처럼 상태를 단정하지 않는다.</li>
+<li><strong>대화:</strong> 대답하지 않아도 되는 양자택일과 짧은 일상 질문을 쓴다. 사정을 캐지 않고 한두 문장 뒤 전체 흐름으로 돌아간다.</li>
+<li><strong>인정:</strong> 댓글, 좋아요, 조용한 체류, 소액 참여를 실제 기여로 인정한다. 돌봄 책임을 미화하거나 희생을 요구하지 않는다.</li>
+<li><strong>Match:</strong> 탭·좋아요·응원 문구·점수 알림 같은 무료 역할과 소액 역할을 분명히 준다. 경기 흥분이 휴식을 파괴하지 않게 목소리를 조절한다.</li>
+<li><strong>DM·후속:</strong> 본인이 요청한 일정만 보낸다. 감정 확인, 개인 상담, 반복 연락, ‘나에게 기대라’는 의존 표현을 하지 않는다.</li>
+</ul>
+<h3 id="_18">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 정돈된 외모와 안정된 목소리가 소란한 피드에서 잠시 멈출 곳처럼 느껴진다.</li>
+<li><strong>체류:</strong> 말하지 않아도 괜찮고, K가 억지 텐션 없이 짧게 웃게 해 줄 때 머문다.</li>
+<li><strong>재방문:</strong> 같은 시간대의 익숙한 인사와 부담 없는 환영, 작은 참여의 정확한 기억이 루틴이 된다.</li>
+<li><strong>애착·팀 정체성:</strong> 돈을 쓰지 않는 날에도 자리가 있고 무료 기여가 팀에 필요하다고 느낄 때 소속이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 실제로 기분을 바꿔 준 날, 편안한 루틴을 지지하고 싶은 날, 예산 안의 Match 역할이 분명할 때 가능하다.</li>
+</ol>
+<h3 id="k_6">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 편한 착륙 오프닝, 가벼운 선택 질문, 짧은 위트, 조용한 마무리, 과열 뒤 회복 구간.</li>
+<li><strong>진행 기술:</strong> 낮은 에너지의 시청자를 지루함으로 오해하지 않고 침묵과 대화를 함께 운영하는 능력.</li>
+<li><strong>기억·기록:</strong> 주로 오는 시간, 공개한 비민감 취향, 편한 참여 방식만 기록한다. 가족·건강·감정 상태를 추적하지 않는다.</li>
+<li><strong>화면·목소리·리더십:</strong> 눈이 피곤하지 않은 화면, 일정한 음량, Match 전후 에너지를 부드럽게 전환하는 리더십.</li>
+</ul>
+<h3 id="_19">떠나게 만드는 행동</h3>
+<ul>
+<li>피곤한 이유와 가족 사정을 반복해서 묻기, 취약한 사연을 콘텐츠나 Gift 계기로 쓰기.</li>
+<li>말하지 않는 사람을 호명해 참여시키기, 무료 참여를 무시하기, 고성과 패배 원망으로 방의 긴장을 높이기.</li>
+<li>위로를 제공한 뒤 후원이나 사적 관계를 기대하기.</li>
+</ul>
+<h3 id="_20">붙을 수 있는 동기 태그</h3>
+<p><code>P01 하루 전환</code>, <code>P02 생활 의식</code>, <code>P03 조용한 감상</code>, <code>P07 기억 확인</code>, <code>P10 공동체 돌봄</code></p>
+<h3 id="_21">확인할 신호</h3>
+<p>비슷한 밤 시간대 재방문, 조용한 장기 체류, 쉬운 질문에서만 반응하는 패턴, 무료 Match 역할 참여, 고성 구간 이탈, 무선물 기간에도 돌아오는지를 본다.</p>
+<hr>
+<h2 id="m04-3040">M04. 사람을 연결하고 분위기를 주도하는 30~40대 여성</h2>
+<h3 id="_22">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 영업, 서비스, 교육, 행사, 커뮤니티 운영, 고객 응대처럼 사람 사이를 빠르게 읽는 생활의 예시다.</li>
+<li><strong>자기상:</strong> 재미있고 사람을 살리는 사람이다. 자신이 등장하면 분위기가 좋아진다는 평가를 즐길 수 있다.</li>
+<li><strong>사회·소비 방식:</strong> 댓글과 농담으로 사람을 연결하고 소액 Gift로 흐름을 만들 수 있다. 다만 무급 진행자나 상시 책임자가 되기는 싫을 수 있다.</li>
+</ul>
+<h3 id="_23">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> K와 빠르게 주고받으며 방 전체가 살아나는 장면을 경험하고 싶다.</li>
+<li><strong>정체성:</strong> 관심을 독점하는 사람이 아니라 센스 있게 사람을 연결하는 영향력 있는 참여자로 보이고 싶다.</li>
+<li><strong>관계:</strong> K에게 특별히 기억되면서도 다른 팬과 적대하지 않는 공개적이고 건강한 친밀감을 원한다.</li>
+<li><strong>오락:</strong> 티키타카, 단체 반응, 신규 환영, Match 팀 독려와 역할 분담을 즐길 수 있다.</li>
+</ul>
+<h3 id="k_7">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 반응은 빠르고 밝게 하되 K가 진행권을 잃지 않는다. 장난은 한두 번 안에 전체 놀이로 넓힌다.</li>
+<li><strong>대화:</strong> 그녀의 연결 댓글을 받아 신규도 답할 수 있는 질문으로 바꾼다. 계속 새 화제를 내라고 요구하지 않는다.</li>
+<li><strong>인정:</strong> “지금 새로 온 분도 들어오기 쉬워졌다”, “그 한마디가 방을 살렸다”처럼 실제 효과를 인정한다.</li>
+<li><strong>Match:</strong> 응원 리더, 시간 알림, 분위기 점화 같은 역할을 줄 수 있으나 다른 시청자를 압박하거나 Gift를 배분할 권한은 주지 않는다.</li>
+<li><strong>DM·후속:</strong> 모더레이션·홍보·팬 관리가 필요하면 별도 동의와 범위를 정한다. 당연한 봉사로 여기거나 결석 이유를 묻지 않는다.</li>
+</ul>
+<h3 id="_24">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> K의 외모와 차분한 중심에 들어왔다가 자신의 장난을 받아내는 반응에서 가능성을 본다.</li>
+<li><strong>체류:</strong> 자기 에너지가 K를 거쳐 여러 사람의 참여로 확장될 때 재미를 느낀다.</li>
+<li><strong>재방문:</strong> K가 그녀를 기억하되 방을 떠맡기지 않고, 없는 날에도 죄책감을 주지 않을 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> ‘내가 있어야 굴러가는 방’이 아니라 ‘내 장점이 건강하게 쓰이는 팀’이라는 역할 정체성이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 흐름을 살릴 작은 순간, 팀 사기를 올릴 장면, Match의 협동이 잘 맞는 때 가능하다.</li>
+</ol>
+<h3 id="k_8">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 빠른 선택 질문, 단체 이모지 장면, 신규도 이해하는 내부 농담 설명, 여러 사람이 답할 수 있는 짧은 게임.</li>
+<li><strong>진행 기술:</strong> 한 사람의 에너지를 방 전체로 분산하고 진행권을 자연스럽게 회수하는 능력.</li>
+<li><strong>기억·기록:</strong> 잘하는 역할, 장난의 허용 범위, 공개 인정 선호, 부담을 느낀 신호를 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> K가 중심축으로 보이는 프레이밍, 활기와 안정 사이를 조절하는 목소리, 역할과 권한을 구분하는 리더십.</li>
+</ul>
+<h3 id="_25">떠나게 만드는 행동</h3>
+<ul>
+<li>방 분위기와 신규 환영을 그녀에게 맡기기, 결석을 탓하기, 다른 팬을 관리하라고 시키기.</li>
+<li>장난을 성적 관심으로 확대하기, 공개적으로 편을 만들기, 그녀의 영향력을 이용해 Gift 압박을 대신하게 하기.</li>
+<li>활발한 참여를 지출 능력이나 상시 봉사 의사로 해석하기.</li>
+</ul>
+<h3 id="_26">붙을 수 있는 동기 태그</h3>
+<p><code>P05 위트 시험</code>, <code>P08 분위기 점화</code>, <code>P09 새사람 연결</code>, <code>P10 공동체 돌봄</code>, <code>P18 게임 전략</code></p>
+<h3 id="_27">확인할 신호</h3>
+<p>댓글 뒤 서로 다른 참여자가 늘어나는지, 신규 환영 행동, Match 독려 방식, 공개 인정 뒤 활력이 커지는지 부담이 생기는지, 역할을 주지 않은 날에도 돌아오는지를 본다.</p>
+<hr>
+<h2 id="m05-4050">M05. 조용히 오래 검증하는 40~50대 신중한 여성</h2>
+<h3 id="_28">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 사무직, 연구·기술직, 공공기관, 회계·관리, 안정된 자영업처럼 실수와 평판을 조심하는 생활의 예시다.</li>
+<li><strong>자기상:</strong> 쉽게 흥분하지 않고 사람을 오래 본 뒤 판단하는 분별력 있는 사람이다.</li>
+<li><strong>사회·소비 방식:</strong> 낯선 집단에서는 먼저 관찰하고 정보를 적게 공개한다. 첫 Gift는 늦어도 신뢰가 생기면 반복될 수 있다.</li>
+</ul>
+<h3 id="_29">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 자극보다 일관된 온도와 안전한 관찰 시간을 원한다.</li>
+<li><strong>정체성:</strong> 쉽게 넘어가는 팬이 아니라 증거를 보고 선택하는 신중한 사람으로 남고 싶다.</li>
+<li><strong>관계:</strong> 과장된 친밀감 없이 천천히 신뢰가 쌓이고, 침묵과 사생활이 존중되길 바란다.</li>
+<li><strong>오락:</strong> K의 태도, 갈등 대응, 기억의 정확성, Match에서의 품위를 관찰하는 과정 자체를 즐길 수 있다.</li>
+</ul>
+<h3 id="k_9">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 처음부터 친한 척하지 않고 일정한 예의와 온도를 유지한다. 침묵을 불편해하지 않는다.</li>
+<li><strong>대화:</strong> 사실 질문에는 정확히 답하고 모르면 모른다고 한다. 참여를 끌어내기 위한 개인 질문을 던지지 않는다.</li>
+<li><strong>인정:</strong> 작은 댓글이나 첫 Gift는 짧고 정확하게 확인한다. 공개 노출 강도를 키우기 전에 선호를 본다.</li>
+<li><strong>Match:</strong> 규칙, 점수, 시간, 무압박 원칙을 먼저 밝힌다. 큰 후원자에게도 같은 행동 기준을 적용하는 모습을 보여 준다.</li>
+<li><strong>DM·후속:</strong> 반복 방문이나 첫 Gift를 DM 허가로 보지 않는다. 문의가 왔을 때만 사실 중심으로 답하고 대화를 늘리지 않는다.</li>
+</ul>
+<h3 id="_30">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 정돈된 외모와 절제된 태도가 가벼운 과장과 다르게 보인다.</li>
+<li><strong>체류:</strong> K가 조용한 시청자를 건드리지 않고 다른 사람도 공정하게 대하는지 관찰한다.</li>
+<li><strong>재방문:</strong> 실수 인정, 갈등의 일관된 처리, 후원 전후 같은 태도가 반복될 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 방의 규칙과 K의 인격이 장기간 맞아떨어질 때 조용한 내부자로 자리 잡는다.</li>
+<li><strong>자발적 후원:</strong> 충분한 검증 뒤 시험성 소액, 신뢰를 지킨 순간, 예측 가능한 Match 역할에서 시작될 수 있다.</li>
+</ol>
+<h3 id="k_10">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 반복 가능한 진행 원칙, 사실 중심 Q&amp;A, 실수 교정, 차분한 Match 회고.</li>
+<li><strong>진행 기술:</strong> 조용한 체류를 존중하고, 압박 상황에서 행동만 짚은 뒤 빠르게 흐름을 회복하는 능력.</li>
+<li><strong>기억·기록:</strong> 공개한 비민감 정보, 호명 선호, 첫 참여 시점, 신뢰를 높이거나 낮춘 사건을 사실로 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> 과한 변화 없는 정돈된 화면, 감정 기복이 적은 목소리, 후원액에 흔들리지 않는 규칙 집행.</li>
+</ul>
+<h3 id="_31">떠나게 만드는 행동</h3>
+<ul>
+<li>“왜 조용하세요?”라고 끌어내기, 처음부터 핵심 팬 취급하기, 기억을 꾸며 내기.</li>
+<li>큰 Gift 뒤 갑자기 애정 표현과 DM을 늘리기, 고액 후원자의 무례를 묵인하기.</li>
+<li>약속을 자주 바꾸고 설명하지 않기, Match 패배 뒤 팬을 탓하기.</li>
+</ul>
+<h3 id="_32">붙을 수 있는 동기 태그</h3>
+<p><code>P03 조용한 감상</code>, <code>P07 기억 확인</code>, <code>P11 공정성 확인</code>, <code>P12 신뢰 검증</code>, <code>P20 비공개 선호 후원</code></p>
+<h3 id="_33">확인할 신호</h3>
+<p>첫 댓글·첫 Gift까지의 방문 횟수, 갈등 장면 뒤 재방문, 호명 강도에 따른 체류 변화, 사실 질문, 실수 교정 뒤 반응, 무선물 상태에서의 관계 지속을 본다.</p>
+<hr>
+<h2 id="m06-4050">M06. 절제된 품격을 중시하는 40~50대 선별 소비 여성</h2>
+<h3 id="_34">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 경영·전문직·문화 분야, 안정된 사업·자영업처럼 선택권과 책임이 있는 생활의 예시다. 실제 소득은 직접 확인 전 추정하지 않는다.</li>
+<li><strong>자기상:</strong> 돈보다 안목이 있는 사람으로 보이고 싶다. 요란한 과시보다 자신이 고른 대상의 수준을 중요하게 여긴다.</li>
+<li><strong>소비 방식:</strong> 자주 쓰기보다 납득되는 사람, 완성도, 결정적 순간에 선택적으로 지출할 수 있다.</li>
+</ul>
+<h3 id="_35">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 세련된 외모와 화면, 편안한 온도, 군더더기 없는 진행이 함께 있는 시간을 원한다.</li>
+<li><strong>정체성:</strong> 돈으로 관심을 사는 사람이 아니라 가치 있는 대상을 알아보는 선별자이고 싶다.</li>
+<li><strong>관계:</strong> 상호 존중은 깊되 유치한 애칭, 비굴한 복종, 소유 관계가 없는 성숙한 거리를 선호한다.</li>
+<li><strong>오락:</strong> K의 품위, 말의 중심, 스타일 완성도, Match에서의 침착한 리더십을 즐길 수 있다.</li>
+</ul>
+<h3 id="k_11">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 차분하고 정확하게 감사한다. 과장된 감탄과 연애성 호칭 대신 선택의 맥락과 영향을 말한다.</li>
+<li><strong>대화:</strong> 취향과 기준을 묻되 K도 자기 기준을 유지한다. 조언을 들은 뒤 선택 이유와 결과를 보여 준다.</li>
+<li><strong>인정:</strong> “이 선택이 화면을 실제로 개선했다”, “그 순간 팀이 다시 중심을 잡았다”처럼 품위 있게 구체화한다.</li>
+<li><strong>Match:</strong> 위기와 필요한 행동을 명료하게 말한다. 결정적 기여에는 깊게 인정하되 다른 사람의 존엄을 지우지 않는다.</li>
+<li><strong>DM·후속:</strong> 요청받은 결과 보고나 감사만 보낸다. 개인 자산·예산을 묻지 않고, 큰 Gift를 사적 접근권으로 바꾸지 않는다.</li>
+</ul>
+<h3 id="_36">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> K의 polished first impression과 절제된 남성적 존재감이 선택 기준을 통과한다.</li>
+<li><strong>체류:</strong> 외모 뒤에 예의, 편안함, 말의 중심, 발전 가능한 위트가 있음을 확인한다.</li>
+<li><strong>재방문:</strong> 화면·진행의 완성도가 쌓이고 K가 돈 앞에서도 태도를 바꾸지 않을 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> ‘내가 고른 사람은 기준이 있다’는 자부심과 K 팀의 품위가 연결된다.</li>
+<li><strong>자발적 후원:</strong> 잘 완성된 특별 방송, Match의 결정적 순간, 투명한 개선의 결과를 지지할 때 가능하다.</li>
+</ol>
+<h3 id="k_12">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 시각·음향·말투가 통일된 특별 콘셉트, 성장 전후 비교, 간결한 개선 보고.</li>
+<li><strong>진행 기술:</strong> 큰 기여에 충분히 반응하면서도 비굴해지지 않고 10~20초 안에 흐름을 회복하는 능력.</li>
+<li><strong>기억·기록:</strong> 선택한 콘셉트, 인정 선호, 중요 Match 역할, 지원 결과를 정확히 남긴다.</li>
+<li><strong>화면·목소리·리더십:</strong> 과시보다 절제된 의상·조명, 안정된 저음, 후원자의 의견과 방송 주도권을 구분하는 리더십.</li>
+</ul>
+<h3 id="_37">떠나게 만드는 행동</h3>
+<ul>
+<li>Gift 액수를 반복하거나 과장된 복종을 보이기, 유치한 애칭과 거짓 로맨스로 묶기.</li>
+<li>다른 큰 후원자에게 휘둘려 기준을 바꾸기, 명품 과시를 품격으로 착각하기.</li>
+<li>개선 용도와 결과를 숨기거나, 큰 Gift 직후 다음 목표를 요구하기.</li>
+</ul>
+<h3 id="_38">붙을 수 있는 동기 태그</h3>
+<p><code>P06 감각 큐레이션</code>, <code>P11 공정성 확인</code>, <code>P12 신뢰 검증</code>, <code>P16 가치 배분</code>, <code>P17 순간 완성</code>, <code>P19 품위 있는 인정</code></p>
+<h3 id="_39">확인할 신호</h3>
+<p>스타일·태도에 대한 구체적 평가, 선물 간격과 계기, 요란한 요청 뒤 이탈, 차분한 감사 뒤 잔류, 결과 보고 뒤 재방문, K의 주도권에 대한 반응을 본다.</p>
+<hr>
+<h2 id="m07-match-3050">M07. Match의 승부와 팀플레이를 즐기는 30~50대 여성</h2>
+<h3 id="_40">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 직업이나 소득보다 여가 성향으로 구분한다. 일상에서는 책임감이 있지만 놀이에서는 경쟁·전략·즉각적 결과를 즐기는 사람이다.</li>
+<li><strong>자기상:</strong> 감정적으로 돈을 쓰는 사람이 아니라 판을 읽고 필요한 순간에 움직이는 사람이라고 느낄 수 있다.</li>
+<li><strong>사회·소비 방식:</strong> 평소 대화는 적어도 Match에서 존재감이 커진다. 수비·역전·마무리처럼 목적이 분명한 순간에 집중할 수 있다.</li>
+</ul>
+<h3 id="_41">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 점수, 시간, 상대, 팀 움직임이 맞물리는 실시간 게임의 긴장과 해소를 원한다.</li>
+<li><strong>정체성:</strong> 단순 큰손보다 전략가, 수비수, 클로저처럼 결과를 읽고 바꾸는 역할로 기억되고 싶다.</li>
+<li><strong>관계:</strong> K 개인을 좋아하되 사랑을 증명하는 관계가 아니라 믿을 만한 팀장과 플레이어 관계를 원한다.</li>
+<li><strong>오락:</strong> 역전 가능성, 역할 분담, 정확한 호출, 승패 뒤 회고와 다음 경기의 개선을 즐긴다.</li>
+</ul>
+<h3 id="k_13">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 경기 중에는 짧고 정확하게, 경기 전후에는 침착하게 말한다. 공포·절망·애원으로 긴장을 만들지 않는다.</li>
+<li><strong>대화:</strong> 점수 차이, 남은 시간, 가능한 행동을 말하고 전략 의견은 짧게 받아 팀 전체에 공유한다.</li>
+<li><strong>인정:</strong> “마지막 수비가 리드를 지켰다”, “그 타이밍이 역전을 열었다”처럼 역할과 결과를 연결한다.</li>
+<li><strong>Match:</strong> 여러 역할과 무료 참여 경로를 먼저 열고, 한 명에게 승패를 떠넘기지 않는다. 경기가 끝나면 경쟁도 끝낸다.</li>
+<li><strong>DM·후속:</strong> 패배 뒤 왜 더 보내지 않았는지 묻지 않는다. 요청받은 경기 결과·공개 일정만 공유하고 개인별 지출 계획을 만들지 않는다.</li>
+</ul>
+<h3 id="_42">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 침착하고 남성적인 K의 화면과 Match에서의 집중력이 눈에 들어온다.</li>
+<li><strong>체류:</strong> K가 규칙을 이해하고 상황을 정확히 설명해 게임이 보기 쉬워질 때 남는다.</li>
+<li><strong>재방문:</strong> 이전 역할과 결정적 순간이 기억되고, 승패와 무관하게 존중받을 때 다시 온다.</li>
+<li><strong>애착·팀 정체성:</strong> 반복 Match에서 역할이 쌓이고 팀의 협동 방식이 좋아지면 ‘우리 팀’ 감각이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 자신의 행동이 점수와 결과를 실제로 바꾸는 시간 제한 상황에서 선택적으로 일어날 수 있다.</li>
+</ol>
+<h3 id="k_14">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> Match 전 팀 규칙, 역할 소개, 짧은 전술 설명, 경기 후 결정적 장면 회고.</li>
+<li><strong>진행 기술:</strong> 점수·시간·행동을 동시에 읽고 5~10초 문장으로 전달하는 능력, 패배 감정 조절.</li>
+<li><strong>기억·기록:</strong> 경기별 상대·점수 흐름·주요 Gift 시점·역할·인정 방식·경기 뒤 잔류와 재방문을 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> 집중이 보이는 화면, 긴박하지만 통제된 목소리, 한 사람에게 의존하지 않는 팀 리더십.</li>
+</ul>
+<h3 id="_43">떠나게 만드는 행동</h3>
+<ul>
+<li>“나를 좋아하면 보여 달라”는 요청, 패배 원망, 특정 팬에게 빚을 지우기.</li>
+<li>점수와 시간을 부정확하게 말하기, 역할 없이 무조건 보내 달라고 외치기, 상대와 팬을 모욕하기.</li>
+<li>큰 기여자를 연애 대상으로 대하거나 후원자끼리 K의 애정을 두고 경쟁시키기.</li>
+</ul>
+<h3 id="_44">붙을 수 있는 동기 태그</h3>
+<p><code>P05 위트 시험</code>, <code>P17 순간 완성</code>, <code>P18 게임 전략</code>, <code>P19 품위 있는 인정</code></p>
+<h3 id="_45">확인할 신호</h3>
+<p>일반 LIVE와 Match의 참여 차이, Gift 시점과 점수 변화, 전략 정보에 대한 반응, 선호 역할, 승리·패배 뒤 잔류, 다음 Match 재방문, 과소비 신호나 경계 반응을 본다.</p>
+<hr>
+<h2 id="m08-4050">M08. 관계의 연속성을 중시하는 40~50대 단골 여성</h2>
+<h3 id="_46">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 원격근무, 소규모 사업, 교대근무, 가정 중심 생활처럼 반복 접속이 가능한 생활의 예시다.</li>
+<li><strong>자기상:</strong> 오래 보고 꾸준히 지키는 믿을 만한 사람이다.</li>
+<li><strong>관계·소비 방식:</strong> 새 자극을 계속 찾기보다 익숙한 사람과 시간이 쌓이는 것을 선호한다. 정기적인 중소액 Gift나 반복 Match 참여가 가능하지만 의무는 아니다.</li>
+</ul>
+<h3 id="_47">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 어제의 대화가 오늘 이어지고 시간이 쌓이는 안정감을 원한다.</li>
+<li><strong>정체성:</strong> 한 번 크게 보이는 사람보다 꾸준히 함께한 사람으로 기억되고 싶다.</li>
+<li><strong>관계:</strong> 친근함과 특별한 기억은 원하지만 독점적 연애나 오프라인 관계를 약속받을 필요는 없다.</li>
+<li><strong>오락:</strong> 익숙한 인사, 반복 코너, 성장 추적, 팀의 역사와 Match 역할이 이어지는 재미를 선호한다.</li>
+</ul>
+<h3 id="k_15">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 익숙하고 따뜻하게 맞되 소유적인 ‘우리 사이’ 언어는 쓰지 않는다.</li>
+<li><strong>대화:</strong> 지난번 공개 대화 한 가지를 정확히 이어 주고 곧 방 전체가 참여할 수 있는 주제로 넓힌다.</li>
+<li><strong>인정:</strong> 이름뿐 아니라 오래된 기여, 기억, Match 역할을 구체적으로 남긴다. 신규 큰 후원자가 와도 과거를 지우지 않는다.</li>
+<li><strong>Match:</strong> 반복 역할과 팀의 서사를 연결하되 매번 출석·후원을 기대하지 않는다. 없는 날의 책임을 묻지 않는다.</li>
+<li><strong>DM·후속:</strong> 원한 경우 일정·공개 결과만 보낸다. 결석 이유, 무선물 이유, 사적 감정을 추궁하지 않는다.</li>
+</ul>
+<h3 id="_48">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 세련된 외모와 편안한 진행이 자극적이지 않게 들어온다.</li>
+<li><strong>체류:</strong> K가 사람을 서두르지 않고 안정된 온도로 대할 때 머문다.</li>
+<li><strong>재방문:</strong> 자신의 말과 역할이 정확히 이어지고 정해진 방송 리듬이 지켜질 때 습관이 된다.</li>
+<li><strong>애착·팀 정체성:</strong> K의 성장과 방의 역사를 함께 기억하는 ‘오래된 팀원’ 정체성이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 루틴 유지, 성장 마일스톤, 반복 Match 역할, 공동 기념일을 지지하는 방식으로 가능하다.</li>
+</ol>
+<h3 id="k_16">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 반복 가능한 오프닝·클로징, 지난 방송의 한 줄 연결, 월간 성장·팀 회고.</li>
+<li><strong>진행 기술:</strong> 단골의 깊이를 인정하면서도 신규 시청자가 소외되지 않게 맥락을 한 문장으로 설명하는 능력.</li>
+<li><strong>기억·기록:</strong> 본인이 공개한 취향, 이전 대화, 팀 역할, 인정·DM 선호, 마지막 주요 상호작용을 남긴다.</li>
+<li><strong>화면·목소리·리더십:</strong> 익숙한 브랜드 화면과 목소리, 일정 변경을 솔직히 공지하는 신뢰, 오래된 팬과 신규 팬을 함께 이끄는 리더십.</li>
+</ul>
+<h3 id="_49">떠나게 만드는 행동</h3>
+<ul>
+<li>새 큰손이 오자 오래된 기여를 지우기, 결석·무선물 기간을 추궁하기, 출석을 충성으로 평가하기.</li>
+<li>기억을 꾸며 내거나 DM 내용을 공개하기, 익숙함을 연애 약속이나 오프라인 만남으로 확대하기.</li>
+<li>‘가족’이라는 말로 지속 후원과 방 관리를 의무화하기.</li>
+</ul>
+<h3 id="_50">붙을 수 있는 동기 태그</h3>
+<p><code>P02 생활 의식</code>, <code>P07 기억 확인</code>, <code>P10 공동체 돌봄</code>, <code>P13 성장 응원</code>, <code>P19 품위 있는 인정</code></p>
+<h3 id="_51">확인할 신호</h3>
+<p>재방문 주기, 지난 이야기의 자발적 언급, 반복 코너 반응, 신규 후원자 등장 때의 행동, 무선물 기간 뒤 관계 유지, Match 역할의 연속성을 본다.</p>
+<hr>
+<h2 id="m09-4050">M09. 공개적인 영향력을 원하는 40~50대 후원자 여성</h2>
+<h3 id="_52">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 사업가·관리자·전문직일 수도 있지만 직업과 소득은 직접 확인 전 추정하지 않는다.</li>
+<li><strong>자기상:</strong> 영향력 있고 관대하며 중요한 순간에 판을 바꾸는 사람으로 보이고 싶을 수 있다.</li>
+<li><strong>사회·소비 방식:</strong> 자신의 기여가 K뿐 아니라 방 전체에 보이고 결과로 확인되는 것을 선호할 수 있다.</li>
+</ul>
+<h3 id="_53">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 자신의 행동이 목표·분위기·Match 결과를 실제로 바꾸는 강한 순간을 원한다.</li>
+<li><strong>정체성:</strong> 단순히 많이 쓴 사람이 아니라 중요한 때 움직이는 영향력 있는 후원자로 기억되고 싶다.</li>
+<li><strong>관계:</strong> K에게 더 깊이 기억되고 인정받고 싶지만 건강한 경우 그 대가로 사랑이나 소유권을 사는 것은 아니다.</li>
+<li><strong>오락:</strong> 공개 마일스톤, 역전, 팀 지휘, 다른 강한 기여자와 역할이 나뉘는 장면을 즐길 수 있다.</li>
+</ul>
+<h3 id="k_17">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 강하고 따뜻하게 반응하되 비굴하거나 연애적으로 굴지 않는다. 공개 감사는 짧고 구체적으로 한다.</li>
+<li><strong>대화:</strong> 영향력과 아이디어를 듣지만 K의 최종 결정권과 방 규칙은 양도하지 않는다.</li>
+<li><strong>인정:</strong> “무엇을 바꾸고 무엇을 가능하게 했는지”를 방 전체가 알 수 있게 말하고 다음 방송에서도 역할을 기억한다.</li>
+<li><strong>Match:</strong> 클로저·수비·역전의 핵심 역할을 인정하되 한 사람에게 승패를 떠맡기지 않는다. 다른 주요 후원자는 다른 역할로 의미화한다.</li>
+<li><strong>DM·후속:</strong> 기존에 열린 채널이 있고 본인이 원할 때 결과·감사를 한 번 전한다. 상시 우선 답변, 독점적 연락, 오프라인 만남을 보상으로 약속하지 않는다.</li>
+</ul>
+<h3 id="_54">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> K의 외모와 절제된 중심이 ‘지원해도 품위를 잃지 않을 사람’으로 보이게 한다.</li>
+<li><strong>체류:</strong> K가 방을 이끌고 기여를 정확히 읽으며 큰돈 앞에서도 흔들리지 않을 때 남는다.</li>
+<li><strong>재방문:</strong> 자신의 영향이 기억되고 실제 결과가 보고되며, 비선물 날에도 존중이 유지될 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 반복해서 팀의 중요한 순간을 완성하고 고유 역할이 축적될 때 강한 팀 정체성이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 공개 목표, Match 역전, 구체적 개선처럼 영향이 즉시 또는 사후에 검증되는 장면에서 가능하다.</li>
+</ol>
+<h3 id="k_18">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 공개 마일스톤, 명확한 개선 목표, 기여 전후 변화, Match 하이라이트와 팀 회고.</li>
+<li><strong>진행 기술:</strong> 큰 Gift를 충분히 인정하면서 다른 참여를 지우지 않는 반응, 주요 후원자 사이의 역할 차별화.</li>
+<li><strong>기억·기록:</strong> 기여의 금액보다 날짜·맥락·변화·역할·선호하는 인정 방식·경계 요구를 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> 큰 순간을 받아낼 존재감, 흥분 속에서도 통제되는 목소리, 영향력은 인정하되 운영권을 지키는 리더십.</li>
+</ul>
+<h3 id="_55">떠나게 만드는 행동</h3>
+<ul>
+<li>큰 기여를 대충 넘기거나 액수만 반복하기, 다음 날 역할과 결과를 완전히 잊기.</li>
+<li>더 큰 Gift를 받기 위해 연애 감정·질투·교체 위협을 이용하기.</li>
+<li>후원자에게 다른 팬 통제권이나 방송 소유권을 주기, 비선물 날 태도를 차갑게 바꾸기.</li>
+</ul>
+<h3 id="_56">붙을 수 있는 동기 태그</h3>
+<p><code>P14 구체 개선 후원</code>, <code>P16 가치 배분</code>, <code>P17 순간 완성</code>, <code>P18 게임 전략</code>, <code>P19 품위 있는 인정</code></p>
+<h3 id="_57">확인할 신호</h3>
+<p>공개 감사 방식에 따른 반응, 결정적 순간의 집중 Gift, 결과 보고 확인, 다른 주요 후원자 등장 때의 행동, 비선물일 관계 안정성, 통제·독점 요구 여부를 본다.</p>
+<hr>
+<h2 id="m10">M10. 사생활과 노출을 통제하려는 비공개 후원 여성</h2>
+<h3 id="_58">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 공공기관, 기업 관리자, 전문직, 지역사회에서 온라인 정체성 노출이 부담스러운 생활의 예시다.</li>
+<li><strong>자기상:</strong> 감정과 소비를 스스로 통제하며 온라인에서도 품위와 사생활을 지키는 사람이다.</li>
+<li><strong>사회·소비 방식:</strong> K를 좋아하고 후원해도 팬 정체성, 금액, 개인 정보를 공개하고 싶지 않을 수 있다.</li>
+</ul>
+<h3 id="_59">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> K의 외모·목소리·분위기를 즐기고 필요할 때 돕되 주목받지 않는 경험을 원한다.</li>
+<li><strong>정체성:</strong> 숨는 사람이 아니라 공개 범위를 스스로 정하는 통제력 있는 사람으로 존중받고 싶다.</li>
+<li><strong>관계:</strong> 조용한 연결과 정확한 기억은 원할 수 있지만 발언·DM·사적 정보 제공 의무는 원하지 않는다.</li>
+<li><strong>오락:</strong> 감상 중심의 일반 LIVE와 짧게 개입해 결과를 바꾸는 Match 순간을 선호할 수 있다.</li>
+</ul>
+<h3 id="k_19">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 선호를 모르면 한 문장으로 짧게 감사하고 바로 진행으로 돌아간다.</li>
+<li><strong>대화:</strong> 답변이나 자기소개를 요구하지 않는다. 말이 없음을 무관심이나 더 큰 비밀 후원 의사로 해석하지 않는다.</li>
+<li><strong>인정:</strong> 이름·Gift·총액을 반복하지 않는다. 요청이 있으면 공개 호명을 최소화하고 조용한 기여를 내부 기록으로만 기억한다.</li>
+<li><strong>Match:</strong> 기여가 결과를 바꿨다면 짧게 효과만 말한다. 더 드러나라고 요구하거나 다른 팬과 비교하지 않는다.</li>
+<li><strong>DM·후속:</strong> 선물만을 이유로 먼저 DM하지 않는다. 본인이 연 채널에서 요청한 답만 하고 감사 뒤 대화를 늘리지 않는다.</li>
+</ul>
+<h3 id="_60">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 정돈된 남성적 첫인상과 과하지 않은 반응이 안전하게 느껴진다.</li>
+<li><strong>체류:</strong> K가 조용한 사람을 끌어내지 않고 다른 팬의 사생활도 지키는지 본다.</li>
+<li><strong>재방문:</strong> 짧은 감사와 일관된 거리, 정확한 비공개 선호 기억이 반복될 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 공개 배지보다 ‘말하지 않아도 존중받는 팀원’이라는 조용한 소속이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 마음에 든 장면, 구체적 개선, Match의 결정적 순간에 낮은 노출로 가능하다.</li>
+</ol>
+<h3 id="k_20">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 말하지 않아도 즐길 수 있는 시각·음성 완성도, 이모지 수준의 낮은 참여 장치.</li>
+<li><strong>진행 기술:</strong> 침묵을 받아들이고 감사와 추궁을 분리하며 공개 인정 강도를 즉시 낮추는 능력.</li>
+<li><strong>기억·기록:</strong> 공개 호명·DM 선호와 안전한 비민감 정보만 최소 기록한다. 플랫폼이 보장하지 않는 익명성을 약속하지 않는다.</li>
+<li><strong>화면·목소리·리더십:</strong> 혼자 감상해도 완결되는 화면과 목소리, 과열된 방에서도 사생활 경계를 지키는 리더십.</li>
+</ul>
+<h3 id="_61">떠나게 만드는 행동</h3>
+<ul>
+<li>이름·액수·총액 반복, 발언 강요, 무단 DM, Gift를 개인 질문 동의로 간주하기.</li>
+<li>다른 시청자에게 신원이나 후원 규모를 암시하기, 완전한 익명성을 거짓 보장하기.</li>
+<li>조용한 후원 뒤 더 큰 Gift와 사적 관계를 기대하기.</li>
+</ul>
+<h3 id="_62">붙을 수 있는 동기 태그</h3>
+<p><code>P03 조용한 감상</code>, <code>P12 신뢰 검증</code>, <code>P16 가치 배분</code>, <code>P20 비공개 선호 후원</code></p>
+<h3 id="_63">확인할 신호</h3>
+<p>호명 전후 체류, 공개 감사 강도에 따른 행동, 말 없는 Gift 뒤 재방문, 직접 밝힌 인정·DM 선호, Match 개입 시점, 추가 질문 뒤 이탈 여부를 본다.</p>
+<hr>
+<h2 id="m11-4050">M11. 삶의 전환기에 새로운 활력을 찾는 40~50대 여성</h2>
+<h3 id="_64">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 이직, 이사, 관계 변화, 자녀 성장·독립, 돌봄 역할 변화처럼 생활 구조가 바뀐 사람의 예시다.</li>
+<li><strong>자기상:</strong> 이전 역할만으로 정의되지 않고 새로운 취향과 즐거움을 찾는 사람이다.</li>
+<li><strong>주의:</strong> 전환기라는 이유로 외롭거나 취약하거나 연애를 원한다고 단정하지 않는다. 초기 참여가 크더라도 장기 취향인지는 확인이 필요하다.</li>
+</ul>
+<h3 id="_65">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 새롭고 활기찬 루틴, 매력적인 남성과의 안전한 설렘, 부담 없는 자기표현을 원할 수 있다.</li>
+<li><strong>정체성:</strong> 누구의 배우자·부모·직원만이 아니라 취향과 선택을 가진 현재의 자신으로 보이고 싶다.</li>
+<li><strong>관계:</strong> 따뜻한 관심과 기억은 원하지만 감정적 공백을 이용한 구조자 관계나 거짓 연애는 원하지 않는다.</li>
+<li><strong>오락:</strong> 새로운 음악·스타일·커뮤니티, 쉬운 참여, K의 성장, 밝은 Match 팀 경험을 즐길 수 있다.</li>
+</ul>
+<h3 id="k_21">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 새 참여를 밝게 환영하되 ‘외로웠죠’, ‘내가 채워 주겠다’는 해석을 하지 않는다.</li>
+<li><strong>대화:</strong> 지금 좋아하는 것과 방송 안에서 해 볼 선택을 묻는다. 과거 사정과 관계 상태를 캐지 않는다.</li>
+<li><strong>인정:</strong> 새로운 시도, 취향, 참여를 구체적으로 알아봐 주되 빠르게 특별 관계로 규정하지 않는다.</li>
+<li><strong>Match:</strong> 팀의 여러 역할을 경험하게 하고 승부의 활력을 주되 첫날부터 Gift 중심 핵심 팬으로 만들지 않는다.</li>
+<li><strong>DM·후속:</strong> 본인이 요청한 일정·공개 콘텐츠만 보낸다. 감정 확인을 반복하거나 개인 만남·연애 가능성을 암시하지 않는다.</li>
+</ul>
+<h3 id="_66">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> K의 polished first impression과 절제된 남성미가 안전한 새 자극을 만든다.</li>
+<li><strong>체류:</strong> 가볍고 편안한 대화와 밝은 위트가 과거 설명 없이 현재를 즐기게 한다.</li>
+<li><strong>재방문:</strong> 새로운 루틴이 부담 없이 반복되고, 초기 관심이 줄어도 K의 태도가 안정적일 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 자신의 새 취향과 K 팀의 경험이 연결되고 역할을 선택할 수 있을 때 소속이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 성장 마일스톤, 마음에 든 콘셉트, 즐거운 Match 순간을 축하하는 선택으로 가능하다.</li>
+</ol>
+<h3 id="k_22">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> 새 취향을 시험할 선택형 코너, 접근하기 쉬운 문화·스타일 주제, 작은 성장 프로젝트.</li>
+<li><strong>진행 기술:</strong> 설렘을 제공하되 연애 약속으로 바꾸지 않고, 초기 과열을 장기 루틴으로 안정시키는 능력.</li>
+<li><strong>기억·기록:</strong> 현재 공개한 취향과 참여 선호만 기록한다. 관계 변화나 취약 상태를 추정·분류하지 않는다.</li>
+<li><strong>화면·목소리·리더십:</strong> 매력적이되 위협적이지 않은 화면, 밝고 안정된 목소리, 감정에 기대지 않고 경험을 이끄는 리더십.</li>
+</ul>
+<h3 id="_67">떠나게 만드는 행동</h3>
+<ul>
+<li>불쌍한 사람·외로운 사람으로 다루기, 개인 사정을 Gift와 연결하기, K가 감정적 공백을 채워 준다고 약속하기.</li>
+<li>초기 참여를 보고 반복 연락·친밀함·지출을 빠르게 요구하기.</li>
+<li>설렘을 이용해 질투를 만들거나 오프라인 만남과 거짓 로맨스를 암시하기.</li>
+</ul>
+<h3 id="_68">붙을 수 있는 동기 태그</h3>
+<p><code>P01 하루 전환</code>, <code>P02 생활 의식</code>, <code>P06 감각 큐레이션</code>, <code>P09 새사람 연결</code>, <code>P13 성장 응원</code></p>
+<h3 id="_69">확인할 신호</h3>
+<p>유입 계기, 반응한 콘텐츠, 초기와 4주 뒤 참여 차이, 경계 제시 뒤 반응, 무선물 상태의 재방문, 특정 감정 표현 직후 지출 급증이 반복되는지를 본다.</p>
+<hr>
+<h2 id="m12">M12. 예산 안에서 즐거움을 설계하는 계획 소비 여성</h2>
+<h3 id="_70">사람의 모습</h3>
+<ul>
+<li><strong>가설적 생활:</strong> 직장인, 소상공인, 가계 관리자 등 직업과 소득에 상관없이 소비 통제력을 중요하게 여기는 사람이다.</li>
+<li><strong>자기상:</strong> 충동에 휘둘리지 않고 자신이 정한 기준 안에서 즐기는 현명한 소비자다.</li>
+<li><strong>소비 방식:</strong> 정기 오락 예산, 소액 반복, 특정 목표 적립처럼 규칙을 정할 수 있다. 큰손 경쟁에 참여하지 않아도 장기 팬이 될 수 있다.</li>
+</ul>
+<h3 id="_71">핵심 욕구</h3>
+<ul>
+<li><strong>경험:</strong> 비용과 무관하게 기본 재미가 있고, 선택한 지출의 쓰임과 결과가 보이는 경험을 원한다.</li>
+<li><strong>정체성:</strong> 돈이 적어서 소극적인 사람이 아니라 자기 기준으로 오래 즐기는 책임 있는 참여자로 존중받고 싶다.</li>
+<li><strong>관계:</strong> Gift 규모와 상관없이 기본 기억과 환영이 유지되고 예산을 지키는 선택이 존중되길 바란다.</li>
+<li><strong>오락:</strong> 소액·무료 역할이 실제 팀 결과에 연결되는 Match, 투명한 공동 목표, 꾸준한 개선을 즐길 수 있다.</li>
+</ul>
+<h3 id="k_23">K가 대하는 법</h3>
+<ul>
+<li><strong>말투:</strong> 금액과 관계없이 같은 기본 예의로 대한다. 소액을 ‘겨우’가 아니라 실제 행동과 결과로 인정한다.</li>
+<li><strong>대화:</strong> 무엇이 재미있고 어떤 결과가 납득되는지 묻되 개인 예산·직업·재정 상태는 묻지 않는다.</li>
+<li><strong>인정:</strong> 좋아요, 댓글, 공유, 소액 Gift가 만든 구체적 역할을 말한다. 반복 Gift가 끊겨도 환영 수준을 바꾸지 않는다.</li>
+<li><strong>Match:</strong> 무료·소액·전략·마무리 역할을 함께 제시하고 예산 초과를 막는다. 한 사람당 목표액을 배정하지 않는다.</li>
+<li><strong>DM·후속:</strong> 요청받은 공개 목표·결과 자료만 보낸다. 부족액을 개인에게 요청하거나 맞춤 결제 계획을 권하지 않는다.</li>
+</ul>
+<h3 id="_72">팬 전환 경로</h3>
+<ol>
+<li><strong>첫 관심:</strong> 세련된 K의 화면이 비용 없이도 볼 가치가 있는 콘텐츠로 느껴진다.</li>
+<li><strong>체류:</strong> 편안한 대화와 무료 참여가 실제로 존중받아 ‘결제 전 관찰’이 가능하다.</li>
+<li><strong>재방문:</strong> 일정, 품질, 관계 온도가 안정되고 K가 압박 없이 결과를 보여 줄 때 돌아온다.</li>
+<li><strong>애착·팀 정체성:</strong> 예산 안의 역할도 팀에 필요하고 장기 참여가 기억될 때 책임 있는 팀원 정체성이 생긴다.</li>
+<li><strong>자발적 후원:</strong> 사용처가 분명한 개선, 정해 둔 오락 예산 안의 Match 역할, 공동 마일스톤에서 가능하다.</li>
+</ol>
+<h3 id="k_24">K가 준비하고 길러야 할 것</h3>
+<ul>
+<li><strong>콘텐츠:</strong> Gift 없이도 완결되는 기본 방송, 비용 없는 개선과 유료 개선의 구분, 월간 결과 보고.</li>
+<li><strong>진행 기술:</strong> 여러 규모의 참여를 같은 게임 안에 연결하고 큰 Gift 뒤 추가 요구를 멈추는 능력.</li>
+<li><strong>기억·기록:</strong> 금액보다 참여 주기, 선호 역할, 반응한 결과 보고, 압박에 대한 불편 신호를 기록한다.</li>
+<li><strong>화면·목소리·리더십:</strong> 비싼 장비를 과시하지 않아도 완성도 있는 화면, 차분한 가치 설명, 예산 존중을 팀 규칙으로 지키는 리더십.</li>
+</ul>
+<h3 id="_73">떠나게 만드는 행동</h3>
+<ul>
+<li>충성심을 지출 확대와 연결하기, 큰손과 비교하기, 소액·무료 참여를 무시하기.</li>
+<li>가짜 긴급성, 숨은 반복 결제 기대, 목표 달성 직후 새 목표 붙이기.</li>
+<li>예산을 지키는 선택을 애정 부족이나 팀에 대한 배신으로 만들기.</li>
+</ul>
+<h3 id="_74">붙을 수 있는 동기 태그</h3>
+<p><code>P02 생활 의식</code>, <code>P10 공동체 돌봄</code>, <code>P14 구체 개선 후원</code>, <code>P16 가치 배분</code>, <code>P18 게임 전략</code></p>
+<h3 id="_75">확인할 신호</h3>
+<p>선물 규모와 주기의 안정성, 무료·소액 역할 반응, 공동 목표 질문, 압박 문구 뒤 참여 변화, 결과 보고 뒤 재방문, 무선물 기간에도 기본 관계가 유지되는지를 본다.</p>
+<hr>
+<h1 id="_76">실제 시청자를 분류하고 대응하는 방법</h1>
+<h2 id="1">1단계: 추정하지 않고 확인할 것</h2>
+<ul>
+<li>본인이 직접 밝힌 연령대·국가·직업 또는 생활 리듬</li>
+<li>주로 들어오는 시간과 방송 종류</li>
+<li>댓글 참여 방식과 공개 노출 선호</li>
+<li>일반 LIVE와 Match에서의 행동 차이</li>
+<li>Gift 빈도·시점·반복성보다 먼저, Gift가 나온 맥락과 이후의 편안함</li>
+<li>어떤 감사, 기억, 팀 역할, DM 방식에 편안해하거나 불편해하는지</li>
+</ul>
+<p>기록하지 않는 항목: 추정 소득·자산, 결혼·연애 상태, 외로움, 정신건강, 성적 관심, 오프라인 만남 가능성.</p>
+<h2 id="2">2단계: 잠정 페르소나</h2>
+<p>한 번의 Gift나 한 문장의 댓글로 유형을 정하지 않는다. 서로 다른 세 번 이상의 방문에서 본인의 직접 진술과 반복 행동을 보고 <code>주 페르소나 1개 + 후보 1개</code>만 둔다.</p>
+<p>예시: <code>M01 성취 인정형 60% / M07 Match 승부형 30%</code></p>
+<p>확신도 숫자는 사람의 진실을 나타내는 점수가 아니라 현재 가설의 임시 강도다. 반대 증거가 나오면 즉시 낮추거나 바꾼다.</p>
+<h2 id="3">3단계: 동기 태그 붙이기</h2>
+<p>사람의 기본 맥락을 정한 뒤 그날 드러난 목적을 P01~P20으로 붙인다. 동기 태그를 다시 사람의 유형으로 만들지 않는다.</p>
+<ul>
+<li>M01 여성이 평소에는 <code>P04 생각 교환</code>, Match에서는 <code>P17 순간 완성 + P19 품위 있는 인정</code>을 보일 수 있다.</li>
+<li>M05 여성이 평소에는 <code>P03 조용한 감상 + P12 신뢰 검증</code>, Gift 뒤에는 <code>P20 비공개 선호 후원</code>을 보일 수 있다.</li>
+<li>M08 여성이 평소에는 <code>P02 생활 의식 + P07 기억 확인</code>, Match에서는 <code>P18 게임 전략</code>을 보일 수 있다.</li>
+</ul>
+<h2 id="4">4단계: 한 번에 하나만 대응 실험</h2>
+<p>말투, 질문, 공개 인정, Match 역할, DM 중 하나만 바꾼다. 체류·댓글·재방문·Gift뿐 아니라 침묵, 거절, 이탈, 무선물 방문, 방 전체 참여 폭을 함께 기록한다.</p>
+<h2 id="5-match">5단계: Match 전환을 별도로 검증</h2>
+<p>일반 LIVE에서의 호감과 관계 형성, Match에서의 실제 지원 전환을 같은 것으로 보지 않는다.</p>
+<ul>
+<li><strong>일반 LIVE:</strong> 첫인상, 편안함, 대화, 기억, 신뢰, K의 성장과 팀 문화가 쌓였는지 본다.</li>
+<li><strong>Match:</strong> 점수·시간·역할 설명이 이해됐는지, Gift가 실제 결과를 바꿨는지, 인정이 적절했는지, 경기 뒤에도 편안하게 남았는지 본다.</li>
+<li><strong>후속:</strong> 결과와 역할은 기억하되 다음 결제를 기대하거나 패배의 빚을 만들지 않는다.</li>
+</ul>
+<h1 id="_77">이 모델이 아직 말할 수 없는 것</h1>
+<ul>
+<li>12개 유형이 시장에 각각 몇 퍼센트 존재하는지</li>
+<li>특정 직업·연령이면 반드시 어떤 성격과 후원 방식을 갖는지</li>
+<li>큰 Gift를 보낸 사람이 실제로 고소득인지</li>
+<li>조용한 여성은 내향적이거나 외로운지</li>
+<li>전문직 여성은 모두 자존심이 높거나 공개 인정을 좋아하는지</li>
+<li>설렘을 보인 여성이 K와 연애·오프라인 만남을 원하는지</li>
+<li>한 번의 Match 지원이 장기 팬 전환을 뜻하는지</li>
+</ul>
+<p>이 12개 유형은 실제 시청자를 더 정확히 이해하고 K의 대응을 바꾸기 위한 질문 틀이다. 사람을 겉모습, 직업, Gift 금액으로 단정하거나 취약성·연애 가능성·지불 능력을 공략하는 명단이 아니다.</p></div>
+      </article><article class="document-section" id="motive-tags" data-search="시청·관계·후원 동기 태그 20">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 03</p>
+          <h2>시청·관계·후원 동기 태그 20</h2>
+        </header>
+        <div class="prose"><h1 id="kye-20">kye 시청자·후원자 행동 동기 태그 20</h1>
+<p>작성일: 2026-10-16<br>
+상태: <strong>검증 전 보조 태그</strong>. 실제 사람의 성격·직업·삶의 유형을 나타내는 페르소나가 아니다. <code>02_MARKET_PERSONAS_WOMEN_30_59.md</code>에서 사람의 기본 맥락을 먼저 파악한 뒤, 반복해서 보이는 이용 목적과 후원 행동을 상황별로 붙이는 운영 도구다.</p>
+<h2 id="_1">적용 원칙</h2>
+<ul>
+<li>범위는 미국·유럽의 30~59세 여성 가운데 TikTok LIVE를 시청하고 자발적으로 후원할 수 있는 성인이지만, <strong>나이·성별·선물액만으로 어떤 유형도 배정하지 않는다.</strong></li>
+<li>한 번의 댓글이나 선물로 분류하지 않는다. 가능하면 세 번 이상 방문에서 반복된 행동과 본인이 직접 밝힌 선호를 함께 본다.</li>
+<li><code>숨은 긴장</code>은 진단이 아니라 경험 설계를 위한 가설이다. 외로움, 연애 욕구, 소득, 정신건강, 결혼 상태를 추정하거나 기록하지 않는다.</li>
+<li>한 사람에게 여러 태그가 동시에 붙을 수 있다. 일반 LIVE와 Match에서 다른 태그가 나타날 수 있으며 상황이 달라지면 갱신한다.</li>
+<li>아래의 <code>후원 규모</code>는 경제력을 추정한 말이 아니다. 관찰될 수 있는 <strong>선물 방식</strong>인 소액·반복·간헐적 집중·행사성 후원을 뜻한다.</li>
+<li>무료 시청, 댓글, 좋아요, 공유, 재방문도 실제 기여로 인정한다. 선물은 애정·사적 접근권·운영 권력·면대면 만남을 사는 수단이 아니다.</li>
+<li>DM의 안전한 기본값은 일정, 공개된 콘텐츠, 감사, 피드백 확인이다. 선물 요청, 개인 경제 사정 탐색, 연애 암시, 무응답 뒤 반복 연락은 하지 않는다.</li>
+</ul>
+<hr>
+<h2 id="p01">P01. 하루 전환형 — 긴장을 내려놓고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 일이나 책임 모드에서 빠져나와 잠시 가볍고 편안한 상태로 전환한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 함께 있는 느낌은 원하지만 설명, 고백, 적극적인 반응까지 요구받고 싶지는 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 비슷한 퇴근 시간대에 온다. 피곤하다는 짧은 말을 남긴다. 잔잔한 구간에 오래 머물고 고성·갈등이 커지면 나간다.</li>
+<li><strong>원하는 경험:</strong> 깔끔한 화면, 낮고 안정된 진행, 부담 없는 양자택일 질문, 조용히 봐도 어색하지 않은 분위기.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 기분을 실제로 바꿔 준 데 대한 팁 성격의 소액 또는 간헐적 선물이 가능하다. 유난히 힘든 날 편안해졌거나 좋은 마무리 멘트가 나온 때가 계기가 될 수 있다.</li>
+<li><strong>kye가 주는 것:</strong> 정중한 힘을 유지하면서도 소란스럽지 않은 휴식 구간과 짧은 웃음.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 목소리와 속도로 에너지를 조절하고, 피곤함을 알아보되 사정을 캐묻지 않으며, 긴장 뒤 흐름을 빨리 회복하는 능력.</li>
+<li><strong>LIVE 반응:</strong> “오늘은 편하게 듣고만 계셔도 됩니다”라고 한 번 열어 두고, 짧게 환영한 뒤 전체 대화로 돌아간다.</li>
+<li><strong>후속·DM 경계:</strong> 본인이 요청한 일정이나 방송 요약만 보낸다. “무슨 일이 있었나요?” 같은 감정 추궁이나 개인 상담 역할을 맡지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 피곤한 이유를 반복해서 묻기, 취약한 사연을 친밀감으로 전환하기, 댓글을 강요하기.</li>
+<li><strong>첫 실험:</strong> 비슷한 시간대 방송 두 회에서 첫 10분을 ‘편한 착륙’ 형식으로 운영하고 조용한 체류, 자발 댓글, 재방문을 비교한다.</li>
+<li><strong>금전 부담 경고:</strong> 힘들다는 말 직후 선물을 언급하지 않는다. 선물이 오면 “감사합니다. 오늘은 편히 계시는 게 먼저예요”라고 추가 결제를 끊는다.</li>
+</ul>
+<h2 id="p02">P02. 생활 의식형 — 예측 가능한 약속을 원하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 하루나 한 주에 믿고 돌아올 수 있는 작은 사회적 기준점을 만든다.</li>
+<li><strong>숨은 긴장 가설:</strong> 매번 일정과 분위기를 새로 파악해야 하는 불안정함을 피하고 싶을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 특정 요일·시간에 반복해서 온다. 지각이나 코너 변경을 알아챈다. 고정 인사와 마무리 문구를 따라 한다.</li>
+<li><strong>원하는 경험:</strong> 일정 안내가 정확하고, 시작·마감 신호가 익숙하며, 주제가 바뀌어도 기본 구조는 이어지는 방송.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 사용하는 의식이 계속되길 바라는 유지 후원으로 소액 반복 또는 특정 요일의 정기적 선물이 가능하다. 반복성은 경제력이 아니라 습관에서 확인한다.</li>
+<li><strong>kye가 주는 것:</strong> 지킬 수 있는 일정, 익숙한 오프닝·클로징, 변경 시 빠르고 솔직한 공지.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 일정 운영, 사전 공지, 반복해도 식상하지 않은 의식 설계.</li>
+<li><strong>LIVE 반응:</strong> 익숙한 인사는 받아 주되 “오늘도 와야 한다”는 의무를 만들지 않고 새 시청자도 이해할 한 문장 맥락을 붙인다.</li>
+<li><strong>후속·DM 경계:</strong> 일정 알림 수신을 원한다고 밝힌 경우에만 공개 일정 링크를 보낸다. 결석 이유를 묻거나 출석을 점검하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 잦은 무통보 변경, 참석을 충성으로 평가하기, 고정 시청자만 아는 폐쇄적 의식 만들기.</li>
+<li><strong>첫 실험:</strong> 6회 동안 같은 시작 신호와 다음 방송 예고를 쓰고 반복 방문 시점, 신호 따라 하기, 신규 참여율을 기록한다.</li>
+<li><strong>금전 부담 경고:</strong> 정기 방문을 정기 결제 기대와 연결하지 않는다. 반복 선물이 끊겨도 환영 방식과 기억 수준을 바꾸지 않는다.</li>
+</ul>
+<h2 id="p03">P03. 조용한 감상형 — 드러나지 않고 즐기고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 호스트와 분위기를 즐기되 공개적으로 자신을 설명하거나 주목받지 않는다.</li>
+<li><strong>숨은 긴장 가설:</strong> 연결감보다 노출 통제권이 먼저일 수 있다.</li>
+<li><strong>관찰 신호:</strong> 오래 보지만 댓글이 적다. 말 없이 선물하거나 이모지만 남긴다. 길게 호명하면 반응이 줄고 짧게 감사하면 다시 온다.</li>
+<li><strong>원하는 경험:</strong> 자기소개 강요가 없고, 짧은 인정 뒤 관심이 깔끔하게 거두어지는 방송.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 말 대신 감사 의사를 전달하는 소액 또는 드문 선물이 가능하다. 특별한 공연·대답·분위기가 마음에 든 직후가 계기가 될 수 있다.</li>
+<li><strong>kye가 주는 것:</strong> 한 문장의 진심 어린 감사, 말하지 않아도 함께 있을 수 있는 자리, 낮은 난도의 이모지 참여.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 침묵을 거절로 해석하지 않고, 인정과 추궁을 구분하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 이름과 선물을 짧게 확인한 뒤 “편하게 보고 계세요”라고 닫고 진행을 이어 간다.</li>
+<li><strong>후속·DM 경계:</strong> 먼저 DM하지 않는 것을 기본으로 한다. 본인이 문의한 경우에도 답변 범위만 처리하고 대화를 늘리려 하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> “왜 이렇게 조용하세요?”, 반복 호명, 선물을 개인 질문에 동의한 것으로 간주하기.</li>
+<li><strong>첫 실험:</strong> 3회 동안 조용한 기여에는 한 문장 감사만 하고 체류·재방문·추가 댓글 변화를 본다.</li>
+<li><strong>금전 부담 경고:</strong> 말이 없다는 이유로 지출 여력이나 반복 의사를 상상하지 않는다. 조용한 선물 뒤 더 큰 선물을 유도하는 반응을 붙이지 않는다.</li>
+</ul>
+<h2 id="p04">P04. 생각 교환형 — 짧지만 내용 있는 대화를 원하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 무의미한 스크롤 대신 관점이 오가는 짧고 선명한 대화를 한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 진지하게 다뤄지길 바라지만 긴 상담이나 한 사람만의 방송은 원하지 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 이유와 관점을 묻는다. 맥락을 간결하게 준다. 미완성 주제로 돌아오며 kye의 실제 견해에 반응한다.</li>
+<li><strong>원하는 경험:</strong> 정확한 관찰 하나, kye의 솔직한 견해 하나, 다른 사람도 들어올 수 있는 질문 하나.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 통찰, 공정한 요약, 새로운 시각에 대한 감사로 소액 또는 간헐적 선물이 가능하다. 특정 대화가 유용했던 순간이 계기다.</li>
+<li><strong>kye가 주는 것:</strong> 깊이를 길이로 만들지 않는 응답과, 단정하지 않는 남성적 중심.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 짧게 생각을 정리하고, 한계와 불확실성을 말하며, 대화를 방 전체로 되돌리는 능력.</li>
+<li><strong>LIVE 반응:</strong> “제 생각은 이렇습니다”라고 짧게 답한 뒤 확인 질문 하나와 전체 선택지를 낸다.</li>
+<li><strong>후속·DM 경계:</strong> 개인 문제의 지속 상담은 하지 않는다. 자료 요청에는 공개 가능한 링크·주제만 답하고, 사생활 해석이나 처방을 피한다.</li>
+<li><strong>잘못된 대응:</strong> 무조건 맞장구치기, 근거 없이 전문가처럼 조언하기, 한 사람과만 긴 대화를 이어 가기.</li>
+<li><strong>첫 실험:</strong> 내용 있는 댓글 다섯 건에 <code>관찰 1개→질문 1개→전체 선택지</code>를 적용하고 참여자 수와 재방문을 본다.</li>
+<li><strong>금전 부담 경고:</strong> 유용한 답변을 선물 조건으로 걸지 않는다. 선물 뒤 더 깊은 상담이나 사적 조언을 살 수 있다는 인상을 주지 않는다.</li>
+</ul>
+<h2 id="p05">P05. 위트 시험형 — 재치와 중심을 확인하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 가벼운 반박과 장난을 주고받으며 kye의 순발력과 자기 확신을 즐긴다.</li>
+<li><strong>숨은 긴장 가설:</strong> 생동감은 원하지만 모욕, 성적 확대, 힘겨루기까지 가는 것은 원치 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 가볍게 반박한다. 선택이나 작은 도전을 던진다. 좋은 응수에는 웃고, 공격적이 되면 멈춘다.</li>
+<li><strong>원하는 경험:</strong> 빠르지만 잔인하지 않은 응수, 스스로도 웃을 줄 아는 여유, 분명한 경계.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 기분 좋은 한 방, 영리한 콜백, 흔들리지 않은 장면을 표시하는 순간성 소액 선물이 가능하다.</li>
+<li><strong>kye가 주는 것:</strong> 자기 비하가 아닌 자기 유머, 짧은 재치, 장난 뒤 자연스러운 진행 복귀.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 장난과 적대감을 구분하고, 성적으로 해석하지 않으며, 짧게 선을 긋는 능력.</li>
+<li><strong>LIVE 반응:</strong> 댓글의 말투를 가볍게 되받되 인신공격은 하지 않고 한두 번 안에 전체 놀이로 전환한다.</li>
+<li><strong>후속·DM 경계:</strong> 공개 장난을 사적 호감의 신호로 해석해 DM하지 않는다. DM에서도 성적 농담이나 관계 시험으로 확대하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 중립적 장난을 성적 관심으로 만들기, 공개 망신, 이기려는 논쟁.</li>
+<li><strong>첫 실험:</strong> 비개인적 응수 틀 세 개를 준비해 명확한 장난에만 쓰고 웃음 반응, 이탈, 다른 참여자의 합류를 본다.</li>
+<li><strong>금전 부담 경고:</strong> “다음 선물을 보내면 더 센 반응” 같은 거래를 만들지 않는다. 장난으로 지출 경쟁을 부추기지 않는다.</li>
+</ul>
+<h2 id="p06">P06. 감각 큐레이션형 — 잘 다듬어진 분위기를 즐기는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 화면, 말투, 음악, 흐름이 한 방향으로 정돈된 시간을 소비한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 차갑지 않은 세련됨을 원하고, 무질서하거나 과하게 꾸민 경험에는 피로를 느낄 수 있다.</li>
+<li><strong>관찰 신호:</strong> 조명, 의상, 배경, 음악, 단어 선택, 전환을 구체적으로 언급한다. 작은 변화도 알아본다.</li>
+<li><strong>원하는 경험:</strong> 멋있는 첫인상, 편안한 온도, 절제된 감사, 군더더기 없는 전환.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 잘 만든 경험에 대한 팁으로 소액 또는 특별 콘셉트 방송의 기념성 선물이 가능하다.</li>
+<li><strong>kye가 주는 것:</strong> 정돈된 남성적 첫 화면과 예의·편안함이 함께 있는 kye만의 분위기.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 조명·음향·의상 일관성, 장면 전환, 더하기보다 덜어내는 판단.</li>
+<li><strong>LIVE 반응:</strong> 취향 의견을 구체적으로 받아 주되 한 사람의 취향대로 즉석에서 전체 콘셉트를 흔들지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 공개 투표나 피드백 폼으로 받는 것을 우선한다. 외모 평가를 사적 친밀감이나 성적 대화로 이어 가지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 명품 과시를 세련됨으로 착각하기, 유행 복제, 화면에 몰두해 사람과 대화하지 않기.</li>
+<li><strong>첫 실험:</strong> 비슷한 방송에서 조명이나 배경 한 변수만 바꾸고 시청자가 표현한 분위기 단어와 체류를 비교한다.</li>
+<li><strong>금전 부담 경고:</strong> 더 비싼 장비가 있어야 좋은 경험을 줄 수 있다고 압박하지 않는다. 감상과 의견을 후원 의무로 바꾸지 않는다.</li>
+</ul>
+<h2 id="p07">P07. 기억 확인형 — 내 말이 정확히 남았는지 보는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 이전 방문과 지금이 이어지고, 자신의 말이 대충 소비되지 않았다는 경험을 얻는다.</li>
+<li><strong>숨은 긴장 가설:</strong> 과장된 친근함보다 정확한 주의와 정직한 기억을 더 신뢰할 수 있다.</li>
+<li><strong>관찰 신호:</strong> 전 대화를 다시 언급한다. kye가 기억하는지 가볍게 확인한다. 틀린 내용을 바로잡고 정확한 콜백에는 반응이 커진다.</li>
+<li><strong>원하는 경험:</strong> 본인이 공개한 안전한 정보를 정확히 기억하고, 모르면 모른다고 말하며, 사적인 내용을 공개하지 않는 진행.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 지속해서 존중받았다는 확신이 쌓인 뒤 반복 또는 기념성 선물이 가능하다. 정확한 기억 자체를 돈과 교환하는 것은 아니다.</li>
+<li><strong>kye가 주는 것:</strong> 한 번의 정확한 콜백과 관련 질문, 곧이어 모두가 참여할 수 있는 주제 확장.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 동의를 고려한 최소 기록, 정확한 회상, 불확실할 때 확인하는 태도.</li>
+<li><strong>LIVE 반응:</strong> “지난번에 말씀하신 ○○, 이번에는 어땠어요?”처럼 공개해도 되는 내용만 짧게 묻고 방 전체로 넓힌다.</li>
+<li><strong>후속·DM 경계:</strong> 공개 대화에서 DM 이동을 제안하지 않는다. DM에 온 세부 정보는 허락 없이 LIVE에서 꺼내지 않고 민감한 개인 기록을 남기지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 기억을 꾸며 내기, 가까운 사이라고 과장하기, 비공개 내용을 공개 콜백으로 쓰기.</li>
+<li><strong>첫 실험:</strong> 본인이 공개한 비민감 정보 하나만 다음 방문에 확인하고 정정률, 반응, 다른 시청자의 참여를 기록한다.</li>
+<li><strong>금전 부담 경고:</strong> 큰 선물자의 정보만 기억하지 않는다. 선물액을 기억 우선순위나 인간적 관심의 가격표로 만들지 않는다.</li>
+</ul>
+<h2 id="p08">P08. 분위기 점화형 — 방의 활기를 돕고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 정적인 방을 함께 움직이는 경험을 즐기고 사람들의 반응을 끌어낸다.</li>
+<li><strong>숨은 긴장 가설:</strong> 활기를 만드는 것은 좋아해도 방송 전체를 책임지는 무급 진행자가 되고 싶지는 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 먼저 답하고 이모지로 장면을 키운다. 여러 대화에 연결 댓글을 남긴다. 채팅이 멈추면 새 화제를 보탠다.</li>
+<li><strong>원하는 경험:</strong> 자신의 에너지가 짧게 인정되고, kye가 이를 전체 참여로 확장한 뒤 다시 진행 책임을 맡는 방송.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 전환점이나 단체 반응을 키우는 소액·순간성 선물이 가능하다. 방이 함께 살아난 때가 계기다.</li>
+<li><strong>kye가 주는 것:</strong> 기여를 정확히 짚는 감사, 모두가 답할 질문, 계속 앞장서지 않아도 되는 여유.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 한 사람의 에너지를 여러 사람의 참여로 바꾸고 진행권을 자연스럽게 회수하는 능력.</li>
+<li><strong>LIVE 반응:</strong> “좋은 불씨였어요”라고 한 번 인정한 뒤 전체에 쉬운 선택지를 던진다.</li>
+<li><strong>후속·DM 경계:</strong> 모더레이션이나 홍보를 개인적으로 당연시하지 않는다. 역할 제안이 필요하면 업무·권한·중단 가능성을 분명히 합의한다.</li>
+<li><strong>잘못된 대응:</strong> 그녀에게 방을 맡기기, 결석을 탓하기, 계속 새 화제를 요구하기.</li>
+<li><strong>첫 실험:</strong> 분위기를 살린 댓글 뒤 즉시 전체 선택 질문을 붙이고 총 댓글 수보다 서로 다른 참여자 수를 비교한다.</li>
+<li><strong>금전 부담 경고:</strong> 활발한 참여를 지출 의사로 보지 않는다. 무료 기여를 충분히 인정하고 ‘에너지 담당’이라는 이유로 선물까지 기대하지 않는다.</li>
+</ul>
+<h2 id="p09">P09. 새사람 연결형 — 낯선 사람이 들어오기 쉽게 만드는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 신규 시청자가 맥락을 이해하고 어색하지 않게 참여하도록 돕는다.</li>
+<li><strong>숨은 긴장 가설:</strong> 친한 단골만 통하는 폐쇄적인 방에서는 자신도 오래 머물기 어렵다고 느낄 수 있다.</li>
+<li><strong>관찰 신호:</strong> 처음 댓글을 단 사람을 환영한다. 내부 농담의 맥락을 짧게 설명한다. 무시된 사람에게 대화를 연결한다.</li>
+<li><strong>원하는 경험:</strong> kye가 직접 신규 진입 장벽을 낮추고, 단골이 출입권을 통제하지 않는 방송.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 포용적인 장면이나 자랑스럽게 소개할 만한 방 문화를 지지하는 소액·행사성 선물이 가능하다.</li>
+<li><strong>kye가 주는 것:</strong> 한 문장 맥락 설명, 신규도 답할 질문, 환영 행동에 대한 공개 기준.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 내부자 언어를 감지하고 단골 인정과 열린 접근성을 균형 있게 다루는 능력.</li>
+<li><strong>LIVE 반응:</strong> 도움에 감사하되 환영의 책임은 kye가 이어받고 신규 시청자에게 답변 의무를 주지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 신규 시청자 정보를 모으거나 대신 연락하게 하지 않는다. 팬 모집이나 개인 소개를 비공식 임무로 주지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 단골에게 신규 심사를 맡기기, 후원 등급으로 접근권을 나누기, 내부 농담을 권력으로 쓰기.</li>
+<li><strong>첫 실험:</strong> 내부 맥락이 나올 때마다 한 문장 설명을 넣고 그 뒤 몇 분 안에 처음 댓글을 다는 인원이 늘어나는지 본다.</li>
+<li><strong>금전 부담 경고:</strong> 신규 유입에 기여했다는 이유로 재정적 기여까지 요구하지 않는다. 포용성을 선물 목표 달성 수단으로만 취급하지 않는다.</li>
+</ul>
+<h2 id="p10">P10. 공동체 돌봄형 — 오래 건강한 방을 만들고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 호스트만 소비하기보다 서로 존중하는 집단에 참여한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 소속은 원하지만 ‘가족’이라는 말로 충성·출석·결제를 강요받고 싶지는 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 다른 시청자를 격려한다. 공동 기념일과 규칙에 관심을 보인다. 갈등과 배제에 민감하게 반응한다.</li>
+<li><strong>원하는 경험:</strong> 공정한 규칙, 비결제자도 보이는 감사, 오해의 차분한 수습, 열린 공동 의식.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 방송 지속, 공동 행사, 모두가 보는 개선을 위한 반복 또는 기념성 선물이 가능하다.</li>
+<li><strong>kye가 주는 것:</strong> 행동으로 설명한 방 규칙, 함께 축하하는 순간, 갈등을 키우지 않는 진행.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 규범을 짧게 말하고 일관되게 적용하며 파벌 없이 갈등을 낮추는 능력.</li>
+<li><strong>LIVE 반응:</strong> 좋은 돌봄 행동을 구체적으로 인정하되 ‘엄마 역할’이나 상시 관리 책임을 부여하지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 다른 시청자의 사정이나 분쟁을 캐내 달라고 하지 않는다. 신고·갈등 정보는 필요한 사실만 받고 비밀 동맹을 만들지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 가족·충성 언어로 의무 만들기, 파벌을 참여로 포장하기, 큰 후원자에게 규칙 예외 주기.</li>
+<li><strong>첫 실험:</strong> “새로 온 사람이 끼기 쉽게 한다” 같은 긍정 규칙 하나를 6회 반복하고 실제 모방 행동을 기록한다.</li>
+<li><strong>금전 부담 경고:</strong> 공동체를 지키려면 돈을 내야 한다는 메시지를 금지한다. 공동 목표에는 댓글·좋아요 등 무료 경로를 함께 둔다.</li>
+</ul>
+<h2 id="p11">P11. 공정성 확인형 — 압박 속 원칙을 보는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 돈, 지위, 도발 앞에서도 kye가 사람을 일관되게 대하는지 확인한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 매력보다 원칙이 무너지는 순간을 더 중요하게 볼 수 있다.</li>
+<li><strong>관찰 신호:</strong> 갈등 때 조용히 지켜본다. 규칙의 일관성을 언급한다. 고액 후원자와 일반 시청자의 차별에 반응한다.</li>
+<li><strong>원하는 경험:</strong> 짧고 같은 기준의 경계, 과하지 않은 감사, 돈에 흔들리지 않는 태도.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> kye가 손해를 감수해도 원칙을 지킨 장면 뒤 신뢰 표시성 선물이 가능하다. 규모는 관찰만으로 예측하지 않는다.</li>
+<li><strong>kye가 주는 것:</strong> 투명한 규칙과 감정적으로 흔들리지 않는 집행.</li>
+<li><strong>kye가 길러야 할 능력:</strong> <code>행동 지적→한계 제시→흐름 복귀</code> 문장을 익히고 실수 뒤 변명 없이 수정하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 사람을 평가하지 않고 문제 행동만 짚은 뒤 같은 기준을 적용하고 길게 분노하지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 분쟁 당사자에 대한 뒷말이나 편들기 요청에 응하지 않는다. 필요한 신고 사실만 받고 처리 결과의 사적 특혜를 약속하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 큰 후원자의 무례를 묵인하기, 작은 계정을 공개 망신 주기, 갈등을 선물 자극에 이용하기.</li>
+<li><strong>첫 실험:</strong> 비슷한 방해에 같은 3단계 경계 문장을 쓰고 적용 일관성, 회복 시간, 이후 참여를 검토한다.</li>
+<li><strong>금전 부담 경고:</strong> 원칙을 지킨 대가를 시청자에게 결제로 보상하라고 암시하지 않는다. 선물자가 규칙 위에 설 수 없음을 행동으로 유지한다.</li>
+</ul>
+<h2 id="p12">P12. 신뢰 검증형 — 오래 볼 만한 사람인지 확인하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> kye와 방이 장기적으로 시간을 쓰거나 지원할 만큼 일관되고 안전한지 판단한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 관심은 있어도 변덕, 차별, 과장된 친밀감, 선물 뒤 태도 변화가 없는지 증거를 먼저 볼 수 있다.</li>
+<li><strong>관찰 신호:</strong> 여러 번 조용히 본 뒤 댓글을 단다. 사실 질문을 한다. 말의 모순과 경계 적용을 확인한다. 참여와 선물이 늦게 시작될 수 있다.</li>
+<li><strong>원하는 경험:</strong> 시청자 수·기분·선물액이 달라도 같은 기본 존중, 실수 인정, 정확한 한계, 안정된 온도.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 여러 방문에서 일관성을 확인한 뒤 시험성 소액, 이후 반복 또는 특정 목표 후원으로 이어질 수 있다. 진행 속도만으로 경제력을 추정하지 않는다.</li>
+<li><strong>kye가 주는 것:</strong> 모르면 모른다고 말하고, 틀리면 고치며, 후원 전후에 태도를 바꾸지 않는 신뢰.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 컨디션·방 크기·후원자 지위와 무관한 행동 기준, 방어적이지 않은 수정, 약속 추적.</li>
+<li><strong>LIVE 반응:</strong> 빠르게 안쪽 사람으로 끌어들이려 하지 않고 사실 질문에 정확히 답하며 관찰할 시간을 준다.</li>
+<li><strong>후속·DM 경계:</strong> 조용한 반복 방문을 DM 허가로 보지 않는다. 문의가 오면 사실 중심으로 답하고 관계 확정이나 충성 약속을 요구하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 과한 환대 공세, 신중함을 공략 대상으로 보기, 선물 뒤 갑자기 애정 표현과 연락을 늘리기.</li>
+<li><strong>첫 실험:</strong> 6회 동안 환영·경계·감사 기준을 같은 방식으로 적용하고 재방문자에게 일관되거나 달랐던 점을 중립적으로 묻는다.</li>
+<li><strong>금전 부담 경고:</strong> 첫 선물을 ‘벽이 무너졌다’는 신호로 보지 않는다. 다음 선물이나 더 큰 금액을 예상하지 않고 동일한 선택권을 유지한다.</li>
+</ul>
+<h2 id="p13-kye">P13. 성장 응원형 — kye의 발전 과정을 보고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 믿을 만한 사람이 연습하고 나아지는 과정을 함께 지켜본다.</li>
+<li><strong>숨은 긴장 가설:</strong> 성장 이야기는 좋아하지만 연출된 고난, 반복되는 위기, 지켜지지 않는 약속에는 피로를 느낄 수 있다.</li>
+<li><strong>관찰 신호:</strong> 연습 진행을 묻는다. 작은 향상을 알아본다. 이전 목표를 기억하며 완성 장면에 반응한다.</li>
+<li><strong>원하는 경험:</strong> 구체적인 목표, 실제 연습, 작은 증거, 실패를 과장하지 않는 보고.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 진전이나 완료를 축하하는 소액·반복·마일스톤성 선물이 가능하다. 사람을 구조하기보다 성장을 응원하는 논리다.</li>
+<li><strong>kye가 주는 것:</strong> 위트·진행·노래·화면 표현을 실제로 키워 가는 정직한 성장 서사.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 작고 측정 가능한 목표를 세우고, 연습을 보여 주며, 결과를 간결하게 보고하는 능력.</li>
+<li><strong>LIVE 반응:</strong> “지난주보다 여기까지 나아졌습니다”라고 증거를 보여 주고 피드백은 구하되 성공 책임을 팬에게 넘기지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 연습 자료나 공개 일정을 공유할 수 있지만 “당신 덕분에 버틴다”는 의존 표현이나 개인 후원 요청은 하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 위기 서사를 반복하기, 계획 없는 약속, 팬이 kye의 성공을 책임져야 한다고 말하기.</li>
+<li><strong>첫 실험:</strong> 비용이 들지 않는 7일 기술 목표를 정하고 여러 LIVE에서 30초 진전 표본을 보여 준 뒤 피드백을 기록한다.</li>
+<li><strong>금전 부담 경고:</strong> 성장의 막힘을 돈 부족으로만 설명하지 않는다. 큰 선물이 와도 “다음 단계까지 더”라고 즉시 이어 가지 않는다.</li>
+</ul>
+<h2 id="p14">P14. 구체 개선 후원형 — 보이는 한 가지 개선을 돕고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 용도와 결과를 이해할 수 있는 장비·교육·코너 개선에 선택적으로 힘을 보탠다.</li>
+<li><strong>숨은 긴장 가설:</strong> 지원 의향이 있어도 막연한 호소와 끝없는 추가 요구는 피하고 싶을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 장비나 수업이 무엇을 바꾸는지 묻는다. 선택지를 비교한다. 실제 개선이 완료됐는지 다시 확인한다.</li>
+<li><strong>원하는 경험:</strong> 범위, 필요성, 예상 비용, kye의 자체 부담, 완료 기준이 분명한 프로젝트.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 특정 목표가 납득될 때 일회성 집중 또는 여러 번 나눈 선물이 가능하다. 규모는 본인이 선택하며 장비 가격으로 개인 몫을 정하지 않는다.</li>
+<li><strong>kye가 주는 것:</strong> 선택 가능한 공개 정보, 선물하지 않아도 보는 진행 상황, 완료 뒤 모두에게 공개하는 결과.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 예산과 범위를 설명하고, 과잉 사양을 피하며, 약속한 결과를 보고하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 목적과 대안을 짧게 설명하고 “선물은 선택이며 현재 장비로도 방송은 계속한다”고 분명히 한다.</li>
+<li><strong>후속·DM 경계:</strong> 개인에게 부족액을 채워 달라고 DM하지 않는다. 요청받으면 공개된 프로젝트 정보만 보내고 후원에 따른 통제권은 없음을 알린다.</li>
+<li><strong>잘못된 대응:</strong> 가짜 긴급성, 총비용 숨기기, 후원자가 콘텐츠나 사적 관계를 소유한다고 느끼게 하기.</li>
+<li><strong>첫 실험:</strong> 개선안 하나에 목적·비용 범위·kye 부담·무료 대안·완료일을 공개하고 질문과 신뢰 반응을 본다.</li>
+<li><strong>금전 부담 경고:</strong> 목표액을 인원별 할당으로 바꾸지 않는다. 목표 달성 직후 새 목표를 붙이지 않고, 큰 선물에는 예산 우선과 중단 메시지를 준다.</li>
+</ul>
+<h2 id="p15">P15. 형식 공동설계형 — 작은 선택이 실제 방송에 반영되길 원하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 제한된 범위 안에서 다음 코너나 진행 방식에 의견을 내고 결과를 본다.</li>
+<li><strong>숨은 긴장 가설:</strong> 영향력은 원하지만 kye의 경력 전체를 책임지거나 돈으로 지휘하는 관계는 원치 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 코너를 제안하고 투표에 꾸준히 참여한다. 아이디어를 현실적으로 다듬고 실행 여부를 확인하러 돌아온다.</li>
+<li><strong>원하는 경험:</strong> 실행 가능한 선택지, 채택 기준, 결과 보고, 채택되지 않은 의견에 대한 존중.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 자신이 참여한 형식이 실제로 잘 구현될 때 소액·행사성 선물이 가능하다.</li>
+<li><strong>kye가 주는 것:</strong> 두세 개의 명확한 선택지, 최종 방향을 책임지는 진행, 실행 뒤 솔직한 회고.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 좋은 입력을 받고 정중히 거절하며 브랜드 방향을 지키는 능력.</li>
+<li><strong>LIVE 반응:</strong> 제안을 곧바로 약속하지 않고 실행 조건을 말한 뒤 방 전체의 선택으로 넓힌다.</li>
+<li><strong>후속·DM 경계:</strong> 아이디어를 받기 위한 사적 친밀감 경쟁을 만들지 않는다. 구체 기획이 필요하면 공개 양식이나 명확한 범위의 DM만 쓴다.</li>
+<li><strong>잘못된 대응:</strong> 최고 후원자에게 편성권 주기, 실행하지 않을 의견을 계속 모집하기, 채택을 애정 표현처럼 다루기.</li>
+<li><strong>첫 실험:</strong> 똑같이 실행 가능한 미니 형식 두 개를 무료 투표로 고르고 다음 방송에 실행한 뒤 결과를 보고한다.</li>
+<li><strong>금전 부담 경고:</strong> 선물에 투표권 가중치를 주지 않는다. 아이디어 채택과 후원을 교환하거나 제작비 책임을 제안자에게 넘기지 않는다.</li>
+</ul>
+<h2 id="p16">P16. 가치 배분형 — 돈의 쓰임과 결과를 따져 선택하는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 자신의 선택 가능한 지출을 품질, 지속성, 책임감, 공동 이익이 보이는 곳에 배분한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 감정적 압박보다 투명한 선택지와 실제 결과를 원할 수 있다.</li>
+<li><strong>관찰 신호:</strong> 지원이 무엇을 가능하게 하는지 묻는다. 여러 개선안을 비교한다. 시간을 두고 결정하며 완료 보고를 확인한다.</li>
+<li><strong>원하는 경험:</strong> 선물 없이도 존재하는 가치, 선택지별 차이, 솔직한 비용·한계, 후속 결과.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 계획된 소액·반복·일회성 집중 후원이 모두 가능하다. 규모는 본인의 우선순위와 시점에 따라 달라지며 소득 추정 자료가 아니다.</li>
+<li><strong>kye가 주는 것:</strong> 월간 개선 요약, 돈이 들지 않는 개선과 필요한 투자의 구분, 약속 이행 증거.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 판매 압박 없이 가치를 설명하고, 선택의 기회비용과 결과를 정직하게 보고하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 질문에 숫자를 꾸미지 않고 아는 범위만 답한다. “후원하지 않아도 콘텐츠는 제공된다”는 선택권을 함께 말한다.</li>
+<li><strong>후속·DM 경계:</strong> 개인 자산·직업·예산을 묻지 않는다. DM은 요청받은 공개 자료 전달까지만 하고 개인 맞춤 금액을 권하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 인위적 마감, 막연한 “나를 지원해 달라”, 숨은 반복 기대, 지불 능력을 의무로 바꾸기.</li>
+<li><strong>첫 실험:</strong> 월 1회 <code>무엇이 좋아졌나/다음은 무엇인가/비용 없이 할 일은 무엇인가</code>를 공개하고 질문·재방문·신뢰 반응을 본다.</li>
+<li><strong>금전 부담 경고:</strong> 지출 여력이 있어 보인다는 판단 자체를 하지 않는다. 후원 선택을 합리성·인품의 시험으로 만들거나 개인별 목표액을 제시하지 않는다.</li>
+</ul>
+<h2 id="p17">P17. 순간 완성형 — 기억에 남는 절정을 만들고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 생일, 기념일, 복귀, 목표 달성, 뛰어난 즉흥 장면을 강하게 표시한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 큰 순간의 영향력은 즐겨도 이후 계속 개인 관심을 받는 것은 원치 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 행사와 절정에 맞춰 들어온다. 카운트다운·축하 이모지를 쓴다. 짧은 시간에 선물이 몰리고 평소 대화는 적을 수 있다.</li>
+<li><strong>원하는 경험:</strong> 강하고 짧은 반응, 모두가 참여하는 축하, 과열되지 않는 정상 흐름 복귀.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 평소보다 집중된 행사성 선물이 가능하다. 빈도나 금액으로 경제력을 단정하지 않고 해당 순간의 선택으로 본다.</li>
+<li><strong>kye가 주는 것:</strong> 20초 안팎의 품위 있는 축하와 ‘함께 만든 순간’이라는 의미.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 절정 반응, 간결한 감사, 선물 경쟁이 되기 전 흐름을 되돌리는 능력.</li>
+<li><strong>LIVE 반응:</strong> 구체적으로 감사하고 방 전체가 무료로 참여할 축하 동작·문구를 넣은 뒤 다음 장면으로 넘어간다.</li>
+<li><strong>후속·DM 경계:</strong> 행사 뒤 개인 연락이나 지속 후원을 기대하지 않는다. 감사 DM은 원하거나 기존에 열린 대화가 있을 때 한 번만 보낸다.</li>
+<li><strong>잘못된 대응:</strong> 다음 선물이 올 때까지 반응을 늘이기, 후원자 비교, 평범한 방송을 실패라고 만들기.</li>
+<li><strong>첫 실험:</strong> 돈과 무관한 세션 마일스톤 하나와 20초 축하 의식을 만들고 기대감·참여자 수·과열 여부를 본다.</li>
+<li><strong>금전 부담 경고:</strong> 절정의 흥분 속에서 추가 선물을 연속 요청하지 않는다. 큰 선물 뒤 “오늘은 충분합니다. 예산이 먼저입니다”라고 멈춘다.</li>
+</ul>
+<h2 id="p18">P18. 게임 전략형 — 배틀의 전술과 팀플레이를 즐기는 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> LIVE Match의 시간, 점수, 선택을 읽고 팀으로 움직이는 재미를 얻는다.</li>
+<li><strong>숨은 긴장 가설:</strong> 경쟁은 좋아해도 사랑·충성의 증명이나 패배 수치심으로 바뀌는 것은 거부할 수 있다.</li>
+<li><strong>관찰 신호:</strong> 점수와 시간을 추적한다. 타이밍을 제안한다. 배틀 때 나타나며 관계 이야기보다 규칙과 전략을 말한다.</li>
+<li><strong>원하는 경험:</strong> 공식 규칙, 정확한 시간 안내, 무료 참여 역할, 상대 존중, 결과와 무관한 차분한 회고.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 전술적 순간에 소액 또는 짧은 집중 선물이 가능하다. 이는 게임 참여 방식이지 애정 수준이나 재산 신호가 아니다.</li>
+<li><strong>kye가 주는 것:</strong> 침착한 팀 리딩, 좋아요·댓글로 참여할 역할, 이기고 져도 품위를 지키는 반응.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 플랫폼 규칙, 짧은 전술 전달, 패배 감정 조절, 안전한 지출 언어.</li>
+<li><strong>LIVE 반응:</strong> 시작 전에 무압박 원칙과 무료 역할을 말하고, 경기 중에는 점수보다 행동 선택을 간결히 안내한다.</li>
+<li><strong>후속·DM 경계:</strong> 패배 뒤 개인에게 왜 더 보내지 않았는지 묻지 않는다. 전략 피드백은 공개 회고에서 받고 개인별 결제 계획을 세우지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 공포에 질린 고성, 패배 뒤 원망, “사랑하면 증명” 언어, 후원자끼리 경쟁 붙이기.</li>
+<li><strong>첫 실험:</strong> 공식 LIVE Match 한 회에서 무압박 규칙과 비후원 역할을 먼저 밝히고 분위기, 협업, kye의 침착성을 검토한다.</li>
+<li><strong>금전 부담 경고:</strong> 점수 역전을 위해 예산 초과를 부추기지 않는다. 잔액·선물 제한 알림 사용을 방해하지 않고 종료 직전 반복 카운트다운을 피한다.</li>
+</ul>
+<h2 id="p19">P19. 품위 있는 인정형 — 의미 있는 기여를 공개적으로 확인받고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 자신의 기여가 보였고 무엇을 도왔는지 품위 있게 인정받는다.</li>
+<li><strong>숨은 긴장 가설:</strong> 영향력과 지위 표현은 원해도 유치한 아첨, 연애 암시, kye 소유권처럼 보이는 표현은 원치 않을 수 있다.</li>
+<li><strong>관찰 신호:</strong> 이름을 넣은 감사에 긍정적으로 반응한다. 공개 마일스톤에 참여한다. 친밀한 애칭보다 공식적이고 구체적인 인정을 선호한다.</li>
+<li><strong>원하는 경험:</strong> 기여 내용에 연결된 짧은 공개 감사, 일관된 기준, 다른 사람의 존엄을 해치지 않는 인정.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 공개 축하가 있는 마일스톤에서 소액부터 집중 선물까지 나타날 수 있다. 실제 반복 행동 전에는 규모를 예측하지 않는다.</li>
+<li><strong>kye가 주는 것:</strong> “무엇이 도움이 됐는지”를 말하는 절제된 감사와 방 전체의 축하.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 비굴하지 않게 따뜻한 감사를 하고, 인정이 방의 권력으로 변하지 않게 관리하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 이름·기여·감사를 10초 안팎으로 말하고 독점적 애칭 없이 전체 흐름으로 돌아간다.</li>
+<li><strong>후속·DM 경계:</strong> 공개 인정 선호를 한 번 확인할 수 있지만, 개인 관계나 상시 우선 응답을 보상으로 약속하지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 연애성 애칭, 과장된 헌신 선언, 후원 등급 경쟁, 다른 시청자 통제권 주기.</li>
+<li><strong>첫 실험:</strong> 비슷한 기여에 같은 10초 감사 형식을 쓰고 공개 인정 선호·무관심·거부 반응을 기록한다.</li>
+<li><strong>금전 부담 경고:</strong> 더 큰 인정은 더 큰 결제가 필요하다는 계단을 만들지 않는다. 호명은 선물액이 아니라 선호와 맥락을 고려한다.</li>
+</ul>
+<h2 id="p20">P20. 비공개 선호 후원형 — 드러나지 않고 지원하고 싶은 시청자</h2>
+<ul>
+<li><strong>찾는 가치·하려는 일:</strong> 가치 있는 방송을 돕되 공개 노출, 추가 요청, 관계 의무는 최소화한다.</li>
+<li><strong>숨은 긴장 가설:</strong> 인정 자체가 보상이 아니라 부담이나 다음 요청의 시작처럼 느껴질 수 있다.</li>
+<li><strong>관찰 신호:</strong> 말 없이 선물한다. 긴 감사에 반응하지 않는다. 호명하지 말아 달라고 하거나 주목 뒤 참여가 줄어든다.</li>
+<li><strong>원하는 경험:</strong> 액수 반복이 없고, 짧거나 생략 가능한 감사, 다음 방문에도 똑같은 기본 환영.</li>
+<li><strong>후원 논리·가능 규모/계기:</strong> 가치에 맞춘 소액·반복·간헐적 집중 후원 모두 가능하지만 공개 행동만으로 규모나 자산을 추정할 수 없다.</li>
+<li><strong>kye가 주는 것:</strong> 인정 방식 선택권, 짧은 감사, 선물 뒤에도 부담 없는 거리.</li>
+<li><strong>kye가 길러야 할 능력:</strong> 공개 인정 선호를 최소한으로 기억하고 감사와 재요청을 분리하는 능력.</li>
+<li><strong>LIVE 반응:</strong> 선호를 모르면 짧게 감사하고, ‘조용히 감사받기’를 요청했다면 이름·액수를 반복하지 않는다.</li>
+<li><strong>후속·DM 경계:</strong> 선물만을 이유로 먼저 DM하지 않는다. 연락 요청이 있어도 감사 한 번으로 끝내고 계속 후원할지 묻지 않는다.</li>
+<li><strong>잘못된 대응:</strong> 총액 공개, 발언 강요, 무단 DM, 플랫폼이 보장하지 않는 완전한 익명성 약속.</li>
+<li><strong>첫 실험:</strong> “감사는 짧게 받을 수 있고 누구도 말하거나 다시 선물할 의무가 없습니다”라는 방 원칙을 알리고 체류 변화를 본다.</li>
+<li><strong>금전 부담 경고:</strong> 조용함을 높은 지출 여력이나 비밀 후원 의사로 오해하지 않는다. 반복 선물이 멈춰도 연락 빈도나 태도를 바꾸지 않는다.</li>
+</ul>
+<hr>
+<h2 id="_2">빠른 구별 지도</h2>
+<table>
+<thead>
+<tr>
+<th>반복 행동의 중심</th>
+<th>우선 가설</th>
+<th>이웃 유형과 가르는 질문</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>피로를 낮추고 편해지기</td>
+<td>P01 하루 전환형</td>
+<td>일정 자체보다 지금의 상태 전환이 중요한가?</td>
+</tr>
+<tr>
+<td>같은 시간·의식으로 돌아오기</td>
+<td>P02 생활 의식형</td>
+<td>기억이나 인정보다 예측 가능성이 중요한가?</td>
+</tr>
+<tr>
+<td>보되 드러나지 않기</td>
+<td>P03 조용한 감상형</td>
+<td>후원 여부와 무관하게 낮은 노출이 핵심인가?</td>
+</tr>
+<tr>
+<td>짧고 내용 있는 대화</td>
+<td>P04 생각 교환형</td>
+<td>방송 형식을 바꾸기보다 관점을 주고받고 싶은가?</td>
+</tr>
+<tr>
+<td>재치 있는 장난과 응수</td>
+<td>P05 위트 시험형</td>
+<td>규칙이나 전략보다 순발력과 존중을 시험하는가?</td>
+</tr>
+<tr>
+<td>화면·말·흐름의 완성도</td>
+<td>P06 감각 큐레이션형</td>
+<td>참여 권한보다 감상 품질이 중요한가?</td>
+</tr>
+<tr>
+<td>이전 말의 정확한 연속성</td>
+<td>P07 기억 확인형</td>
+<td>공개 지위보다 정확한 기억이 중요한가?</td>
+</tr>
+<tr>
+<td>정적인 방에 활기 넣기</td>
+<td>P08 분위기 점화형</td>
+<td>신규 안내보다 전체 반응의 점화가 중심인가?</td>
+</tr>
+<tr>
+<td>신규 진입을 쉽게 만들기</td>
+<td>P09 새사람 연결형</td>
+<td>기존 방의 활기보다 낯선 사람의 접근성이 중심인가?</td>
+</tr>
+<tr>
+<td>오래 건강한 집단 만들기</td>
+<td>P10 공동체 돌봄형</td>
+<td>한 번의 공정보다 지속적인 규범과 소속이 중요한가?</td>
+</tr>
+<tr>
+<td>돈·압박 앞 원칙 확인</td>
+<td>P11 공정성 확인형</td>
+<td>공동체 관리보다 kye의 일관된 판단을 검증하는가?</td>
+</tr>
+<tr>
+<td>참여 전 일관성 관찰</td>
+<td>P12 신뢰 검증형</td>
+<td>결과의 효율보다 사람과 방의 신뢰 검증이 먼저인가?</td>
+</tr>
+<tr>
+<td>kye의 발전 과정 응원</td>
+<td>P13 성장 응원형</td>
+<td>특정 구매보다 성장 흐름 자체가 중요한가?</td>
+</tr>
+<tr>
+<td>한 가지 구체 개선 완성</td>
+<td>P14 구체 개선 후원형</td>
+<td>범위·비용·완료가 정해진 프로젝트인가?</td>
+</tr>
+<tr>
+<td>작은 선택이 방송에 반영</td>
+<td>P15 형식 공동설계형</td>
+<td>돈과 무관한 제한된 영향력을 원하는가?</td>
+</tr>
+<tr>
+<td>쓰임·책임·결과를 비교</td>
+<td>P16 가치 배분형</td>
+<td>한 프로젝트보다 여러 선택지의 가치 판단이 중심인가?</td>
+</tr>
+<tr>
+<td>기념일·절정에 강한 표시</td>
+<td>P17 순간 완성형</td>
+<td>평소 반복보다 특정 순간에 기여가 몰리는가?</td>
+</tr>
+<tr>
+<td>배틀 규칙·타이밍·팀플레이</td>
+<td>P18 게임 전략형</td>
+<td>관계 표현보다 전술적 재미가 중심인가?</td>
+</tr>
+<tr>
+<td>공개적이고 품위 있는 감사</td>
+<td>P19 품위 있는 인정형</td>
+<td>보이는 인정이 가치의 일부인가?</td>
+</tr>
+<tr>
+<td>낮은 노출로 후원</td>
+<td>P20 비공개 선호 후원형</td>
+<td>인정이 보상이 아니라 비용에 가까운가?</td>
+</tr>
+<tr>
+<td>## 합치기 규칙</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>다음 조건을 <strong>여러 시청자와 여러 방송에서 모두</strong> 확인했을 때만 두 유형을 합친다.</p>
+<ol>
+<li>같은 핵심 목적 하나가 두 행동을 더 잘 설명한다.</li>
+<li>같은 LIVE 대응이 두 집단의 체류·재방문·편안함을 함께 높인다.</li>
+<li>원하는 공개성, 영향력, 친밀감, 방 안 역할이 충돌하지 않는다.</li>
+<li>후원 계기와 선호하는 감사 방식이 실질적으로 같다.</li>
+<li>반복 행동을 봐도 운영자가 두 유형을 안정적으로 구분할 수 없다.</li>
+</ol>
+<p><strong>우선 검토할 합병 후보</strong></p>
+<ul>
+<li>P03/P20: 조용히 보는 욕구와 조용히 후원하는 욕구가 실제 운영에서 구별되지 않을 때.</li>
+<li>P13/P14: 성장 과정 응원과 구체 프로젝트 지원이 같은 목표·보고 방식으로만 움직일 때.</li>
+<li>P10/P11: 공동체 돌봄과 공정성 감시가 항상 함께 나타나고 다른 대응이 필요 없을 때.</li>
+<li>P16/P12: 결과 검토가 독립된 배분 목적이 아니라 단지 신뢰를 확인하는 과정일 때.</li>
+</ul>
+<h2 id="_3">나누기 규칙</h2>
+<p>한 유형 안에 <strong>서로 반대되는 대응이 필요한 집단</strong>이 반복해서 나타날 때만 나눈다.</p>
+<ul>
+<li>공개 호명이 한쪽에는 만족을 주고 다른 쪽에는 이탈을 만든다.</li>
+<li>한쪽은 콘텐츠 영향력을 원하지만 다른 쪽은 실행 결과만 확인하려 한다.</li>
+<li>한쪽은 절정에서 집중 후원하고 다른 쪽은 미리 정한 주기로 배분한다.</li>
+<li>한쪽은 kye와 직접 대화를 원하지만 다른 쪽은 방 전체의 경험을 더 중시한다.</li>
+<li>같은 실험이 한쪽의 체류를 높이고 다른 쪽의 체류를 반복해서 낮춘다.</li>
+<li>정의에 “경우에 따라 정반대”라는 예외가 계속 붙어 현장 대응을 결정할 수 없다.</li>
+</ul>
+<p><strong>우선 관찰할 분리 후보</strong></p>
+<ul>
+<li>P01: 잔잔한 회복형과 밝은 기분 전환형.</li>
+<li>P04: 관점 교환형과 실용 정보 요청형.</li>
+<li>P08: 자발적 점화형과 공식 운영 역할 선호형.</li>
+<li>P13: 기술 성장 응원형과 인물의 태도 성장 응원형.</li>
+<li>P18: 협동 게임형과 순위·성취 게임형. 단, 후자는 과소비 경쟁을 허용한다는 뜻이 아니다.</li>
+</ul>
+<h2 id="_4">최소 검증 기록</h2>
+<ul>
+<li>날짜·방송과 실제로 본 행동</li>
+<li>본인이 직접 말한 선호</li>
+<li>주 동기 태그·보조 동기 태그와 확신도(낮음/중간/높음)</li>
+<li>가설에 맞지 않는 반대 증거</li>
+<li>시도한 LIVE 대응과 체류·이탈·댓글·재방문·거부 반응</li>
+<li>공개 인정과 DM 선호</li>
+<li>방 전체 참여가 넓어졌는지 좁아졌는지</li>
+</ul>
+<p>기록하지 않는 항목: 추정 소득·자산, 결혼·연애 상태, 외로움, 정신건강, 성적 관심. 이 분류를 개인별 결제 압력, 취약성 점수, 연애성 자동 문구에 사용하지 않는다.</p></div>
+      </article><article class="document-section" id="match-strategy" data-search="LIVE Match 수익·경쟁 전략">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 04</p>
+          <h2>LIVE Match 수익·경쟁 전략</h2>
+        </header>
+        <div class="prose"><h1 id="tiktok-live-match">TikTok LIVE Match 수익·후원자 심리 전략</h1>
+<ul>
+<li>작성일: 2026-10-16</li>
+<li>상태: <strong>K의 실제 운영 경험으로 확인된 Match 구조와 리서치 근거를 연결한 핵심 문서</strong></li>
+<li>적용 범위: TikTok LIVE Match, 후원 경쟁, 주요 후원자 인식과 관계 관리</li>
+<li>관련 문서: <code>01_RESEARCH_FOUNDATION.md</code>, <code>02_MARKET_PERSONAS_WOMEN_30_59.md</code>, <code>02_BEHAVIOR_MOTIVE_TAGS.md</code>, <code>04_RELATIONSHIP_PLAYBOOK.md</code>, <code>05_VALIDATION_PLAN.md</code></li>
+</ul>
+<h2 id="_1">이 문서의 역할</h2>
+<p>TikTok LIVE에서 Match는 관계 운영에 딸린 작은 코너가 아니다. K의 설명에 따르면 <strong>대부분의 후원이 발생하는 중심 수익 구조</strong>다.</p>
+<p>따라서 다음 두 영역을 분리해 본다.</p>
+<ol>
+<li><strong>관계 운영:</strong> 왜 K를 좋아하고 다시 찾아오는가</li>
+<li><strong>Match 운영:</strong> 쌓인 호감·소속·경쟁심이 어떻게 지금의 Gift 행동으로 바뀌는가</li>
+</ol>
+<p>이 문서는 두 번째 영역을 맡는다.</p>
+<hr>
+<h2 id="1-live-match">1. 일반 LIVE와 Match의 결정적 차이</h2>
+<h3 id="11-live">1.1 일반 LIVE</h3>
+<p>일반 LIVE에서는 시청자가 K에게서 먼저 가치를 받는다.</p>
+<p><code>재미·매력·대화·편안함 → 재방문 → 팬 정체성 → 자발적 후원</code></p>
+<p>후원은 콘텐츠와 관계에 대한 감사·지원의 표현이다. 지금 당장 결제하지 않아도 방송을 계속 볼 수 있다.</p>
+<h3 id="12-live-match">1.2 LIVE Match</h3>
+<p>Match에서는 Gift가 감상 뒤에 붙는 보상이 아니라 <strong>경기의 결과를 바꾸는 행동</strong>이 된다.</p>
+<p><code>상대 등장 → 점수 공개 → 제한시간 → 우리 팀의 위기 → Gift로 개입 → 승패 변화</code></p>
+<p>시청자는 구경하는 사람에서 다음 역할로 바뀐다.</p>
+<ul>
+<li>K와 같은 편인 팀원</li>
+<li>점수를 움직이는 참가자</li>
+<li>위기 때 결과를 바꾸는 해결자</li>
+<li>다른 시청자에게 기여가 공개되는 후원자</li>
+</ul>
+<h3 id="13-match">1.3 Match의 수익 원리</h3>
+<p>Match는 관계에서 쌓인 감정을 경쟁 에너지로 바꾼다. Gift를 보내면 시청자는 다음 결과를 동시에 얻을 수 있다.</p>
+<ul>
+<li>상대를 이긴다.</li>
+<li>K를 돕는다.</li>
+<li>팀에 기여한다.</li>
+<li>자신의 영향력을 확인한다.</li>
+<li>다른 사람에게 역할과 지위가 보인다.</li>
+</ul>
+<p>따라서 Match에서 후원이 커지는 이유를 단순히 ‘K를 좋아해서’라고만 설명할 수 없다. <strong>호감, 팀 소속, 위기, 영향력, 공개 인정이 한순간에 결합하기 때문</strong>이다.</p>
+<hr>
+<h2 id="2">2. 질투와 경쟁을 어떻게 다룰 것인가</h2>
+<h3 id="21">2.1 수정된 원칙</h3>
+<p>기존 원칙인 ‘질투와 경쟁을 사용하지 않는다’는 Match의 실제 구조를 충분히 설명하지 못한다.</p>
+<p>수정된 원칙은 다음과 같다.</p>
+<blockquote>
+<p><strong>Match 안의 팀 경쟁·기여 경쟁·지위 경쟁은 적극적으로 운영한다. 다만 K의 애정과 사적 관계를 차지하기 위한 불안 경쟁으로 넘어가지 않게 통제한다.</strong></p>
+</blockquote>
+<h3 id="22">2.2 활용할 수 있는 경쟁</h3>
+<ul>
+<li>상대 팀과의 점수 경쟁</li>
+<li>제한시간 안의 역전과 방어</li>
+<li>누가 결정적인 순간에 팀을 도왔는가</li>
+<li>각자의 방식으로 팀에 기여하는 역할 경쟁</li>
+<li>이전 경기보다 더 나은 팀워크를 만드는 성장 경쟁</li>
+</ul>
+<p>이 경쟁은 Match가 제공하는 공개 규칙과 승패 안에서 벌어진다.</p>
+<h3 id="23">2.3 위험한 경쟁</h3>
+<ul>
+<li>누가 K의 사랑을 더 많이 받는가</li>
+<li>누가 K와 더 사적인 관계에 가까운가</li>
+<li>Gift를 보내지 않으면 자리를 빼앗기는가</li>
+<li>다른 여성보다 가치 있는 사람임을 돈으로 증명해야 하는가</li>
+<li>후원액으로 인간적 존중이나 연애 가능성을 사는가</li>
+</ul>
+<p>이 경쟁은 경기 점수가 아니라 사람의 관계 불안을 결제 압력으로 바꾼다.</p>
+<h3 id="24">2.4 현장에서 구별하는 기준</h3>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>Match 경쟁</th>
+<th>관계 불안 경쟁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>요청 대상</td>
+<td>팀 전체 또는 맡은 경기 역할</td>
+<td>특정 후원자의 애정·충성</td>
+</tr>
+<tr>
+<td>필요한 행동</td>
+<td>점수를 만들고 승패에 참여</td>
+<td>K에게 버림받지 않음을 증명</td>
+</tr>
+<tr>
+<td>얻는 결과</td>
+<td>역전·방어·승리·팀 기여</td>
+<td>독점적 관심·사적 자리 기대</td>
+</tr>
+<tr>
+<td>종료 시점</td>
+<td>라운드 종료와 함께 끝남</td>
+<td>방송 밖 관계까지 계속됨</td>
+</tr>
+<tr>
+<td>K의 감사</td>
+<td>무엇을 해냈는지 인정</td>
+<td>다른 사람보다 특별히 사랑한다고 암시</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-match">3. Match에서 후원자의 마음이 움직이는 순서</h2>
+<p>큰 Gift는 한 가지 감정으로 갑자기 생기지 않는다. 다음 단계가 겹치면서 행동 가능성이 커진다.</p>
+<p><code>K에 대한 호감 → 우리 편이라는 소속 → 위기 → 내가 바꿀 수 있다는 감각 → 공개 인정 → 역할 정체성</code></p>
+<h3 id="31-k">3.1 K에 대한 호감</h3>
+<p>상대를 이기고 싶다는 이유만으로 K에게 큰돈을 쓰지는 않는다. 먼저 <strong>‘이 사람이 이겼으면 좋겠다’</strong>는 감정이 필요하다.</p>
+<p>호감의 이유는 사람마다 다를 수 있다.</p>
+<ul>
+<li>외모와 남성적인 매력</li>
+<li>편안하게 대해 주는 태도</li>
+<li>나를 기억하고 알아봐 주는 경험</li>
+<li>성장 가능성</li>
+<li>방송을 지켜 주고 싶은 마음</li>
+<li>함께 놀 때 느끼는 즐거움</li>
+</ul>
+<p>Match는 이 감정을 처음부터 만드는 장치라기보다, <strong>이미 생긴 감정을 지금 행동으로 표현하게 하는 장치</strong>에 가깝다.</p>
+<h3 id="32">3.2 팀 소속</h3>
+<p>Match가 시작되면 시청자의 언어가 바뀐다.</p>
+<ul>
+<li>평소: “K의 방송을 본다.”</li>
+<li>Match: “우리가 상대 팀과 싸운다.”</li>
+</ul>
+<p>Gift는 K 개인에게 주는 선물이면서 동시에 팀을 위한 행동이 된다.</p>
+<h3 id="33">3.3 위기와 시간 제한</h3>
+<p>평소에는 후원을 미룰 수 있다. Match에서는 점수 차이와 남은 시간이 행동 시점을 정한다.</p>
+<p><code>뒤지고 있음 → 시간이 줄어듦 → 지금 움직이지 않으면 패배함</code></p>
+<p>위기는 막연한 후원 요청을 <strong>지금 필요한 구체적인 임무</strong>로 바꾼다.</p>
+<h3 id="34">3.4 영향력 확인</h3>
+<p>후원자가 Gift를 보내 역전이나 방어가 일어나면 결과가 즉시 보인다.</p>
+<ul>
+<li>점수가 움직인다.</li>
+<li>K의 표정과 목소리가 변한다.</li>
+<li>다른 팬들이 반응한다.</li>
+<li>실제 승패가 바뀐다.</li>
+</ul>
+<p>이때 후원자는 돈을 썼다는 느낌을 넘어 <strong>‘내가 K와 팀을 구했다’</strong>는 영향력을 경험할 수 있다.</p>
+<h3 id="35">3.5 공개 인정과 역할 정체성</h3>
+<p>K와 다른 시청자가 결정적인 기여를 기억하면 후원은 일회성 결제에서 역할로 바뀐다.</p>
+<ul>
+<li>위기 때 움직이는 사람</li>
+<li>역전을 만드는 사람</li>
+<li>마지막을 지키는 사람</li>
+<li>팀의 분위기와 자신감을 살리는 사람</li>
+</ul>
+<p>지속적인 주요 후원자 관계에서는 금액만 칭찬하는 것보다 <strong>어떤 순간에 무엇을 해냈는지 기억하는 것</strong>이 중요하다.</p>
+<hr>
+<h2 id="4">4. 큰 후원자에게 더 신경 쓰는 원칙</h2>
+<p>모두에게 똑같은 시간과 관심을 주는 것은 Match 운영에서 현실적인 공정함이 아니다.</p>
+<p>큰 후원자는 실제로 더 큰 자원을 투입하고 승패에 더 큰 영향을 준다. 따라서 다음을 더 받을 수 있다.</p>
+<ul>
+<li>더 정확하고 구체적인 감사</li>
+<li>이전의 결정적 기여를 기억하는 반응</li>
+<li>Match 전후의 역할 확인</li>
+<li>후원이 만든 결과에 대한 설명</li>
+<li>공개 인정 방식에 대한 세심한 관리</li>
+</ul>
+<p>그러나 Gift로 다음을 살 수는 없다.</p>
+<ul>
+<li>다른 사람보다 높은 인간적 가치</li>
+<li>K의 독점적 애정</li>
+<li>연애·만남·비밀 관계의 가능성</li>
+<li>다른 시청자를 통제할 권리</li>
+<li>K의 최종 방송 운영권</li>
+</ul>
+<p>핵심 원칙은 다음과 같다.</p>
+<blockquote>
+<p><strong>모두에게 기본적인 존중을 보장하되, 기여·관계·역할이 큰 사람에게는 그에 맞는 더 깊은 인정과 관리를 제공한다.</strong></p>
+</blockquote>
+<hr>
+<h2 id="5-k">5. 질투가 생겼을 때 K가 맡는 역할</h2>
+<p>한 사람이 ‘팀을 구한 핵심 인물’이 되면 다른 후원자는 다음 중 하나를 느낄 수 있다.</p>
+<ol>
+<li>나도 다음에는 저 역할을 맡고 싶다.</li>
+<li>원래 내 자리였는데 밀려난 것 같다.</li>
+<li>저 사람만 중요하고 나는 중요하지 않은 것 같다.</li>
+</ol>
+<p>첫 번째 감정은 다음 경기의 참여 동력이 될 수 있다. 두 번째와 세 번째가 강해지면 과소비, 후원자 간 공격, K의 관심을 둘러싼 관계 싸움으로 번질 수 있다.</p>
+<p>K의 역할은 경쟁을 제거하는 것이 아니다.</p>
+<ul>
+<li>여러 사람이 기여할 역할을 만든다.</li>
+<li>한 사람의 기여는 충분히 인정한다.</li>
+<li>다른 사람의 과거 기여를 지우지 않는다.</li>
+<li>‘가장 많이 쓴 한 사람만 중요한 방’이 되지 않게 한다.</li>
+<li>경쟁이 점수에서 사적 관계로 넘어가면 선을 긋는다.</li>
+</ul>
+<hr>
+<h2 id="6">6. 현재까지 확정된 운영 판단</h2>
+<h3 id="match">Match 전</h3>
+<ul>
+<li>평소 LIVE에서 K에 대한 호감과 신뢰를 먼저 쌓는다.</li>
+<li>누가 어떤 경기 역할과 인정 방식을 좋아하는지 관찰한다.</li>
+<li>주요 후원자의 존재를 알고 있더라도 한 사람만 움직일 것을 전제로 경기를 시작하지 않는다.</li>
+</ul>
+<h3 id="match_1">Match 중</h3>
+<ul>
+<li>점수 차이, 남은 시간, 필요한 행동을 구체적으로 말한다.</li>
+<li>후원 요청은 K에 대한 사랑의 증명이 아니라 경기 안의 임무로 제시한다.</li>
+<li>큰 기여가 나오면 금액만 외치지 않고 그 기여가 바꾼 결과를 말한다.</li>
+<li>큰 후원자에게 더 강한 관심을 주되 다른 참여자의 기여가 사라지지 않게 한다.</li>
+</ul>
+<h3 id="match_2">Match 후</h3>
+<ul>
+<li>승패와 결정적인 순간을 정리한다.</li>
+<li>큰 후원자가 무엇을 해냈는지 구체적으로 기억한다.</li>
+<li>패배 책임을 특정 후원자에게 돌리지 않는다.</li>
+<li>Match의 긴장과 경쟁을 방송 밖 애정 경쟁으로 연장하지 않는다.</li>
+</ul>
+<hr>
+<h2 id="7">7. 앞으로 설명하고 검증할 내용</h2>
+<p>다음 내용은 이 문서에 순차적으로 추가한다.</p>
+<ol>
+<li>Match에서 나타나는 후원자 역할: 주력형·전략형·마무리형·경쟁형·조용한 큰손 등</li>
+<li>Match 행동과 <code>02_MARKET_PERSONAS_WOMEN_30_59.md</code> 및 <code>02_BEHAVIOR_MOTIVE_TAGS.md</code>의 관계</li>
+<li>점수 차이와 남은 시간에 따른 진행 문구</li>
+<li>주요 후원자 한 명에게 의존하지 않는 팀 구성</li>
+<li>후원자 사이의 질투·갈등을 수익과 관계를 모두 해치지 않게 조절하는 방법</li>
+<li>승리·패배 뒤 후원자 관계를 회수하는 방법</li>
+<li>실제 Match 데이터를 기록하고 가설을 검증하는 기준</li>
+</ol>
+<p>아직 설명·합의하지 않은 역할 이름과 세부 운영법은 확정안으로 취급하지 않는다.</p></div>
+      </article><article class="document-section" id="relationship-playbook" data-search="관계 운영 플레이북">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 05</p>
+          <h2>관계 운영 플레이북</h2>
+        </header>
+        <div class="prose"><h1 id="kye">kye 시청자·후원자 관계 운영 플레이북</h1>
+<ul>
+<li>작성일: 2026-10-16</li>
+<li>적용 범위: TikTok LIVE, 재방문, Gifts, LIVE Match, 공개 인정, DM, 부재·복귀, 주요 후원자 관리</li>
+<li>근거 범위: 이 폴더의 1차 연구 근거표와 TikTok 공식 정책 기반, <code>CREATOR_PROFILE</code>의 브랜드·LIVE 원칙, 12개 시장 페르소나와 20개 행동 동기 태그</li>
+<li>상태: 실제 시청자 데이터로 검증하며 고칠 운영안. 시장 페르소나는 사람의 삶과 자기상을 이해하는 가설이고, 행동 태그는 <strong>그날의 시청·후원 동기</strong>를 읽는 보조 수단이다.</li>
+</ul>
+<hr>
+<h2 id="1">1. 관계 운영의 목표</h2>
+<blockquote>
+<p><strong>멋있어서 들어왔다가, 편안해서 머물고, 신뢰가 생겨 다시 찾아오며, 받은 가치가 분명한 사람이 형편 안에서 자발적으로 응원하는 LIVE를 만든다.</strong></p>
+</blockquote>
+<p>이 방송은 팬과 후원자를 만들고 지속 가능한 수익을 얻기 위한 사업이다. 수익 목적을 감추지 않는다. 다만 수익은 다음 순서로 만든다.</p>
+<p><code>정돈된 첫인상 → 가볍게 참여할 수 있는 즐거움 → 정확한 반응과 기억 → 반복해서 확인되는 신뢰 → 성장과 결과의 투명한 제시 → 자발적인 Gifts</code></p>
+<h3 id="kye_1">kye가 지켜야 할 네 가지 인상</h3>
+<ul>
+<li><strong>세련됨:</strong> 말을 늘이거나 호들갑을 떨지 않고, 화면·태도·감사를 정돈한다.</li>
+<li><strong>편안함:</strong> 말하지 않고 보고만 있어도 괜찮으며, 무료 참여도 진짜 기여로 인정한다.</li>
+<li><strong>신뢰:</strong> 모르는 것은 모른다고 하고, 약속과 일정은 지키며, 실수는 짧게 바로잡는다.</li>
+<li><strong>정중한 힘:</strong> 큰 후원자·공격적인 시청자·인기 호스트 앞에서도 원칙과 진행권을 넘기지 않는다.</li>
+</ul>
+<h3 id="_1">절대 팔지 않는 것</h3>
+<p>Gifts로 살 수 없는 것은 독점적 애정, 연애 가능성, 면대면 만남, 사적 접근권, 다른 팬보다 높은 인간적 가치, 방송 통제권이다. 감사의 깊이는 키울 수 있지만 친밀감의 독점성은 판매하지 않는다.</p>
+<hr>
+<h2 id="2">2. 현장 판단의 기본: 관찰 → 가설 → 작은 대응 → 확인</h2>
+<p>시청자 한 명을 한 번의 댓글이나 한 번의 Gift로 분류하지 않는다. 가능한 경우 세 번 이상의 방문에서 반복 행동과 본인이 직접 밝힌 선호를 본다.</p>
+<h3 id="21-5">2.1 5단계 순환</h3>
+<ol>
+<li><strong>관찰:</strong> 해석하지 말고 보인 행동을 적는다.<br>
+   예: <code>22:14 입장, 인사 없이 18분 시청, Rose 전송, 긴 감사 뒤 이탈.</code></li>
+<li><strong>가설:</strong> 주된 이용 목적 1개, 보조 가설 1개만 둔다.<br>
+   예: <code>H18 조용한 후원자 60% / H03 조용한 감상자 30%</code>.</li>
+<li><strong>작은 대응:</strong> Gift를 요구하지 않는 한 가지 행동만 시험한다.<br>
+   예: 다음 Gift에는 한 문장으로만 감사하고 개인 질문을 붙이지 않는다.</li>
+<li><strong>반응 확인:</strong> 머묾·댓글·재방문·거절·방 전체 참여 변화를 본다.</li>
+<li><strong>수정:</strong> 맞지 않는 증거를 함께 적고, 가설을 유지·낮춤·교체한다.</li>
+</ol>
+<h3 id="22">2.2 사실과 추측을 구분하는 기록법</h3>
+<ul>
+<li>사실: <code>“오늘은 조용히 듣고 싶어요”라고 말했다.</code></li>
+<li>가설: <code>주목을 부담스러워할 수 있다.</code></li>
+<li>금지된 단정: <code>외롭다</code>, <code>부자다</code>, <code>남편과 사이가 나쁘다</code>, <code>kye를 이성으로 좋아한다</code>.</li>
+</ul>
+<h3 id="23">2.3 확신도</h3>
+<ul>
+<li><strong>낮음:</strong> 한두 번의 행동만 있음. 평소처럼 공정하게 대하고 분류에 기대지 않는다.</li>
+<li><strong>중간:</strong> 여러 방문에서 반복되거나 본인이 선호를 말했다. 한 가지 맞춤 대응을 시험한다.</li>
+<li><strong>높음:</strong> 반복 행동, 직접 진술, 대응 결과가 서로 맞는다. 그래도 상황에 따라 바뀔 수 있다고 본다.</li>
+</ul>
+<hr>
+<h2 id="3-live">3. LIVE의 기본 동작</h2>
+<p>TikTok LIVE는 처음부터 따라오는 프로그램이 아니라 계속 사람이 드나드는 열린 방이다. 한 사람에게 반응한 뒤 전체가 다시 참여할 수 있게 넓힌다.</p>
+<h3 id="31">3.1 기본 마이크로 사이클</h3>
+<p><code>입장·댓글·Gift 포착 → 5~20초 반응 → 방 전체가 답할 쉬운 질문 → 여러 짧은 반응 → 표정·행동·주제 전환</code></p>
+<ul>
+<li>입장: “Welcome in. You can talk or just relax here.”<br>
+<strong>뜻:</strong> “어서 오세요. 얘기해도 좋고 그냥 편하게 쉬어도 돼요.”</li>
+<li>한 댓글을 전체로 확대: “That’s a good point. Are the rest of you more A or B?”<br>
+<strong>뜻:</strong> “좋은 관점이네요. 다른 분들은 A에 더 가까워요, B에 더 가까워요?”</li>
+<li>기존 팬 이야기의 맥락 복구: “Quick context for anyone new—we tried this yesterday and it went completely wrong.”<br>
+<strong>뜻:</strong> “처음 오신 분들을 위해 짧게 설명하면, 어제 이걸 해봤다가 완전히 실패했어요.”</li>
+<li>진지한 대화 닫기: “That deserves a real answer. My short version is this…”<br>
+<strong>뜻:</strong> “이건 제대로 답할 만한 질문이네요. 짧게 말하면 이렇습니다…”</li>
+</ul>
+<h3 id="32">3.2 관심 배분 기준</h3>
+<p>한 사이클 안에서 가능하면 다음 네 대상을 순환한다.</p>
+<ol>
+<li>처음 댓글을 쓴 사람</li>
+<li>재방문자</li>
+<li>좋은 질문·분위기 기여자</li>
+<li>Gift를 보낸 사람</li>
+</ol>
+<p>큰 Gift가 들어와도 방 전체를 장시간 멈추지 않는다. <strong>구체적으로 감사하고, 안전 문구를 덧붙이고, 함께 만든 순간으로 넓힌 뒤 진행을 되찾는다.</strong></p>
+<hr>
+<h2 id="4">4. 행동 동기 태그별 민감한 대응</h2>
+<p>아래 문구는 확정 분류가 아니라 반복 행동에 따라 시험할 첫 대응이다.</p>
+<table>
+<thead>
+<tr>
+<th>가설</th>
+<th>반복해서 보이는 중심 행동</th>
+<th>먼저 해볼 대응</th>
+<th>피할 행동</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H01 긴장 해소형</td>
+<td>피곤하다고 말함, 조용한 흐름에 머묾</td>
+<td>낮은 부담의 선택 질문, 조용히 봐도 된다는 허용</td>
+<td>힘든 이유 추궁, 상담화</td>
+</tr>
+<tr>
+<td>H02 의식적 단골형</td>
+<td>같은 요일·시간, 다음 일정 질문</td>
+<td>일정과 시작·마무리 신호를 정확히 안내</td>
+<td>출석 의무화, 지각 비난</td>
+</tr>
+<tr>
+<td>H03 조용한 감상형</td>
+<td>오래 보지만 거의 말하지 않음</td>
+<td>짧은 환영, 응답을 요구하지 않음</td>
+<td>반복 호명, “왜 조용해요?”</td>
+</tr>
+<tr>
+<td>H04 기억받는 단골형</td>
+<td>이전 대화 확인, 기억에 강한 반응</td>
+<td>공개해도 안전한 한 가지를 정확히 이어 묻기</td>
+<td>기억을 꾸미거나 사적 정보 공개</td>
+</tr>
+<tr>
+<td>H05 사려 깊은 대화형</td>
+<td>이유·관점 질문, 짧은 논의 선호</td>
+<td>한 관점 → 한 질문 → 전체 선택으로 확대</td>
+<td>긴 설교, 1:1 상담</td>
+</tr>
+<tr>
+<td>H06 유쾌한 도전자형</td>
+<td>가벼운 반박·놀림·말장난</td>
+<td>짧은 재치, 자기 쪽을 향한 유머, 깔끔한 종료</td>
+<td>성적 해석, 굴욕 주기</td>
+</tr>
+<tr>
+<td>H07 분위기 점화형</td>
+<td>먼저 답하고 채팅을 살림</td>
+<td>한 번 공을 인정한 뒤 전체 참여로 넓힘</td>
+<td>진행 책임 전가, 부재 시 원망</td>
+</tr>
+<tr>
+<td>H08 신규 연결형</td>
+<td>새 시청자를 환영하고 맥락을 설명</td>
+<td>열린 방 문화를 공개적으로 인정</td>
+<td>단골의 문지기 역할 허용</td>
+</tr>
+<tr>
+<td>H09 공동체 돌봄형</td>
+<td>공정한 분위기·구성원 안부에 관심</td>
+<td>행동으로 된 방 규칙과 공동 축하 제공</td>
+<td>“가족이면 해야 한다”는 충성 압박</td>
+</tr>
+<tr>
+<td>H10 공정성 확인형</td>
+<td>갈등과 차별 대우를 유심히 봄</td>
+<td>누구에게나 같은 경계 절차 적용</td>
+<td>큰 후원자의 무례 묵인</td>
+</tr>
+<tr>
+<td>H11 성장 후원형</td>
+<td>연습·발전·이전 목표를 확인</td>
+<td>작고 측정 가능한 성장 과정과 결과 공개</td>
+<td>위기 서사, 구조 요청</td>
+</tr>
+<tr>
+<td>H12 역량 후원형</td>
+<td>장비·레슨·구체적 개선 질문</td>
+<td>용도·범위·자기 부담·완료 결과 설명</td>
+<td>가짜 긴급성, 후원자의 소유권 인정</td>
+</tr>
+<tr>
+<td>H13 경험 큐레이터형</td>
+<td>조명·의상·음향·분위기 언급</td>
+<td>한 번에 한 요소를 개선하고 구체적 의견 요청</td>
+<td>사치 과시, 유행 무작정 복제</td>
+</tr>
+<tr>
+<td>H14 포맷 협업형</td>
+<td>코너·주제 아이디어와 투표 참여</td>
+<td>실행 가능한 2~3개 선택지를 전체에 제공</td>
+<td>최고액 후원자에게 결정권 부여</td>
+</tr>
+<tr>
+<td>H15 순간 창조형</td>
+<td>기념일·목표·클라이맥스에 집중</td>
+<td>짧고 선명한 공동 축하 후 정상 흐름 복귀</td>
+<td>다음 Gift가 올 때까지 반응 연장</td>
+</tr>
+<tr>
+<td>H16 게임 전략형</td>
+<td>배틀 점수·타이밍·전술에 관심</td>
+<td>규칙·시간·무료 역할·예산 존중을 명시</td>
+<td>패배 수치심, 충성 증명 요구</td>
+</tr>
+<tr>
+<td>H17 공개 인정형</td>
+<td>이름 있는 감사·배지·공식적 인정 선호</td>
+<td>품위 있는 고정 감사 형식 사용</td>
+<td>연애성 애칭, 과장된 복종</td>
+</tr>
+<tr>
+<td>H18 조용한 후원형</td>
+<td>말 없이 Gift, 큰 반응 뒤 위축</td>
+<td>금액 반복 없이 짧게 감사하고 종료</td>
+<td>DM 추적, 발언 요구, 총액 공개</td>
+</tr>
+<tr>
+<td>H19 결과 중시형</td>
+<td>지원 용도·성과·낭비 여부 질문</td>
+<td>개선 결과와 다음 선택, 무료 개선을 함께 보고</td>
+<td>모호한 “응원해 주세요”, 인위적 마감</td>
+</tr>
+<tr>
+<td>H20 신뢰 검증형</td>
+<td>오래 관찰, 모순·기준을 확인</td>
+<td>같은 환영·감사·경계를 꾸준히 유지</td>
+<td>과도한 환대, 서둘러 핵심 팬 취급</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">분류가 헷갈릴 때</h3>
+<ul>
+<li>H03과 H18: 조용히 보는 것이 핵심인지, 조용히 후원하는 방식이 핵심인지 본다.</li>
+<li>H11과 H12: 성장 과정 자체를 응원하는지, 특정 장비·역량의 완성을 지원하는지 본다.</li>
+<li>H17과 H18: 공개 인정 뒤 더 편안해지는지, 오히려 참여가 줄어드는지 본다.</li>
+<li>H19와 H20: 돈의 쓰임과 결과를 주로 평가하는지, 사람과 운영의 일관성을 먼저 보는지 본다.</li>
+</ul>
+<hr>
+<h2 id="5">5. 재방문 대응</h2>
+<h3 id="_3">첫 재방문</h3>
+<p>아직 친밀함을 과장하지 않는다.</p>
+<ul>
+<li>“Good to see you again. Welcome back.”<br>
+<strong>뜻:</strong> “다시 봐서 반가워요. 잘 돌아오셨어요.”</li>
+<li>기억이 확실할 때: “You were the one who chose B last time, right?”<br>
+<strong>뜻:</strong> “지난번에 B를 골랐던 분 맞죠?”</li>
+<li>확실하지 않을 때: “I remember your name, but remind me where we left off.”<br>
+<strong>뜻:</strong> “이름은 기억하는데, 어디까지 이야기했는지 한 번만 알려 주세요.”</li>
+</ul>
+<h3 id="_4">반복 재방문</h3>
+<ul>
+<li>안전한 취향이나 이전 참여를 한 문장으로 이어 준다.</li>
+<li>10~20초 안에 새 시청자도 낄 수 있는 질문으로 바꾼다.</li>
+<li>출석 횟수나 결석을 빚처럼 계산하지 않는다.</li>
+</ul>
+<p><strong>운영 예시</strong><br>
+“지난번에는 아침형이라고 했죠. 오늘도 여전해요? 여러분은 아침형, 밤형 중 어느 쪽이에요?”</p>
+<hr>
+<h2 id="6-gift">6. Gift 대응</h2>
+<h3 id="61-gift">6.1 모든 Gift의 공통 순서</h3>
+<ol>
+<li>화면에 표시된 이름과 Gift를 정확히 확인한다.</li>
+<li>한 문장으로 구체적으로 감사한다.</li>
+<li>큰 Gift이거나 연속 지출이면 예산 보호 문구를 넣는다.</li>
+<li>후원자를 소유자처럼 부르지 않고 방 전체의 순간으로 넓힌다.</li>
+<li>곧바로 추가 Gift를 요구하지 않고 방송의 가치를 계속 제공한다.</li>
+</ol>
+<h3 id="_5">기본 문구</h3>
+<ul>
+<li>소액·첫 Gift: “Thank you, [name]. I appreciate that—please only gift when it feels comfortable.”<br>
+<strong>뜻:</strong> “[이름]님, 고마워요. 정말 감사하지만 부담 없을 때만 해 주세요.”</li>
+<li>콘텐츠 반응과 연결: “Thank you, [name]. I’m glad that moment was worth supporting.”<br>
+<strong>뜻:</strong> “[이름]님, 고마워요. 방금 그 순간이 응원할 가치가 있었다니 기쁩니다.”</li>
+<li>큰 Gift: “That is very generous. Thank you—and that is more than enough for today. Please put your budget first.”<br>
+<strong>뜻:</strong> “정말 큰 응원이에요. 감사합니다. 오늘은 이걸로 충분하니 본인 예산을 먼저 챙겨 주세요.”</li>
+<li>연속 Gift 중단: “I see you, and I’m grateful. You don’t need to send another one to keep my attention.”<br>
+<strong>뜻:</strong> “마음 충분히 받았고 감사해요. 제 관심을 이어 가려고 더 보내실 필요는 없어요.”</li>
+<li>조용한 후원자: “Thank you, [name]. No speech required—I’ll keep the room moving.”<br>
+<strong>뜻:</strong> “[이름]님, 고마워요. 따로 말씀하실 필요 없이 편하게 계세요. 방송 계속 이어 갈게요.”</li>
+</ul>
+<h3 id="_6">하지 않을 말</h3>
+<ul>
+<li>“나를 사랑하면 보내 주세요.”</li>
+<li>“누가 이걸 책임질 거예요?”</li>
+<li>“조금만 더 하면 특별히 챙겨 줄게요.”</li>
+<li>“지난번에는 많이 보내셨잖아요.”</li>
+<li>“우리 팀이면 이 정도는 해야죠.”</li>
+<li>“당신 때문에 방송을 계속할 수 있어요”를 반복해 생존 책임을 지운다.</li>
+</ul>
+<h3 id="_7">감사의 크기와 인간적 존중을 분리한다</h3>
+<p>큰 기여에는 더 많은 운영 관심과 더 구체적인 감사가 필요하다. 결정적 기여, 과거 역할, 선호하는 인정 방식과 결과를 더 세심하게 기억할 수 있다. 그러나 다음 날의 기본적인 환영과 인간적 존중은 결제액이 줄었다고 사라지지 않는다. Gift는 <strong>관심과 관리의 깊이를 정하는 중요한 기여 기록</strong>이지만 <strong>사람의 인간적 가치를 정하는 서열</strong>은 아니다.</p>
+<hr>
+<h2 id="7-live-match">7. LIVE Match·배틀 운영</h2>
+<p>Match의 전체 수익·심리·경쟁 구조는 <code>03_LIVE_MATCH_STRATEGY.md</code>를 기준으로 한다. 이 절은 관계 운영에서 지킬 최소 동작만 요약한다.</p>
+<p>Match는 대부분의 후원이 발생하는 중심 수익 구조다. 팀 경쟁·기여 경쟁·지위 경쟁을 없애지 않는다. 다만 점수 경쟁을 K의 사랑과 사적 관계를 차지하기 위한 경쟁으로 바꾸지 않는다.</p>
+<h3 id="_8">배틀 전</h3>
+<ul>
+<li>상대와 대략적인 분위기·금지할 도발·종료 방식을 확인한다.</li>
+<li>좋아요, 댓글, 응원 이모지 등 무료 역할을 먼저 연다.</li>
+<li>예산 보호 원칙을 짧게 말한다.</li>
+</ul>
+<p>“Let’s play this clean. Likes and comments count as team energy; Gifts are optional and only within your budget.”<br>
+<strong>뜻:</strong> “깔끔하게 즐겨 봅시다. 좋아요와 댓글도 팀의 에너지예요. Gifts는 선택이고 반드시 예산 안에서만 해 주세요.”</p>
+<h3 id="_9">배틀 중</h3>
+<ul>
+<li>점수 차이, 남은 시간, 지금 필요한 경기 행동을 구체적으로 알린다.</li>
+<li>주요 후원자의 역할과 결정적 기여를 더 강하게 인정할 수 있다. 동시에 다른 사람의 기여와 과거 역할을 지우지 않는다.</li>
+<li>특정 개인에게만 책임을 떠넘기거나 K에 대한 애정을 증명하라고 요구하지 않는다.</li>
+<li>상대 팀과 후원자를 모욕하지 않는다.</li>
+<li>급격한 연속 Gift에서 부담·통제 상실 신호가 보이면 제동한다.</li>
+</ul>
+<p>“We have time. No panic spending—stay smart.”<br>
+<strong>뜻:</strong> “아직 시간 있어요. 급하게 쓰지 말고 현명하게 갑시다.”</p>
+<h3 id="_10">승패 후</h3>
+<ul>
+<li>승리: 결정적 후원자가 무엇을 해냈는지 구체적으로 인정하고, 다른 무료·유료 참여도 함께 정리한다.</li>
+<li>패배: 누구의 책임도 묻지 않고 진행자의 태도로 마무리한다.</li>
+</ul>
+<p>“We lost the round, not our composure. Good game.”<br>
+<strong>뜻:</strong> “이번 판은 졌지만 우리 태도까지 잃은 건 아니에요. 좋은 경기였습니다.”</p>
+<h3 id="_11">즉시 중단할 배틀</h3>
+<ul>
+<li>상대가 시청자에게 모욕·성적 압박·과소비를 부추긴다.</li>
+<li>위험하거나 굴욕적인 벌칙을 요구한다.</li>
+<li>kye가 흥분해 수치심·충성·죄책감 언어를 쓰기 시작한다.</li>
+<li>특정 후원자 간 지출 경쟁이 개인 공격으로 번진다.</li>
+</ul>
+<hr>
+<h2 id="8">8. 공개 인정 운영</h2>
+<h3 id="_12">인정의 세 갈래</h3>
+<ol>
+<li><strong>참여 인정:</strong> 좋은 질문, 재치, 신규 환영, 맥락 설명</li>
+<li><strong>지속 인정:</strong> 재방문, 약속한 피드백, 꾸준한 분위기 기여</li>
+<li><strong>후원 인정:</strong> 특정 순간·프로젝트·방송 성장에 준 도움</li>
+</ol>
+<p>세 갈래를 함께 운영해야 <code>돈을 내야만 보이는 방</code>이 되지 않는다.</p>
+<h3 id="_13">공개 인정 기본형</h3>
+<p>“[Name], thank you for helping us make this moment happen. I appreciate the contribution, and we’ll show you what it helps us improve.”<br>
+<strong>뜻:</strong> “[이름]님, 이 순간을 함께 만들어 주셔서 감사합니다. 기여에 감사하고, 무엇이 좋아졌는지 결과로 보여 드릴게요.”</p>
+<h3 id="_14">공개 인정 선호 확인</h3>
+<p>Gift 직후 길게 묻지 말고, 필요하면 나중에 짧게 확인한다.</p>
+<p>“Do you prefer a quick public thank-you, or should I keep it low-key?”<br>
+<strong>뜻:</strong> “짧게 공개 감사드리는 게 좋으세요, 아니면 조용히 넘어가는 게 편하세요?”</p>
+<p>기록된 선호가 없으면 <strong>짧고 절제된 감사</strong>를 기본값으로 쓴다. TikTok 화면에 이미 공개된 범위를 넘어 금액·개인정보·추정 신분을 말하지 않는다.</p>
+<hr>
+<h2 id="9-dm">9. DM 운영</h2>
+<p>DM은 감사·일정·피드백·공개된 결과 안내를 이어 가는 보조 채널이다. 결제 요청, 감정 압박, 독점적 친밀감 판매에는 사용하지 않는다.</p>
+<h3 id="_15">보내도 되는 경우</h3>
+<ul>
+<li>상대가 먼저 DM을 보냈고 답변이 필요한 경우</li>
+<li>공개적으로 DM 안내에 동의한 경우</li>
+<li>큰 기여 뒤 한 차례 감사와 결과 안내가 필요한 경우</li>
+<li>약속한 공개 자료·일정·피드백을 전달하는 경우</li>
+</ul>
+<h3 id="_16">보내지 않는 경우</h3>
+<ul>
+<li>Gift를 보냈다는 이유만으로 초대 없이 사적 연락</li>
+<li>미성년 가능성이 있거나 나이를 확인할 수 없는 상황에서 후원 이야기</li>
+<li>무응답 뒤 반복 메시지</li>
+<li>외로움·힘든 사정·호감을 들은 직후 Gifts나 송금을 연결하는 메시지</li>
+<li>플랫폼 밖 결제, 개인정보, 사진, 만남을 요구하는 메시지</li>
+</ul>
+<h3 id="dm">감사 DM 예시</h3>
+<p>“Thank you for supporting tonight’s LIVE. What stood out to me was how you helped the room stay positive during the match. No reply or further support is expected.”<br>
+<strong>뜻:</strong> “오늘 LIVE를 응원해 주셔서 감사합니다. 특히 배틀 중 방 분위기를 긍정적으로 지켜 주신 점이 기억에 남았습니다. 답장이나 추가 후원은 전혀 기대하지 않습니다.”</p>
+<h3 id="dm_1">결과 보고 DM 예시</h3>
+<p>“You asked what the support would improve. We used this week’s LIVE earnings toward [specific item/action], and I’ll show the result publicly on [date/session].”<br>
+<strong>뜻:</strong> “후원이 무엇을 개선하는지 물어보셨죠. 이번 주 LIVE 수익은 [구체적 항목/행동]에 보탰고, [날짜/방송]에 결과를 공개적으로 보여 드리겠습니다.”</p>
+<h3 id="_17">경계 문구</h3>
+<p>“I value our conversations, but I keep supporter relationships online and I don’t offer dating, private exclusivity, or meetings in exchange for support.”<br>
+<strong>뜻:</strong> “우리 대화는 소중하게 생각하지만, 후원자 관계는 온라인 범위에서 운영하며 후원의 대가로 연애, 독점적 사적 관계, 만남을 제공하지 않습니다.”</p>
+<hr>
+<h2 id="10">10. 부재와 복귀 대응</h2>
+<h3 id="_18">시청자가 한동안 오지 않았을 때</h3>
+<ul>
+<li>먼저 이유를 추궁하지 않는다.</li>
+<li>“어디 갔었어요?”, “왜 안 왔어요?”, “우리를 잊었어요?”라고 빚을 만들지 않는다.</li>
+<li>DM으로 출석을 재촉하지 않는다.</li>
+</ul>
+<h3 id="_19">돌아왔을 때</h3>
+<ul>
+<li>“Welcome back. No explanation needed—it’s good to see you.”<br>
+<strong>뜻:</strong> “다시 오신 걸 환영해요. 설명하실 필요 없고, 만나서 반가워요.”</li>
+<li>상대가 이유를 말하면 짧게 받고, 공개하기 민감한 내용은 파고들지 않는다.</li>
+<li>이전의 Gift 수준이나 활동량을 즉시 기대하지 않는다.</li>
+</ul>
+<h3 id="kye_2">kye가 쉬었다 돌아올 때</h3>
+<ul>
+<li>일정 변경과 이유를 필요한 만큼만 사실대로 알린다.</li>
+<li>복귀를 보상해야 한다며 Gifts를 요구하지 않는다.</li>
+<li>약속을 지키지 못했다면 변명보다 변경된 운영 방식을 말한다.</li>
+</ul>
+<p>“I was away longer than planned. That was my responsibility. I’m back with a schedule I can actually keep: [schedule].”<br>
+<strong>뜻:</strong> “예정보다 오래 자리를 비웠고, 그건 제 책임입니다. 이제 실제로 지킬 수 있는 일정인 [일정]으로 돌아왔습니다.”</p>
+<hr>
+<h2 id="11">11. 주요 후원자 운영</h2>
+<h3 id="111">11.1 주요 후원자의 정의</h3>
+<p>주요 후원자는 단순히 한 번 큰 Gift를 보낸 사람이 아니다. 다음이 함께 확인될 때 운영상 주요 후원자로 본다.</p>
+<ul>
+<li>본인의 형편 안에서 자발적으로 기여한다고 직접 말하거나 행동으로 일관되게 보인다.</li>
+<li>kye의 콘텐츠·성장·공동체 중 무엇을 응원하는지 비교적 분명하다.</li>
+<li>다른 시청자를 존중하고, 돈으로 통제권이나 사적 관계를 요구하지 않는다.</li>
+<li>반복 지원 뒤에도 후회·불안·숨김·긴급한 만회 행동이 보이지 않는다.</li>
+<li>kye의 경계와 예산 보호 문구를 받아들인다.</li>
+</ul>
+<p><strong>재산, 직업, 외모, 말투만 보고 경제력을 추정하지 않는다.</strong> 주요 후원자라는 분류도 더 쓰게 만들기 위한 압박 점수가 아니다.</p>
+<h3 id="112">11.2 줄 수 있는 것</h3>
+<ul>
+<li>기여가 어떤 변화에 보탬이 되었는지 구체적인 결과 보고</li>
+<li>공개된 원칙에 따른 품위 있는 감사</li>
+<li>새 코너·장비·성장 목표에 대한 공개 피드백 기회</li>
+<li>모든 사람에게 열린 방송 안에서 의미 있는 기여의 맥락</li>
+<li>본인이 원할 때 낮은 강도의 감사 방식</li>
+</ul>
+<h3 id="113">11.3 줄 수 없는 것</h3>
+<ul>
+<li>독점 DM, 연애성 애칭, 비밀 관계, 면대면 만남 약속</li>
+<li>다른 시청자보다 우선하는 인간적 존중</li>
+<li>방송 내용·모더레이션·다른 팬을 통제할 권리</li>
+<li>Gift와 교환되는 응답 보장이나 개인 상담</li>
+<li>“당신이 없으면 나는 끝난다”는 생존 책임</li>
+</ul>
+<h3 id="114-24">11.4 큰 기여 뒤 24시간 원칙</h3>
+<ul>
+<li>LIVE에서는 감사와 지출 중단 문구를 말한다.</li>
+<li>바로 다음 Gift 목표를 제시하지 않는다.</li>
+<li>DM은 초대·동의가 있거나 결과 안내가 필요한 경우 한 번만 보낸다.</li>
+<li>후원 용도가 있었다면 나중에 공개적으로 결과를 보고한다.</li>
+<li>다음 방문 때도 따뜻하게 맞되, 더 큰 Gift를 예상하는 말은 하지 않는다.</li>
+</ul>
+<h3 id="115">11.5 통제 요구에 대한 답</h3>
+<p>“I respect what you’ve contributed, but the final creative and moderation decisions stay with me. Your support matters; it does not buy control over the room or other people.”<br>
+<strong>뜻:</strong> “기여해 주신 것은 존중하지만, 콘텐츠와 운영의 최종 결정은 제가 합니다. 후원은 소중하지만 방이나 다른 사람을 통제할 권리를 사는 것은 아닙니다.”</p>
+<hr>
+<h2 id="12">12. 기록할 데이터</h2>
+<p>민감정보를 최대한 적게 수집한다. 기록 목적은 더 정확하고 안전하게 대하기 위한 것이지, 취약점이나 지출 상한을 공략하기 위한 것이 아니다.</p>
+<h3 id="121">12.1 시청자별 최소 기록</h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기록 예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>표시 이름·식별 메모</td>
+<td>TikTok 표시 이름, 동명이인 구분용 공개 정보만</td>
+</tr>
+<tr>
+<td>날짜·세션</td>
+<td>2026-10-16 / late lounge</td>
+</tr>
+<tr>
+<td>관찰 행동</td>
+<td>입장 시각, 댓글, 머문 흐름, Gift 전후 행동</td>
+</tr>
+<tr>
+<td>직접 밝힌 선호</td>
+<td>“공개 감사는 짧게 해 달라”</td>
+</tr>
+<tr>
+<td>주·보조 가설</td>
+<td>H18 / H03</td>
+</tr>
+<tr>
+<td>확신도</td>
+<td>낮음·중간·높음</td>
+</tr>
+<tr>
+<td>반대 증거</td>
+<td>공개 호명 뒤 적극적으로 대화함</td>
+</tr>
+<tr>
+<td>시험한 대응</td>
+<td>한 문장 감사, 질문 없음</td>
+</tr>
+<tr>
+<td>결과</td>
+<td>12분 더 머묾, 다음 주 재방문</td>
+</tr>
+<tr>
+<td>인정 선호</td>
+<td>공개 짧게 / 조용히 / 미확인</td>
+</tr>
+<tr>
+<td>경계·안전 메모</td>
+<td>추가 Gift 중단 요청에 동의함</td>
+</tr>
+</tbody>
+</table>
+<h3 id="122">12.2 세션별 기록</h3>
+<ul>
+<li>신규 댓글 참여자 수와 첫 댓글까지의 대략적 시간</li>
+<li>재방문자와 기억 연결 성공·오류</li>
+<li>한 사람과 대화가 길어져 방이 닫힌 순간</li>
+<li>무료 기여와 Gift 기여를 각각 인정한 횟수</li>
+<li>Gift 요청 문구와 직후 방 반응</li>
+<li>큰·연속 Gift 뒤 안전 문구 실행 여부</li>
+<li>배틀 전후 분위기, 과열·모욕·압박 여부</li>
+<li>DM 발송 이유·동의 근거·응답 여부</li>
+<li>다음 방송에서 확인할 가설 1~3개</li>
+</ul>
+<h3 id="123">12.3 기록하지 않을 것</h3>
+<p>추정 소득·자산, 결혼·연애 상태, 정신건강 진단, 외로움 정도, 성적 관심, 집 주소, 직장, 가족 정보, 플랫폼 밖 신원, “얼마까지 더 쓸 수 있는지”에 대한 추정은 기록하지 않는다.</p>
+<hr>
+<h2 id="13">13. 경제적 부담 주의 신호</h2>
+<p>한 신호만으로 형편을 단정하지 않는다. 그러나 다음이 보이면 <strong>수익 기회가 아니라 보호가 필요한 가능성</strong>으로 다룬다.</p>
+<h3 id="_20">주의 신호</h3>
+<ul>
+<li>“감당이 안 되지만 보내겠다”, “카드값은 나중 문제다”처럼 부담을 직접 말함</li>
+<li>술에 취했거나 감정적으로 크게 흔들린 상태에서 갑자기 연속 Gift</li>
+<li>방금 보낸 금액을 후회하거나 환불·취소 가능성을 반복해서 물음</li>
+<li>가족·파트너에게 숨긴다고 말함</li>
+<li>생활비·임대료·의료비·빚보다 Gift를 우선하겠다고 말함</li>
+<li>다른 후원자에게 밀리지 않으려고 즉시 금액을 높임</li>
+<li>kye의 관심을 잃을까 봐 Gift를 보낸다고 말함</li>
+<li>중단 요청 뒤에도 짧은 시간에 계속 보냄</li>
+<li>미성년 가능성, 보호자 결제수단 사용 언급</li>
+</ul>
+<h3 id="_21">대응 단계</h3>
+<ol>
+<li><strong>노란 단계 — 부담 가능성:</strong> 추가 요청을 멈추고 예산 보호 문구를 한 번 말한다.</li>
+<li><strong>주황 단계 — 부담을 직접 언급:</strong> “오늘은 보내지 말아 달라”고 명확히 말하고 무료 참여로 돌린다.</li>
+<li><strong>빨간 단계 — 통제 상실·미성년·숨김·위기:</strong> 해당 세션에서 Gift 유도를 전면 중단하고, 필요하면 상호작용을 제한하거나 플랫폼 안전 기능을 사용한다.</li>
+</ol>
+<h3 id="_22">정확한 중단 문구</h3>
+<p>“Please don’t send anything else tonight. Your bills and real-life needs come first. You are welcome here without gifting.”<br>
+<strong>뜻:</strong> “오늘은 더 보내지 말아 주세요. 생활비와 현실의 필요가 먼저입니다. 후원하지 않아도 여기서 똑같이 환영받습니다.”</p>
+<p>“I can’t accept support as proof of care. Please stop spending and take a break.”<br>
+<strong>뜻:</strong> “후원을 마음의 증명으로 받을 수는 없어요. 지출을 멈추고 잠시 쉬어 주세요.”</p>
+<hr>
+<h2 id="14">14. 단계별 에스컬레이션·중단 규칙</h2>
+<h3 id="a">A. 부드럽게 방향 전환</h3>
+<p>대상: 과한 개인 질문, 가벼운 연애 암시, 한 사람의 대화 독점, 반복 Gift 제안.</p>
+<p>“That’s getting a little too personal, so I’m going to bring us back to the room.”<br>
+<strong>뜻:</strong> “조금 지나치게 개인적인 쪽으로 가고 있어서, 다시 방 전체 대화로 돌아갈게요.”</p>
+<h3 id="b">B. 명확한 경계</h3>
+<p>대상: 독점 요구, 다른 팬 통제, Gift와 애정·답장 교환 요구, 반복적인 성적 발언.</p>
+<p>“I appreciate you, but that boundary is not negotiable.”<br>
+<strong>뜻:</strong> “고맙게 생각하지만, 그 경계는 협상하지 않겠습니다.”</p>
+<h3 id="c">C. 상호작용 중단·뮤트·차단</h3>
+<p>다음은 설명을 반복하지 않고 제한한다.</p>
+<ul>
+<li>경계를 두 번 이상 무시함</li>
+<li>협박, 스토킹성 접촉, 신상 공개 위협</li>
+<li>혐오·괴롭힘·성적 대상화</li>
+<li>다른 시청자에게 Gift 경쟁·송금·괴롭힘을 강요함</li>
+<li>미성년자에게 Gifts·성적 대화·사적 연락을 연결함</li>
+<li>자해·폭력 등 즉각적 위험을 조장하거나 방송이 감당할 수 없는 위기 개입을 요구함</li>
+</ul>
+<p>위기 발언이 나오면 공개 상담을 길게 하지 않는다. 즉각적 위험이 의심되면 현지 응급 서비스나 신뢰할 수 있는 주변 사람에게 연락하도록 권하고, LIVE에서 Gifts와 관계 논의를 중단한다. kye는 치료자나 긴급 구조 담당자 역할을 맡지 않는다.</p>
+<h3 id="d">D. 주요 후원자도 예외 없음</h3>
+<p>큰 후원자가 규칙을 어겨도 같은 절차를 적용한다. Gift를 잃을까 봐 무례·통제·괴롭힘을 허용하면 단기 수익과 장기 신뢰를 함께 잃는다.</p>
+<hr>
+<h2 id="15">15. 구걸 없이 가치와 수익을 연결하는 법</h2>
+<h3 id="151">15.1 설명 구조</h3>
+<p><code>지금 제공하는 가치 → 다음에 개선할 구체적 결과 → 무료 참여 방법 → 선택적 Gifts → 결과 보고</code></p>
+<p>예시:</p>
+<p>“Tonight I’m testing a cleaner battle format: clear rules, better pacing, and no pressure. Comments and likes help me judge whether it works. If you choose to send Gifts, they support the next production upgrade—but only if it fits your budget.”<br>
+<strong>뜻:</strong> “오늘은 규칙이 분명하고 흐름이 좋으며 압박이 없는 배틀 형식을 시험하고 있어요. 댓글과 좋아요로 잘 작동하는지 판단하는 데 도움을 주세요. Gifts를 선택하신다면 다음 방송 개선에 보태겠습니다. 단, 예산에 무리가 없을 때만 해 주세요.”</p>
+<h3 id="152">15.2 수익 문구의 세 조건</h3>
+<ol>
+<li><strong>무엇을 주는지 먼저 말한다:</strong> 재미, 진행, 성장 과정, 정돈된 분위기, 공동 목표.</li>
+<li><strong>무엇이 좋아지는지 구체적으로 말한다:</strong> 레슨, 마이크, 조명, 새 코너처럼 결과를 확인할 수 있게 한다.</li>
+<li><strong>선택권을 되돌려 준다:</strong> 댓글·좋아요·재방문도 기여이며 Gifts는 여유가 있을 때만 선택한다.</li>
+</ol>
+<h3 id="153">15.3 요청 빈도</h3>
+<ul>
+<li>방송 시작부터 Gift 요청을 반복하지 않는다.</li>
+<li>자연스러운 전환점이나 공개된 목표 설명 때 짧게 한 번 말한다.</li>
+<li>큰 Gift 직후에는 같은 세션에서 추가 목표를 바로 제시하지 않는다.</li>
+<li>반응이 없으면 문구를 반복해 압박하지 않고 콘텐츠 품질로 돌아간다.</li>
+</ul>
+<h3 id="154">15.4 결과 보고</h3>
+<p>후원과 연결한 목표는 완료·변경·취소를 모두 보고한다.</p>
+<ul>
+<li>무엇을 하기로 했는가</li>
+<li>실제로 무엇을 했는가</li>
+<li>무엇이 좋아졌는가</li>
+<li>남은 한계는 무엇인가</li>
+<li>다음 단계 중 돈 없이 개선할 부분은 무엇인가</li>
+</ul>
+<p>이 보고가 H11·H12·H19·H20의 신뢰를 만들며, 다음 후원을 직접 요구하지 않아도 지원할 이유를 축적한다.</p>
+<hr>
+<h2 id="16">16. 방송 전·중·후 체크리스트</h2>
+<h3 id="_23">방송 전</h3>
+<ul>
+<li>[ ] 오늘 선물 없이도 볼 가치가 있는 장면·대화·활동이 있는가?</li>
+<li>[ ] 신규가 3초 안에 분위기를 이해할 수 있는가?</li>
+<li>[ ] 오늘 시험할 시청자 가설을 1~3개만 정했는가?</li>
+<li>[ ] 배틀의 무료 참여 경로와 중단 조건을 정했는가?</li>
+<li>[ ] 후원 목표가 있다면 용도·결과·선택권을 사실대로 설명할 수 있는가?</li>
+</ul>
+<h3 id="_24">방송 중</h3>
+<ul>
+<li>[ ] 한 사람에게 20초 이상 잠겼다면 방 전체로 다시 열었는가?</li>
+<li>[ ] 무료 기여도 실제로 인정했는가?</li>
+<li>[ ] Gift 감사 뒤 곧바로 추가 결제를 요구하지 않았는가?</li>
+<li>[ ] 큰·연속 Gift에 예산 보호 문구를 썼는가?</li>
+<li>[ ] 주요 후원자에게도 진행권과 경계를 넘기지 않았는가?</li>
+<li>[ ] 공격에 흥분하거나 비굴해지지 않고 짧게 경계를 세웠는가?</li>
+</ul>
+<h3 id="_25">방송 후</h3>
+<ul>
+<li>[ ] 사실과 가설을 분리해 최소 기록만 남겼는가?</li>
+<li>[ ] 맞지 않는 증거도 기록했는가?</li>
+<li>[ ] DM은 동의·필요·목적이 분명한 경우에만 보냈는가?</li>
+<li>[ ] 공개한 목표와 약속의 다음 행동을 일정에 넣었는가?</li>
+<li>[ ] 수익뿐 아니라 재방문·방 전체 참여·신뢰·과열 신호를 함께 검토했는가?</li>
+</ul>
+<hr>
+<h2 id="17">17. 이 플레이북의 성공 기준</h2>
+<p>단순 Gift 총액만으로 성공을 판단하지 않는다. 다음이 함께 좋아져야 지속 가능한 관계 수익 모델로 본다.</p>
+<ul>
+<li>신규 시청자가 빠르게 댓글에 참여한다.</li>
+<li>무료 참여자와 후원자가 함께 재방문한다.</li>
+<li>기억 오류와 공개 인정 불편 사례가 줄어든다.</li>
+<li>한 사람에게 대화가 잠기는 시간이 줄어든다.</li>
+<li>큰 Gift 뒤 추가 압박 없이도 장기 지원과 신뢰가 이어진다.</li>
+<li>배틀 후 죄책감·팬 간 갈등·후회 신호가 줄어든다.</li>
+<li>후원으로 약속한 개선 결과가 실제로 공개된다.</li>
+<li>kye가 소란이나 비굴함 없이도 방의 흐름과 경계를 잡는다.</li>
+</ul>
+<p>최종 기준은 <strong>시청자는 받은 가치와 선택권을 느끼고, kye는 신뢰를 잃지 않으면서 실제 수익과 성장 자원을 얻는가</strong>이다.</p></div>
+      </article><article class="document-section" id="validation-plan" data-search="현장 검증 계획">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 06</p>
+          <h2>현장 검증 계획</h2>
+        </header>
+        <div class="prose"><h1 id="3059">미국·유럽 30~59세 여성 시청자·후원자 가설 검증 계획</h1>
+<ul>
+<li>작성일: 2026-10-16</li>
+<li>권장 기간: <strong>10주</strong>. 표본이나 방송 횟수가 부족하면 12주까지 연장한다.</li>
+<li>상태: 이 문서는 시장 세분화의 효과를 입증한 결과가 아니라, <code>02_MARKET_PERSONAS_WOMEN_30_59.md</code>의 12개 시장 페르소나와 <code>02_BEHAVIOR_MOTIVE_TAGS.md</code>의 20개 행동 동기를 실제 자료로 검증하기 위한 계획이다.</li>
+</ul>
+<h2 id="1">1. 검증 질문과 성공의 뜻</h2>
+<p>다음 질문을 순서대로 확인한다.</p>
+<ol>
+<li>미국·유럽의 30~59세 여성 중 실제로 kye의 LIVE에 들어오고 다시 오는 사람이 있는가?</li>
+<li>실제 시청자의 삶·자기상·관계 방식이 12개 시장 페르소나 중 일부와 일치하며, 상황별 행동이 20개 동기 태그로 설명되는가?</li>
+<li>특정 경험이 결제 여부와 무관한 시청자 경험, 재방문, 자발적 후원을 개선하는가?</li>
+<li>어떤 가설을 유지·수정·합치거나 폐기해야 하는가?</li>
+<li>큰 후원이 일부 발생하더라도 압박·과소비·사적 관계 암시 없이 지속 가능한가?</li>
+</ol>
+<p><strong>성공은 후원액만 늘어나는 것이 아니다.</strong> 타깃 표본이 확인되고, 재방문과 방의 건강성이 함께 개선되며, 반복 관찰로 설명 가능한 페르소나가 줄어드는 것이 성공이다.</p>
+<h2 id="2">2. 연구 범위와 운영 원칙</h2>
+<ul>
+<li>연령·성별·국가를 댓글, 외모, 이름, 말투로 추정하지 않는다. 설문·인터뷰에서 본인이 자발적으로 밝힌 값만 타깃 분석에 쓴다.</li>
+<li>직업·관계 상태·성격은 행동만 보고 추정하지 않는다. 본인이 직접 밝힌 정보와 <strong>서로 다른 3회 이상의 방문</strong>을 함께 본다.</li>
+<li>시장 페르소나는 사람의 삶과 자기상에 관한 잠정 가설이고, 행동 태그는 그 시점에 LIVE를 이용하는 목적에 관한 가설이다. 둘을 분리해 주가설·후보·확신도·반증을 기록한다.</li>
+<li>무료 시청자와 후원자에게 같은 기본적인 인간적 존중을 보장하되, 기여·관계·역할이 큰 후원자에게 더 깊은 인정과 운영 관심을 제공할 수 있다. Match의 점수·팀·기여 경쟁은 검증 대상에 포함하지만, 거짓 연애, 사적 관계를 차지하기 위한 질투, 죄책감, 소외, 과소비 압박, 후원액에 따른 애정 차등은 사용하지 않는다.</li>
+<li>미국과 유럽을 한 집단으로 합쳐 결론 내리지 않는다. 최소한 <code>미국 / 영국 / EEA·스위스 / 기타 유럽</code>을 나누고, 언어와 시간대를 함께 기록한다.</li>
+<li>아래 표본 수와 기준은 운영을 위한 사전 기준이지 통계적으로 보장된 시장 규모가 아니다.</li>
+</ul>
+<h2 id="3">3. 최소 기록 구조</h2>
+<h3 id="_1">세션 단위</h3>
+<p><code>session_id, 날짜, 시작·종료 시각과 시간대, 길이, 언어, 주제, 실험 조건, 동시 시청·순시청 지표, 신규/재방문, 댓글 참여자 수, 팔로우, Gifts, Match별 상대·승패·점수 흐름·Gift 시점·결정적 기여자·경기 후 이탈/잔류, 기술 문제, 외부 이벤트, kye의 컨디션(1~5), 정책·안전 사건</code></p>
+<h3 id="_2">시청자 단위 — 플랫폼에 표시되거나 자발적으로 제공한 정보만</h3>
+<p><code>pseudonymous_viewer_id, 방문 날짜, 본인이 직접 밝힌 연령대·국가·직업/생활 리듬, 관찰 행동, 직접 밝힌 선호, 주 시장 페르소나(M), 후보 페르소나, 행동 동기 태그(P), 확신도, 반증, 시도한 경험, 반응, 인정 선호, 동의 상태</code></p>
+<ul>
+<li>본명 대신 무작위 내부 ID를 쓴다. 사용자명 연결표가 꼭 필요하면 별도 암호화 저장하고 접근자를 제한한다.</li>
+<li>수입·재산, 관계 상태, 외로움, 정신건강, 성적 관심, 주소, 직장, 가족 정보는 추론하거나 기록하지 않는다.</li>
+<li>Gift 정보는 플랫폼에 표시된 종류·시점 등 필요한 최소치만 기록한다. 이를 실제 지출액이나 kye의 실제 수익과 1:1로 환산하지 않는다.</li>
+</ul>
+<h2 id="4">4. 입장부터 주요 후원자까지의 측정 흐름</h2>
+<p>분모와 관찰 창을 먼저 고정한다. 플랫폼에서 제공하지 않는 값은 <code>측정 불가</code>로 남기고 추정하지 않는다.</p>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>운영 지표</th>
+<th>권장 관찰 창</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>노출→입장</td>
+<td>LIVE 노출 수가 제공될 때 입장률</td>
+<td>같은 세션</td>
+</tr>
+<tr>
+<td>입장→초기 체류</td>
+<td>30초·1분 잔존율 또는 이용 가능한 가장 가까운 TikTok 지표</td>
+<td>같은 세션</td>
+</tr>
+<tr>
+<td>초기→의미 있는 체류</td>
+<td>3분/5분 잔존, 평균 시청시간</td>
+<td>같은 세션</td>
+</tr>
+<tr>
+<td>체류→무료 참여</td>
+<td>첫 댓글·좋아요·공유·팔로우 비율, 서로 다른 참여자 수</td>
+<td>같은 세션</td>
+</tr>
+<tr>
+<td>첫 방문→재방문</td>
+<td>7일·14일 안의 2번째 방문 비율</td>
+<td>코호트별</td>
+</tr>
+<tr>
+<td>재방문→분류 가능</td>
+<td>서로 다른 3회 이상 방문 + 반복 신호 또는 직접 선호 진술</td>
+<td>28일</td>
+</tr>
+<tr>
+<td>분류 가능→첫 Gift</td>
+<td>첫 Gift 비율과 방문 횟수·일수의 중앙값</td>
+<td>30일</td>
+</tr>
+<tr>
+<td>첫 Gift→반복 Gift</td>
+<td>별도 2회 이상 세션에서 자발적 Gift가 발생한 비율</td>
+<td>30일·60일</td>
+</tr>
+<tr>
+<td>반복 Gift→주요 후원</td>
+<td>사전에 정한 내부 기여 기준 도달률, 도달까지 방문 횟수·기간</td>
+<td>30일·60일</td>
+</tr>
+<tr>
+<td>전 구간 안전</td>
+<td>지출 우려 표현, 환불 문의, 후회, 압박 불만, 차단·신고, 과도한 DM 접촉</td>
+<td>즉시·누적</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_3">‘주요 후원자’의 운영 정의</h3>
+<p>연구 시작 전에 실제 운영 규모에 맞는 <strong>고정 기준</strong>을 하나 정한다. 예: <code>서로 다른 3회 이상 방문</code>, <code>2회 이상 자발적 Gift</code>, <code>30일 누적 기여가 사전 기준 이상</code>을 모두 만족한 성인. 기준은 분석 중 바꾸지 않으며, 공개 순위나 애정 등급으로 사용하지 않는다. 기여 능력이나 부유함을 추정하지 않고, 안전 우려가 있으면 금액과 무관하게 전환 성공으로 세지 않는다.</p>
+<p>핵심 보고에는 단계별 전환율뿐 아니라 <strong>분자/분모, 코호트 기간, 중앙값, 범위, 소수의 큰 Gift를 제외한 결과</strong>를 함께 쓴다.</p>
+<h2 id="5-10">5. 10주 단계별 계획</h2>
+<h3 id="1_1">1주차 — 준비와 기준선 고정</h3>
+<ul>
+<li>지난 방송 자료가 있으면 가능한 범위에서 4~8회 기준선을 정리한다. 없으면 첫 4회를 기준선으로 쓴다.</li>
+<li>개인정보 최소화 기록표, 동의문, 인터뷰 안내문, 짧은 설문, 세션 로그를 만든다.</li>
+<li>주요 후원자 기준, 핵심 지표, 안전 지표, 실험 중단 규칙을 실험 전에 기록한다.</li>
+<li>방송 시간·길이·언어·기본 화면·기본 환영 문구를 가능한 한 일정하게 만든다.</li>
+</ul>
+<p><strong>Gate 1:</strong> 타깃 여부를 확인할 방법과 최소 로그가 없으면 페르소나 효과 실험을 시작하지 않는다. 먼저 측정 가능성을 해결한다.</p>
+<h3 id="2-live">2주차 — 기준선 LIVE 관찰</h3>
+<ul>
+<li>최소 4회, 가능하면 같은 요일·시간대 쌍으로 방송한다.</li>
+<li>운영을 바꾸기보다 입장, 체류, 참여, 재방문, Gift, 방 분위기를 관찰한다.</li>
+<li>각 세션 직후 10분 안에 기술 문제, 외부 이벤트, kye의 컨디션과 특이값을 기록한다.</li>
+<li>시청자의 직접 발언과 관찰 행동을 해석과 분리한다.</li>
+</ul>
+<p><strong>Gate 2:</strong> 30~59세 여성이라는 자발적 확인 표본이 거의 없으면 ‘이 타깃에서 효과가 있었다’고 말하지 않는다. 모집·시간대·언어 가설을 먼저 조정한다.</p>
+<h3 id="3_1">3주차 — 인터뷰·설문 모집과 탐색</h3>
+<p>가능할 때만 참여자를 모집한다. Gift 여부와 무관하게 공개 안내나 동의 기반 링크를 사용하고, 개별 DM 압박은 하지 않는다.</p>
+<ul>
+<li><strong>인터뷰 목표:</strong> 미국·유럽 거주 30~59세 여성 12~20명. 기존 시청자와 비시청자/가벼운 시청자를 섞고, Gift 경험자만 모집하지 않는다.</li>
+<li><strong>익명 설문 목표:</strong> 60명 이상을 탐색 목표로 삼되, 적게 모이면 빈도 일반화를 하지 않고 서술형 답변과 방향성만 사용한다.</li>
+<li>물을 내용: LIVE를 켜는 상황, 머무는 이유, 떠나는 이유, 재방문 신호, 인정 선호, 커뮤니티/콘텐츠/성장/경쟁의 상대적 가치, Gift 경험과 비경험 이유, 예산 통제와 불편한 요청, 온라인 관계 경계.</li>
+<li>묻지 않을 내용: 소득 증빙, 재산 순위, 외로움 진단, 연애 상태를 이용한 세분화, 후원 한도를 높이기 위한 취약성 질문.</li>
+<li>인터뷰 녹음은 별도 동의를 받고, 녹음하지 않아도 참여할 수 있게 한다. 보상이 있다면 Gift 경험·답변 내용과 무관한 동일 정액으로 한다.</li>
+</ul>
+<h3 id="4-1">4주차 — 페르소나 구조 1차 정리</h3>
+<ul>
+<li>인터뷰·설문·LIVE 관찰을 별도로 요약한 뒤 서로 맞는지 비교한다.</li>
+<li>각 페르소나를 <code>지지 / 수정 / 합병 후보 / 분리 후보 / 관찰 부족</code>으로 표시한다.</li>
+<li>3회 이상 방문자가 아니면 개인 분류 확신도를 <code>낮음</code> 이상으로 올리지 않는다.</li>
+<li>서로 다른 두 연구자가 가능하면 동일한 익명 사례 10~20개를 독립 분류하고 불일치 이유를 기록한다. 일치율이 낮으면 분류 기준을 단순화한다.</li>
+</ul>
+<p><strong>Gate 3:</strong> 반복 행동으로 구별되지 않거나 같은 대응만 필요한 가설은 합친다. 20개를 유지하는 것 자체를 목표로 삼지 않는다.</p>
+<h3 id="58-live">5~8주차 — 단일 변수 LIVE 실험</h3>
+<p>한 번에 변수 하나만 바꾼다. 각 조건을 가능하면 4회 이상 반복하고, 비슷한 요일·시간·길이끼리 짝을 맞춘다. <code>A-B-A-B</code>처럼 번갈아 운영해 시간 흐름과 숙련 효과를 줄인다.</p>
+<table>
+<thead>
+<tr>
+<th>주</th>
+<th>바꿀 변수 예시</th>
+<th>고정할 것</th>
+<th>1차 지표</th>
+<th>안전·보조 지표</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>첫 10분: 바로 질문 vs 편안한 착륙 문구</td>
+<td>화면·시간·주제·길이</td>
+<td>초기 체류, 첫 댓글 참여자</td>
+<td>조용한 시청자 이탈, kye 자연스러움</td>
+</tr>
+<tr>
+<td>6</td>
+<td>일반 댓글 인지: 무작위 좋은 댓글을 짧게 정확히 받기 vs 기존 방식</td>
+<td>Gift 감사 방식·주제</td>
+<td>서로 다른 댓글 참여자, 재방문</td>
+<td>결제자 편향, 한 사람 독점</td>
+</tr>
+<tr>
+<td>7</td>
+<td>고정 시작/종료 의식과 다음 일정 고지 유무</td>
+<td>시간·콘텐츠 난도</td>
+<td>7·14일 재방문</td>
+<td>내부자 장벽, 일정 불이행</td>
+</tr>
+<tr>
+<td>8</td>
+<td>한 가지 시각 요소 또는 30초 성장 진행 보고 유무</td>
+<td>다른 화면·진행 요소</td>
+<td>체류, 긍정적 자발 묘사, 재방문</td>
+<td>과장된 모금 인식, 제작 부담</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>실험 중 Gift 요청 문구, 배틀 빈도, 게스트, 쇼트폼 유입 등 다른 큰 변화가 생기면 그 세션은 주분석에서 제외하고 별도로 남긴다.</li>
+<li>Gift 증가는 2차 지표다. 체류·재방문·방의 건강성이 나빠졌는데 Gift만 늘면 채택하지 않는다.</li>
+</ul>
+<p><strong>Gate 4:</strong> 한 조건이 1차 지표에서 반복 개선되고 안전 지표가 악화되지 않을 때만 다음 2주간 기본 운영 후보로 채택한다. 결과가 한두 명의 큰 후원에만 좌우되면 결론을 보류한다.</p>
+<h3 id="9">9주차 — 조합 전 재현 시험</h3>
+<ul>
+<li>앞선 실험 중 가장 유망한 변화 1개를 기준선과 다시 비교한다.</li>
+<li>다른 신규 요소를 추가하지 않는다.</li>
+<li>미국과 유럽, 신규와 재방문, Gift 경험 유무를 나눠 방향이 같은지 본다. 작은 표본에서는 유의미성 대신 분자·분모와 불확실성을 공개한다.</li>
+<li>3회 이상 방문자의 분류가 시간에 따라 안정적인지, 보조 페르소나로 이동하는지 확인한다.</li>
+</ul>
+<h3 id="10">10주차 — 결정과 다음 주기 설계</h3>
+<ul>
+<li>각 가설을 <code>유지 / 수정 / 합병 / 분리 / 폐기 / 자료 부족</code>으로 결정한다.</li>
+<li>효과가 재현된 운영만 플레이북 후보로 넘긴다.</li>
+<li>타깃 적합성, 브랜드 적합성, 정책·윤리, 운영 난도, 수익 가능성을 따로 평가한다.</li>
+<li>10주 동안 표본이 부족했다면 실패를 효과 없음으로 해석하지 말고 11~12주에 모집·시간대·언어만 조정해 연장한다.</li>
+</ul>
+<p><strong>Final Gate:</strong> 다음 주기로 확대하려면 최소한 (a) 자발적으로 타깃을 확인한 표본, (b) 반복 방문 자료, (c) 두 번 이상 같은 방향으로 재현된 경험 변화, (d) 안전 악화 없음이 필요하다. 어느 하나라도 없으면 시장 효과를 주장하지 않는다.</p>
+<h2 id="6">6. 혼란변수와 통제 방법</h2>
+<table>
+<thead>
+<tr>
+<th>혼란변수</th>
+<th>처리</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TikTok 추천 알고리즘·노출량 변화</td>
+<td>비율과 절대 수를 함께 보고, 같은 요일·시간 조건을 짝짓는다.</td>
+</tr>
+<tr>
+<td>국가·언어·시간대·일광절약시간</td>
+<td>세션별 기록하고 지역을 섞은 단일 결론을 피한다.</td>
+</tr>
+<tr>
+<td>주제, 배틀, 게스트, 음악, 의상, 화면, 선물 요청 변화</td>
+<td>실험 변수 외에는 고정하고 변경 세션을 표시한다.</td>
+</tr>
+<tr>
+<td>쇼트폼 게시·외부 홍보·바이럴 유입</td>
+<td>게시 시각과 유입 급증을 기록해 별도 분석한다.</td>
+</tr>
+<tr>
+<td>휴일·뉴스·스포츠·지역 사건</td>
+<td>사전에 알 수 있으면 매칭을 피하고, 사후 특이값으로 표시한다.</td>
+</tr>
+<tr>
+<td>연결 장애·모더레이션·정책 제한</td>
+<td>장애 시간을 기록하고 핵심 비교에서 제외한다.</td>
+</tr>
+<tr>
+<td>kye의 컨디션·숙련·말하기 속도</td>
+<td>1~5 자기평가와 방송 순서를 기록하고 A-B-A-B로 순서 효과를 줄인다.</td>
+</tr>
+<tr>
+<td>고액 후원자 한 명</td>
+<td>전체 결과와 해당 시청자를 제외한 결과를 함께 제시한다.</td>
+</tr>
+<tr>
+<td>신규성·반복 노출·조건 간 이월</td>
+<td>조건 순서를 번갈아 배치하고, 즉각 효과와 다음 방문 효과를 분리한다.</td>
+</tr>
+<tr>
+<td>관찰자 기대·사후 해석</td>
+<td>지표·제외 기준·결정 기준을 실험 전에 기록한다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7">7. 중단 규칙</h2>
+<h3 id="_4">즉시 중단하고 해당 운영을 폐기하거나 검토할 조건</h3>
+<ul>
+<li>미성년 가능성이 있는 사람에게 Gift나 DM을 유도했다.</li>
+<li>시청자가 과소비, 후회, 경제적 곤란, 가족 갈등, 환불 필요를 밝혔다.</li>
+<li>거절 뒤 반복 요청, 죄책감·질투·연애 가능성·독점적 접근권이 결제와 연결됐다.</li>
+<li>개인정보가 공개되거나 동의 없는 녹음·인용·민감정보 기록이 발생했다.</li>
+<li>차별, 괴롭힘, 굴욕, 위험한 배틀·벌칙 또는 TikTok 정책 위반 가능성이 생겼다.</li>
+</ul>
+<h3 id="_5">분석상 중단·보류 조건</h3>
+<ul>
+<li>두 조건의 방송 시간·주제·유입이 비교 불가능할 정도로 달라졌다.</li>
+<li>핵심 지표를 플랫폼에서 안정적으로 얻을 수 없다.</li>
+<li>결과가 한 명 또는 한 세션에만 의존한다.</li>
+<li>4회 반복 뒤 방향이 계속 뒤집히거나 운영 부담이 이익보다 크다.</li>
+<li>체류·재방문·방의 건강성이 나빠지고 Gift만 늘어난다.</li>
+</ul>
+<p>이 경우 <code>효과 없음</code>이 아니라 <code>판정 불가</code>, <code>안전상 폐기</code>, <code>운영상 부적합</code>을 구분해 기록한다.</p>
+<h2 id="8">8. 개인정보 보호와 보관</h2>
+<ul>
+<li>연구 참여 동의와 마케팅/DM 동의를 분리한다. 언제든 철회할 수 있게 한다.</li>
+<li>공개 댓글이라도 연구 보고서에 그대로 인용할 때는 재식별 위험을 검토하고, 가능한 한 요약·비식별화한다.</li>
+<li>원자료 접근은 필요한 사람으로 제한한다. 연구표에는 내부 ID만 두고 사용자명 연결표와 분리한다.</li>
+<li>인터뷰 녹음은 전사 확인 후 가능한 빨리 삭제한다. 원자료 보관기간은 시작 전에 정하며, 기본 권장은 프로젝트 종료 후 90일 이내 삭제 또는 완전 비식별 요약만 보존이다.</li>
+<li>민감한 자유서술, DM, 결제 관련 화면을 범용 AI 서비스에 그대로 올리지 않는다. 분석이 필요하면 먼저 비식별화한다.</li>
+<li>GDPR/UK GDPR/미국 주별 법률 적용 여부는 실제 모집·저장·도구·거주지에 따라 별도 확인한다. 이 문서는 법률 자문이 아니다.</li>
+</ul>
+<h2 id="9_1">9. 최종 보고 형식</h2>
+<p>각 결론에 다음을 붙인다.</p>
+<ol>
+<li><strong>확인된 관찰:</strong> 실제 표본과 행동 자료</li>
+<li><strong>가능한 해석:</strong> 페르소나·동기 가설</li>
+<li><strong>반증과 대안 설명</strong></li>
+<li><strong>적용 범위:</strong> 국가·연령·언어·방송 조건</li>
+<li><strong>결정:</strong> 유지·수정·합병·분리·폐기·자료 부족</li>
+<li><strong>다음에 결론이 바뀔 조건</strong></li>
+</ol>
+<p>최종 문구는 “이 페르소나가 맞다”가 아니라 “현재 표본과 조건에서는 이 반복 행동과 대응이 관찰됐으며, 다음 조건에서 재검증한다”로 쓴다.</p></div>
+      </article><article class="document-section" id="policy" data-search="TikTok 공식 정책과 운영 경계">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 07</p>
+          <h2>TikTok 공식 정책과 운영 경계</h2>
+        </header>
+        <div class="prose"><h1 id="tiktok-live">미국·유럽 성인 후원자 대상 TikTok LIVE 정책 기반</h1>
+<ul>
+<li>조사·접근일: <strong>2026-10-16</strong></li>
+<li>범위: LIVE 선물, 가상 아이템, 보상·수익화, 크리에이터 행동, 안전, 조작, DM, 공개 인정, 경쟁, 선물 요청</li>
+<li>출처 원칙: <strong>TikTok 공식 법률문서·커뮤니티 가이드라인·Creator Academy·Help Center만 사용</strong></li>
+<li>구분: <code>정책</code>은 TikTok 원문의 요지이고, <code>설계 해석</code>은 이를 실제 운영 규칙으로 바꾼 제안입니다.</li>
+</ul>
+<h2 id="1">1. 결론</h2>
+<p>TikTok은 성인의 자발적인 선물과 공식 LIVE Match를 허용하지만, <strong>선물을 받기 위해 시청자를 속이거나, 감정·동정·의무감을 이용하거나, 보상과 맞바꾸거나, 기계적으로 반복 요청하는 운영</strong>은 수익화 제한 대상입니다. 따라서 목표는 “성인 고액 후원자를 압박해 결제시키기”가 아니라 <strong>성인에게 가치 있는 LIVE를 제공하고, 선물 여부와 무관하게 공정하게 대하며, 자발적 감사를 받을 수 있게 하는 것</strong>이어야 합니다.</p>
+<p>kye의 사업 목표는 수익과 주요 후원자를 만드는 것입니다. 이를 감추지는 않되, 구걸이 아니라 <strong>멋있어서 들어오고, 편안해서 머물며, 신뢰가 쌓여 응원하고 싶어지는 경험</strong>으로 달성합니다. 큰 후원을 감당할 수 있는 사람에게는 기여가 의미 있게 보이는 온라인 참여 경험을 제공하고, 형편이 다른 사람에게는 댓글·재방문·공유·소액 후원도 실제 기여로 인정합니다. 누구에게도 면대면 만남이나 연애 가능성을 보상으로 제시하지 않습니다.</p>
+<h2 id="2">2. 지역·연령·가상 아이템의 성격</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>확인된 정책</th>
+<th>실무 의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>미국</td>
+<td>미국용 Virtual Items Policy와 Rewards Policy가 따로 적용됩니다. 둘 다 2026-01-22 갱신본입니다.</td>
+<td>미국 운영에는 미국 문서를 기준으로 씁니다.</td>
+</tr>
+<tr>
+<td>유럽</td>
+<td>EEA·영국·스위스용 Virtual Items Policy가 적용됩니다. 2026-02-16 갱신본입니다. EEA 보상정책은 2025-07 갱신본입니다.</td>
+<td>“유럽 전체”를 하나로 단정하지 말고 EEA·영국·스위스와 기타 유럽 국가의 적용 문서를 나눠 확인해야 합니다.</td>
+</tr>
+<tr>
+<td>선물 가능 지역</td>
+<td>LIVE Gifts는 <strong>선택된 국가/지역에서만</strong> 제공됩니다. 크리에이터도 제공 지역에 거주해야 합니다.</td>
+<td>미국·유럽이라는 이유만으로 모든 계정에 기능이 있다고 단정하지 않습니다. 실제 계정의 LIVE Gifts 메뉴로 재확인합니다.</td>
+</tr>
+<tr>
+<td>연령</td>
+<td>LIVE 진행, Coins 구매·사용, LIVE 선물 전송, 수익화 기능은 원칙적으로 <strong>18세 이상</strong>입니다. DM은 16세 이상입니다.</td>
+<td>타깃은 성인으로 제한하되 외모·대화만으로 나이를 추정하지 않습니다. 미성년 가능성이 있으면 결제·DM 유도를 중단합니다.</td>
+</tr>
+<tr>
+<td>선물의 성격</td>
+<td>Gifts는 Coins로 활성화하는 플랫폼 내 디지털 아이템입니다. 다른 이용자에게 현금·Coins·가치물을 직접 이전하는 것이 아닙니다. 선물자의 사용자명과 선물 정보는 다른 이용자에게 보일 수 있습니다.</td>
+<td>“당신이 나에게 돈을 직접 보낸다”거나 “선물액이 그대로 내 수입”이라고 설명하지 않습니다. 공개 호명 전에 익명성을 원하는지 배려합니다.</td>
+</tr>
+<tr>
+<td>Diamonds·보상</td>
+<td>Gifts의 종류와 수는 인기 측정에 쓰이고 Diamonds에 반영될 수 있지만, Diamonds가 현금 보상을 자동 보장하지는 않습니다. 품질·안전·방송시간·참여·순위 등 여러 요소가 보상에 반영될 수 있습니다.</td>
+<td>선물 금액과 실제 정산액을 1:1로 약속하지 않습니다. 예상 수익을 시청자에게 사실처럼 말하지 않습니다.</td>
+</tr>
+<tr>
+<td>지출 통제</td>
+<td>TikTok은 이용자가 일일 Gift limit 알림을 설정할 수 있게 합니다.</td>
+<td>예산·한도 사용을 방해하지 말고, 고액 선물 뒤 추가 결제를 재촉하지 않습니다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 허용되는 운영과 금지·제한되는 운영</h2>
+<h3 id="_1">정책상 허용 범위</h3>
+<ul>
+<li>성인이 Coins를 자발적으로 구매하고 Gifts로 콘텐츠에 감사·반응하는 것.</li>
+<li>크리에이터가 LIVE Gifts를 켜고, 정상 상태의 계정으로 실제 상호작용이 있는 LIVE를 진행하는 것.</li>
+<li>TikTok 공식 <strong>LIVE Match</strong>에서 좋아요·선물 또는 지정 선물을 점수로 사용해 개인·팀 경쟁을 하는 것.</li>
+<li>선물자의 이름과 선물을 보고 진심으로 감사하는 것. 정책은 선물 자체를 감사와 상호작용의 표현으로 설명합니다.</li>
+<li><strong>설계 해석:</strong> 모든 선물 언급이 일괄 금지된 것은 아닙니다. 다만 요청은 짧고 사실에 맞으며 선택권을 분명히 하고, 반복·압박·교환 약속을 붙이지 않아야 합니다.</li>
+</ul>
+<h3 id="_2">금지되거나 수익화에서 제외될 수 있는 운영</h3>
+<ul>
+<li>속임수, 허위 약속, 미끼, 비상호작용 방식으로 Gifts·좋아요·팔로우를 늘리는 행위.</li>
+<li>“선물하면 팔로우/좋아요/선물로 갚겠다”처럼 참여와 보상을 인위적으로 교환하는 행위.</li>
+<li>시청자의 감정, 동정심, 죄책감, 의무감을 이용해 선물을 압박하는 행위.</li>
+<li>개인적 경제난, 중개 모금, 콘텐츠와 무관한 개인 크라우드펀딩을 내세워 Gifts나 금전 지원을 요구하는 행위.</li>
+<li>두 편을 대립시킨 뒤 Gifts·댓글·좋아요·공유로 편을 고르게 하는 것만을 콘텐츠로 삼는 행위.</li>
+<li>오직 Gifts·지표를 늘리기 위해 기계적·반복적으로 요청하는 방송.</li>
+<li>선물이나 참여를 얻기 위해 실제 비극·분쟁을 선정적으로 이용하는 행위.</li>
+<li>사기, 허위표시, 가짜 참여, 오해를 부르는 Gifts 요청, 담합·부정행위·다계정 악용·시스템 우회.</li>
+<li>모욕·굴욕·괴롭힘을 유도하거나 위험한 벌칙, 과도한 음식·음료 섭취 등 해를 줄 수 있는 행동.</li>
+<li>성적으로 노골적이거나 상당히 노출된 행동. 커뮤니티 가이드라인 위반이 아니더라도 LIVE 수익화가 제한될 수 있습니다.</li>
+<li>게스트·자막 읽기·번역·화면 댓글 등 제3자와 도구가 만든 위반. 호스트가 전체 LIVE에 책임집니다.</li>
+</ul>
+<h2 id="4">4. 기능별 설계 제약</h2>
+<h3 id="a-live">A. LIVE</h3>
+<ol>
+<li><strong>콘텐츠가 먼저:</strong> 대화·공연·게임·정보·공동 활동처럼 선물 없이도 볼 가치가 있어야 합니다.</li>
+<li><strong>실제 진행자 참여:</strong> 녹화 반복, 자동화, AI만으로 진행하는 방송, 방치·수면·정적 화면은 수익화에서 제외될 수 있습니다.</li>
+<li><strong>무료 참여 보장:</strong> 질문 답변·환영·놀이 참여를 결제자 전용 인간적 대우로 만들지 않습니다.</li>
+<li><strong>성인·지역 확인:</strong> 크리에이터 계정에 LIVE Gifts가 실제 제공되고 수익화 자격이 유지되는지 확인합니다.</li>
+<li><strong>게스트 통제:</strong> 게스트와 화면에 띄우는 댓글·TTS를 실시간으로 관리하고 즉시 차단할 수 있어야 합니다.</li>
+</ol>
+<h3 id="b-dm">B. DM</h3>
+<ol>
+<li>DM은 16세 이상 기능이지만 Gifts·수익화는 18세 이상입니다. <strong>DM 가능 = 선물 요청 가능 성인</strong>으로 보지 않습니다.</li>
+<li>감사 DM은 선물 금액보다 구체적인 방송 기여·대화에 초점을 둡니다.</li>
+<li>DM에서 개인 경제 사정, 외로움, 애정, 충성심을 이용해 선물이나 송금을 요구하지 않습니다.</li>
+<li>“더 보내면 더 가까워진다”, 비밀 연애·독점 관계, 응답권·만남을 선물과 교환하는 약속을 금지합니다.</li>
+<li>거절·무응답 뒤 반복 요청, 스토킹성 접촉, 협박·폭로 위협, 개인정보 요구를 금지합니다. Creator Code는 플랫폼 밖 행동에도 적용될 수 있습니다.</li>
+<li><strong>설계 해석:</strong> 안전한 기본값은 DM에서 선물을 요청하지 않고, LIVE 일정·감사·피드백·공개 혜택 안내만 하는 것입니다.</li>
+</ol>
+<h3 id="c">C. 공개 인정·감사</h3>
+<ol>
+<li>선물자명과 선물 정보가 공개될 수 있으므로 호명은 플랫폼에 표시된 정보 범위 안에서만 합니다.</li>
+<li>감사 강도에 상한을 두고, 고액 후원자에게 연애 감정·독점성·운영 권력·다른 시청자 통제권을 주지 않습니다.</li>
+<li>선물 없이 좋은 댓글·질문·도움을 준 사람도 인정합니다. “진짜 팬 = 결제자” 구조를 만들지 않습니다.</li>
+<li>선물 직후에는 “감사합니다. 무리하지 마세요”처럼 선택권을 되돌려 주고 곧바로 추가 선물을 요구하지 않습니다.</li>
+<li>순위판을 쓰더라도 자산·충성·사랑의 서열로 표현하지 않고, 비결제 기여와 별도의 콘텐츠 참여 기록으로 제한합니다.</li>
+</ol>
+<h3 id="d">D. 경쟁·배틀</h3>
+<ol>
+<li>가장 안전한 방식은 TikTok 공식 LIVE Match를 사용하고, 화면의 공식 점수·시간·규칙을 따르는 것입니다.</li>
+<li>Gifts만이 아니라 좋아요도 점수에 포함할 수 있게 하여 무료 참여 경로를 유지합니다.</li>
+<li>“A가 좋으면 이 선물, B가 좋으면 저 선물”처럼 대립만 세워 결제를 받는 형식은 피합니다.</li>
+<li>패자 벌칙은 굴욕·괴롭힘·위험행동·과식·과음·성적 행동을 포함하지 않습니다.</li>
+<li>시청자 개인 간 과소비 경쟁, 질투, 충성 검증을 만들지 않습니다. 팀 목표는 콘텐츠 완성·재미에 연결합니다.</li>
+<li><strong>설계 해석:</strong> TikTok 공식 문서가 명확히 설명하는 것은 LIVE Match이지, Gifts를 유료 참가권으로 받는 창작자 자체 경품·추첨이 아닙니다. 지역별 법률과 별도 프로모션 약관을 확인하기 전에는 <code>선물 = 경품 응모권</code> 구조를 쓰지 않습니다.</li>
+</ol>
+<h3 id="e">E. 선물 요청 문구</h3>
+<ul>
+<li>권장: “방송이 즐거우셨다면 좋아요나 댓글로 함께해 주세요. Gifts는 원하실 때만 선택해 주세요.”</li>
+<li>목표 공개: “오늘 목표는 이 코너를 완성하는 것입니다. 무료 참여도 같은 팀 기여로 봅니다.”</li>
+<li>고액 선물 뒤: “정말 감사합니다. 오늘은 충분합니다. 예산을 우선해 주세요.”</li>
+<li>금지: “나를 사랑하면 보내라”, “안 보내면 방송을 끈다”, “다른 팬보다 적다”, “생활비가 없으니 보내라”, “선물하면 개인 연락/팔로우/애정을 준다”, 반복 카운트다운·죄책감 유도.</li>
+<li>위 문구는 TikTok의 공식 예문이 아니라 <strong>정책을 지키기 위한 운영 문안</strong>입니다.</li>
+</ul>
+<h2 id="5-kye">5. kye에 맞는 온라인 전용 관계·수익 설계</h2>
+<p>이 절은 TikTok 정책 원문이 아니라, 위 정책과 <code>../CREATOR_PROFILE/BRAND_CORE.md</code>의 확정 방향을 결합한 설계입니다.</p>
+<h3 id="_3">관계의 약속</h3>
+<ul>
+<li>팬이 얻는 것: 가볍고 즐거운 시간, 정확히 알아봐 주는 반응, 반복 방문을 기억하는 신뢰, 참여할 자리, kye가 성장하는 과정을 함께 만든다는 의미.</li>
+<li>kye가 얻는 것: 재방문, 댓글·공유, 팬 공동체, 자발적 Gifts와 주요 후원자의 지속 가능한 지원.</li>
+<li>관계 범위: LIVE, 공개 커뮤니티, 합의된 DM 등 <strong>온라인 안에서 완결</strong>합니다. 면대면 만남, 데이트, 연애 발전 가능성을 현재·미래 보상으로 암시하지 않습니다.</li>
+</ul>
+<h3 id="_4">기여 능력에 따른 부담 분리</h3>
+<ul>
+<li>무료 참여자: 댓글, 좋아요, 재방문, 공유, 신규 시청자 환영으로 기여할 수 있습니다.</li>
+<li>소액 후원자: 액수보다 꾸준한 응원과 참여 맥락을 인정합니다.</li>
+<li>주요 후원자: 큰 금액 자체만이 아니라 방송 아이디어, 공동 목표 달성, 장기적인 성장 지원의 의미를 분명히 감사합니다.</li>
+<li>모든 층에서 살 수 없는 것: 독점적 애정, 사적 관계, 다른 팬보다 높은 인간적 가치, 운영 통제권, 면대면 만남.</li>
+</ul>
+<h3 id="_5">주요 후원자를 찾되 압박하지 않는 방법</h3>
+<ol>
+<li>결제액이 아니라 재방문, 대화 기여, 콘텐츠 취향, 공동체 태도, 스스로 밝힌 응원 의사를 관찰합니다.</li>
+<li>주요 후원자 후보에게도 먼저 선물을 요구하지 않습니다. 어떤 콘텐츠와 성장 목표를 응원할 수 있는지 투명하게 보여 줍니다.</li>
+<li>후원 목표는 생활고·죄책감이 아니라 장비 개선, 새 코너, 노래 성장, 특별 방송처럼 <strong>팬이 결과를 함께 볼 수 있는 가치</strong>에 연결합니다.</li>
+<li>큰 선물 뒤에는 추가 결제를 끌어내기보다 감사, 결과 공유, 예산 존중으로 신뢰를 지킵니다.</li>
+<li>감사의 깊이는 키울 수 있지만 애정의 독점성은 팔지 않습니다. 공개된 원칙 안에서 같은 유형의 기여에는 일관되게 반응합니다.</li>
+</ol>
+<h3 id="_6">브랜드에 맞는 표현</h3>
+<ul>
+<li>구걸형: “목표 얼마 안 남았어요. 누가 책임질 거예요?” → 사용하지 않음.</li>
+<li>kye형: “오늘 함께 만든 반응이 다음 코너를 결정합니다. 댓글과 좋아요도 힘이 되고, Gifts는 여유가 있을 때만 함께해 주세요.”</li>
+<li>구걸형: “큰 선물 주면 특별히 개인적으로 챙길게요.” → 사용하지 않음.</li>
+<li>kye형: “큰 응원은 분명히 기억하고 감사하겠습니다. 다만 누구도 돈으로 사적 관계나 다른 사람 위의 자리를 사는 구조는 만들지 않겠습니다.”</li>
+</ul>
+<h2 id="6">6. 출시 전 체크리스트</h2>
+<ul>
+<li>[ ] 크리에이터와 Gifts 대상이 18세 이상이며 해당 계정·지역에서 기능이 실제 제공되는가?</li>
+<li>[ ] 선물하지 않아도 방송의 핵심 경험과 기본적인 존중을 받을 수 있는가?</li>
+<li>[ ] 요청이 사실에 맞고 짧으며, 반복·기만·교환 약속·감정 압박이 없는가?</li>
+<li>[ ] 감사가 애정·독점 관계·사적 접근권의 판매처럼 보이지 않는가?</li>
+<li>[ ] 경쟁에 무료 참여 경로가 있고, 패배·질투·굴욕·위험을 수익화하지 않는가?</li>
+<li>[ ] DM이 감사·정보 제공 중심이며 개인별 지출 압박에 쓰이지 않는가?</li>
+<li>[ ] 고액 선물 뒤 추가 요청 대신 중단·예산 보호 메시지가 나가는가?</li>
+<li>[ ] 게스트, TTS, 자동 번역, 화면 댓글까지 호스트가 통제하는가?</li>
+<li>[ ] 미국과 EEA·영국·스위스의 적용 문서를 분리했고, 기타 유럽 국가는 실제 거주지 기준 문서를 재확인했는가?</li>
+<li>[ ] 무료·소액·고액 기여 경로가 각각 있으며, 누구도 형편을 넘는 금액을 요구받지 않는가?</li>
+<li>[ ] 주요 후원자에게 줄 감사와 참여 경험이 온라인에서 완결되고 면대면 만남·연애 암시를 포함하지 않는가?</li>
+<li>[ ] 팬이 방송과 함께하며 실제로 얻는 가치와 후원금으로 개선될 결과를 설명할 수 있는가?</li>
+</ul>
+<h2 id="7">7. 공식 출처</h2>
+<p>모든 출처 접근일: <strong>2026-10-16</strong></p>
+<ol>
+<li>TikTok LIVE Monetization Guidelines<br>
+   https://www.tiktok.com/live/creators/en-US/rules_and_guidance/live_monetization_guidelines</li>
+<li>TikTok Creator Code of Conduct — 최종 갱신 2026-09-26<br>
+   https://www.tiktok.com/creator-academy/en/article/creator-code-of-conduct</li>
+<li>TikTok Community Guidelines: Accounts and Features — 공개 2026-08-25, 시행 2026-09-24<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/accounts-features</li>
+<li>TikTok Community Guidelines: Integrity and Authenticity — 공개 2026-08-25, 시행 2026-09-24<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/integrity-authenticity</li>
+<li>TikTok Community Guidelines: Regulated Goods, Services, and Commercial Activities — 공개 2026-08-25, 시행 2026-09-24<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/regulated-commercial-activities</li>
+<li>U.S. Virtual Items Policy — 최종 갱신 2026-01-22<br>
+   https://www.tiktok.com/legal/page/us/virtual-items/en</li>
+<li>U.S. Rewards Policy — 최종 갱신 2026-01-22<br>
+   https://www.tiktok.com/legal/page/global/rewards-policy-us/en</li>
+<li>EEA, UK and Switzerland Virtual Items Policy — 최종 갱신 2026-02-16<br>
+   https://www.tiktok.com/legal/page/eea/virtual-items/en</li>
+<li>EEA, UK and Switzerland Rewards Policy — 최종 갱신 2025-07<br>
+   https://www.tiktok.com/legal/page/global/rewards-policy-eea/en</li>
+<li>Help Center: LIVE Gifts on TikTok<br>
+    https://support.tiktok.com/en/live-gifts-wallet/tiktok-live/live-gifts-on-tiktok</li>
+<li>Help Center: Send a Gift during a LIVE on TikTok<br>
+    https://support.tiktok.com/en/live-gifts-wallet/gifts/send-a-gift-during-a-live-on-tiktok</li>
+<li>Help Center: Gift limit notification<br>
+    https://support.tiktok.com/en/live-gifts-wallet/gifts/gift-limit-notification</li>
+<li>Help Center: LIVE match<br>
+    https://support.tiktok.com/en/live-gifts-wallet/tiktok-live/live-match</li>
+</ol>
+<h2 id="8">8. 확인 한계</h2>
+<ul>
+<li>LIVE Monetization Guidelines는 지역별 적용이 조금 달라질 수 있다고 명시합니다. 실제 계정에 표시되는 기능별 약관이 있으면 그 약관이 추가로 적용됩니다.</li>
+<li>TikTok은 Gifts 제공 국가의 완전한 고정 목록을 위 Help Center 문서에 공개하지 않고 “select countries/location where available”라고 설명합니다.</li>
+<li>창작자 자체 경품·추첨의 국가별 법률 적법성은 이 조사 범위가 아닙니다. TikTok 공식 Match 기능의 존재를 일반적인 유료 경품행사의 허가로 확대 해석하면 안 됩니다.</li>
+</ul></div>
+      </article><article class="document-section" id="sources" data-search="출처와 근거 수준">
+        <header class="section-lead">
+          <p class="eyebrow">SECTION 08</p>
+          <h2>출처와 근거 수준</h2>
+        </header>
+        <div class="prose"><h1 id="_1">시청자·후원자 리서치 출처 목록</h1>
+<ul>
+<li>정리·최종 접근일: <strong>2026-10-16</strong></li>
+<li>원칙: 아래 목록은 실제로 확인한 프로젝트 문서와 그 문서에 기록된 원문 URL, 공식 TikTok 페이지, 출판사 페이지만 정리했다. 출처가 있다는 사실과 미국·유럽 30~59세 여성에게 직접 적용할 수 있다는 판단은 다르다.</li>
+</ul>
+<h2 id="_2">근거 수준 표시</h2>
+<ul>
+<li><strong>[A] 직접성이 높은 1차 근거:</strong> 실제 행동 로그·자연실험·무작위 실험이며 LIVE/Gift 행동을 직접 다룸. 그래도 타깃 인구와 다르면 전이 한계를 표시한다.</li>
+<li><strong>[B] 인접 1차 근거:</strong> 라이브 시청·후원·가상선물을 직접 연구했지만 횡단 설문이거나 플랫폼·국가·연령·성별이 목표와 다름.</li>
+<li><strong>[C] 탐색 근거:</strong> 소표본 질적 연구, 단일 채널 회의논문, 미심사 원고. 가능한 현상을 찾는 용도이며 비율·인과 주장에는 쓰지 않는다.</li>
+<li><strong>[P] 공식 정책·기능 문서:</strong> TikTok의 허용·제한·기능을 확인하는 1차 공식 자료. 효과 연구는 아니다.</li>
+<li><strong>[L] 로컬 확정 자료:</strong> 사용자의 직접 진술, 합의된 브랜드·운영 경계, 프로젝트 현황.</li>
+<li><strong>[H] 로컬 가설:</strong> 아직 시장에서 검증하지 않은 페르소나·전략 초안.</li>
+<li><strong>[S] 전략 서적:</strong> 비실증적 해석 렌즈. 학술 근거나 타깃 행동의 증거로 취급하지 않는다.</li>
+</ul>
+<h2 id="1-1">1. 학술·1차 연구</h2>
+<p>모든 링크 접근일: <strong>2026-10-16</strong>. 타깃 전이 한계와 세부 표본은 <code>PRIMARY_EVIDENCE_LIVESTREAM_WATCHING_GIFTING.md</code>에 정리되어 있다.</p>
+<ol>
+<li><strong>[B] Social motivations of live-streaming viewer engagement on Twitch</strong><br>
+   https://doi.org/10.1016/j.chb.2018.02.013</li>
+<li><strong>[B] Why do people watch others play video games? An empirical study on the motivations of Twitch users</strong><br>
+   https://doi.org/10.1016/j.chb.2016.10.019</li>
+<li><strong>[C] Live Streams on Twitch Help Viewers Cope With Difficult Periods in Life</strong><br>
+   https://doi.org/10.3389/fpsyg.2020.586975</li>
+<li><strong>[B] Understanding Digital Patronage: Why Do People Subscribe to Streamers on Twitch?</strong><br>
+   https://doi.org/10.1145/3311350.3347160</li>
+<li><strong>[B] Understanding How Digital Gifting Influences Social Interaction on Live Streams</strong><br>
+   https://doi.org/10.1145/3338286.3340144</li>
+<li><strong>[C] Digital gifting in personal brand communities of live-streaming: fostering viewer–streamer–viewer parasocial relationships</strong><br>
+   https://doi.org/10.1080/13527266.2021.1910327</li>
+<li><strong>[B] Examining gifting behavior on live streaming platforms: An identity-based motivation model</strong><br>
+   https://doi.org/10.1016/j.im.2020.103406</li>
+<li><strong>[B] What Drives Gift-giving Intention in Live Streaming? The Perspectives of Emotional Attachment and Flow Experience</strong><br>
+   https://doi.org/10.1080/10447318.2021.1885224</li>
+<li><strong>[B] Understanding Virtual Gifting in Live Streaming by the Theory of Planned Behavior</strong><br>
+   https://doi.org/10.1155/2022/8148077</li>
+<li><strong>[A: 플랫폼 내] [B: 현재 타깃 전이] Impact of viewer engagement on gift-giving in live video streaming</strong><br>
+    https://doi.org/10.1016/j.tele.2018.03.014</li>
+<li><strong>[A: 상호 호혜 인과] [B: 현재 타깃 전이] The Spread of Virtual Gifting in Live Streaming: The Case of Twitch</strong><br>
+    https://doi.org/10.1609/icwsm.v20i1.42693</li>
+<li><strong>[B] Influencing factors of users’ shift to buying expensive virtual gifts in live streaming: Empirical evidence from China</strong><br>
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC9748564/</li>
+<li><strong>[C] On female audience sending virtual gifts to male streamers on Douyin</strong> — 미심사 원고<br>
+    https://arxiv.org/abs/2112.01919</li>
+<li><strong>[C] The More Engaged, the More Generous: Examining the Influence of Viewers’ Engagement on Their Gifting Behavior in Live Streaming Services</strong> — 단일 중국 e스포츠 채널 회의논문<br>
+    https://iceb.johogo.com/proceedings/2021/ICEB_2021_paper_65_full.pdf</li>
+</ol>
+<h3 id="_3">출처 감사에서 제외한 항목</h3>
+<ul>
+<li>로컬 근거표에 적힌 <strong>“Poking the bear or splashing the cash? Exploring streamer recognition and its influence on TikTok gifting behaviours”</strong>, <code>https://doi.org/10.1080/15252019.2025.2598165</code>는 2026-10-16 현재 DOI가 해석되지 않았고 Crossref 제목 검색과 웹 제목 검색에서도 해당 논문을 확인하지 못했다. 따라서 검증된 출처 목록과 검증 계획의 근거에서 제외한다.</li>
+<li>로컬 근거표의 <code>Impact of viewer engagement on gift-giving in live video streaming</code> DOI는 <code>.06.014</code>로 적혀 있었으나 Crossref 제목 검색과 DOI 확인 결과 <strong><code>.03.014</code></strong>가 맞아 이 목록에서 수정했다.</li>
+</ul>
+<h3 id="_4">학술 근거 사용 제한</h3>
+<ul>
+<li>30~59세의 경제력 있는 미국·유럽 여성, 특히 남성 TikTok LIVE 진행자에게 선물하는 여성만을 직접 대표하는 연구는 현재 로컬 근거표에서 확인되지 않았다.</li>
+<li>Twitch·중국·대만·한국 플랫폼 연구의 효과 크기를 TikTok 타깃에게 그대로 옮기지 않는다.</li>
+<li>설문에서 나타난 의도나 상관관계를 실제 지출의 인과효과로 바꾸어 표현하지 않는다.</li>
+</ul>
+<h2 id="2-tiktok">2. TikTok 공식 정책·기능 자료</h2>
+<p>모두 <strong>[P]</strong>, 접근일 <strong>2026-10-16</strong>.</p>
+<ol>
+<li>TikTok LIVE Monetization Guidelines<br>
+   https://www.tiktok.com/live/creators/en-US/rules_and_guidance/live_monetization_guidelines</li>
+<li>TikTok Creator Code of Conduct<br>
+   https://www.tiktok.com/creator-academy/en/article/creator-code-of-conduct</li>
+<li>TikTok Community Guidelines: Accounts and Features<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/accounts-features</li>
+<li>TikTok Community Guidelines: Integrity and Authenticity<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/integrity-authenticity</li>
+<li>TikTok Community Guidelines: Regulated Goods, Services, and Commercial Activities<br>
+   https://www.tiktok.com/safety/en/policies-and-engagement/regulated-commercial-activities</li>
+<li>U.S. Virtual Items Policy<br>
+   https://www.tiktok.com/legal/page/us/virtual-items/en</li>
+<li>U.S. Rewards Policy<br>
+   https://www.tiktok.com/legal/page/global/rewards-policy-us/en</li>
+<li>EEA, UK and Switzerland Virtual Items Policy<br>
+   https://www.tiktok.com/legal/page/eea/virtual-items/en</li>
+<li>EEA, UK and Switzerland Rewards Policy<br>
+   https://www.tiktok.com/legal/page/global/rewards-policy-eea/en</li>
+<li>Help Center: LIVE Gifts on TikTok<br>
+    https://support.tiktok.com/en/live-gifts-wallet/tiktok-live/live-gifts-on-tiktok</li>
+<li>Help Center: Send a Gift during a LIVE on TikTok<br>
+    https://support.tiktok.com/en/live-gifts-wallet/gifts/send-a-gift-during-a-live-on-tiktok</li>
+<li>Help Center: Gift limit notification<br>
+    https://support.tiktok.com/en/live-gifts-wallet/gifts/gift-limit-notification</li>
+<li>Help Center: LIVE match<br>
+    https://support.tiktok.com/en/live-gifts-wallet/tiktok-live/live-match</li>
+</ol>
+<h3 id="_5">정책 자료 사용 제한</h3>
+<ul>
+<li>정책 문서는 무엇이 허용·제한되는지 판단하는 근거이지, 어떤 운영이 후원을 늘리는지 증명하는 효과 근거가 아니다.</li>
+<li>지역별 적용과 실제 계정 기능은 달라질 수 있으므로 LIVE 전에 계정 화면과 당시 적용 약관을 다시 확인한다.</li>
+</ul>
+<h2 id="3">3. 로컬 프로젝트 자료</h2>
+<p>모든 파일 확인일: <strong>2026-10-16</strong>.</p>
+<h3 id="_6">이 연구 폴더</h3>
+<ol>
+<li><strong>[L] 연구 목적·분석 원칙·결과물 상태</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/README.md</code></li>
+<li><strong>[L: 근거 정리] 성인의 라이브 시청·금전 후원 동기 근거표</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/PRIMARY_EVIDENCE_LIVESTREAM_WATCHING_GIFTING.md</code></li>
+<li><strong>[P를 정리한 L] 미국·유럽 성인 후원자 대상 TikTok LIVE 정책 기반</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/TIKTOK_OFFICIAL_POLICY_FOUNDATION_2026-10-16.md</code></li>
+<li><strong>[H] 실제 검증 계획</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/05_VALIDATION_PLAN.md</code></li>
+<li><strong>[L+H] K의 실제 Match 경험을 반영한 수익·후원자 심리 전략</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/03_LIVE_MATCH_STRATEGY.md</code><br>
+   ‘대부분의 후원이 Match에서 발생한다’는 K의 직접 설명은 로컬 사실이며, 후원 심리의 세부 연결과 운영안은 검증할 전략 가설이다.</li>
+<li><strong>[H] 미국·유럽 30~59세 여성 시장 페르소나 12개</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/02_MARKET_PERSONAS_WOMEN_30_59.md</code><br>
+   공개 인구자료가 제공하지 않는 직업·성격 교차분포를 사실로 주장하지 않고, 실제 시청자에게서 확인할 가설로 사용한다.</li>
+<li><strong>[H] 시청·관계·후원 행동 동기 태그 20개</strong><br>
+<code>Tiktoklive/AUDIENCE_SUPPORTER_RESEARCH/02_BEHAVIOR_MOTIVE_TAGS.md</code></li>
+</ol>
+<h3 id="_7">크리에이터 프로필과 사용자 원문</h3>
+<ol start="5">
+<li><strong>[L] 크리에이터 프로필 폴더 안내와 기록 원칙</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/README.md</code></li>
+<li><strong>[L] 합의된 브랜드 중심·사업 목적·관계 경계</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/BRAND_CORE.md</code></li>
+<li><strong>[L+H] kye의 직접 진술, 확인된 방향, 미검증 해석 후보</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/KYE_PROFILE.md</code></li>
+<li><strong>[H] 20개 행동형 후원자 페르소나 가설 v0.1</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/SUPPORTER_PERSONA_TAXONOMY_HYPOTHESES_V0_1.md</code></li>
+<li><strong>[L] 후원자 관계의 목적과 경계 — 사용자 원문</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/sources/2026-10-16-supporter-relationship-purpose.md</code></li>
+<li><strong>[L] 전략 서적 활용 방식과 윤리 경계</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/ASSESSMENT_METHOD.md</code></li>
+<li><strong>[L] 브랜드·전략 관련 대화와 변경 기록</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/CONVERSATION_LOG.md</code></li>
+<li><strong>[L] 사용자 원문 — 퍼스널 컨설팅 방식과 전략 서적 요청</strong><br>
+<code>Tiktoklive/CREATOR_PROFILE/sources/2026-10-14-personal-consulting-method.md</code></li>
+</ol>
+<h2 id="4-robert-greene">4. Robert Greene 자료</h2>
+<p>이 두 책은 프로젝트에서 포지셔닝·선택과 집중·타이밍·존재감·호기심·완급·기억에 남는 경험을 생각하는 <strong>해석 렌즈</strong>로만 사용한다. 시청자 심리나 후원 효과의 실증 근거가 아니며, 기만·질투·의존·취약성 악용·거짓 친밀감에 관한 전술은 적용하지 않는다.</p>
+<ol>
+<li><strong>[S] Robert Greene, <em>The 33 Strategies of War</em></strong> — Penguin Random House 공식 도서 페이지<br>
+   https://www.penguinrandomhouse.com/books/291190/the-33-strategies-of-war-by-robert-greene/<br>
+   접근일: 2026-10-16</li>
+<li><strong>[S] Robert Greene, <em>The Art of Seduction</em></strong> — Penguin Random House 공식 도서 페이지<br>
+   https://www.penguinrandomhouse.com/books/286423/the-art-of-seduction-by-robert-greene/9781101175293/<br>
+   접근일: 2026-10-16</li>
+<li><strong>[S] Robert Greene 저자 페이지</strong> — Penguin Random House<br>
+   https://www.penguinrandomhouse.com/authors/243460/robert-greene/<br>
+   접근일: 2026-10-16</li>
+</ol>
+<h2 id="5">5. 출처가 뒷받침하지 않는 주장</h2>
+<p>현재 출처만으로 다음을 사실처럼 말하지 않는다.</p>
+<ul>
+<li>미국·유럽 30~59세 여성 전체가 특정 관계·연애·외로움 동기로 남성 호스트를 후원한다.</li>
+<li>특정 페르소나가 실제 시장에 정해진 비율로 존재한다.</li>
+<li>댓글, 재방문, Gift 하나만으로 소득·취약성·관계 욕구를 알 수 있다.</li>
+<li>중국·Twitch 연구의 효과 크기가 TikTok의 미국·유럽 타깃에서도 같다.</li>
+<li>Robert Greene의 전략이 후원 전환에 효과가 있거나 윤리적으로 허용된다는 실증 근거가 된다.</li>
+</ul>
+<p>이 항목들은 <code>05_VALIDATION_PLAN.md</code>에 따라 실제 표본과 반복 관찰로 검증하기 전까지 가설로 유지한다.</p></div>
+      </article>
+        <div class="notice"><strong>읽을 때의 기준</strong><br>직업·연령·Gift 규모만으로 실제 시청자를 단정하지 않습니다. 본인이 직접 밝힌 정보와 서로 다른 세 번 이상의 방문에서 반복된 행동으로 가설을 확인합니다.</div>
+      </div>
+      <footer>Compiled for KYE · 2026-10-16 · Research hypotheses, not population prevalence estimates</footer>
+    </main>
+  </div>
+  <script>
+    const buttons = [...document.querySelectorAll('.nav-item')];
+    const articles = [...document.querySelectorAll('.document-section')];
+    const search = document.getElementById('search');
+    const noResults = document.getElementById('noResults');
+    const menuButton = document.getElementById('menuButton');
+    function goTo(id) {
+      document.getElementById(id)?.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+      document.body.classList.remove('menu-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+    buttons.forEach(button => button.addEventListener('click', () => goTo(button.dataset.target)));
+    menuButton.addEventListener('click', () => {
+      const open = document.body.classList.toggle('menu-open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') { document.body.classList.remove('menu-open'); menuButton.setAttribute('aria-expanded', 'false'); } });
+    search.addEventListener('input', () => {
+      const term = search.value.trim().toLocaleLowerCase('ko');
+      let visible = 0;
+      articles.forEach(article => {
+        const show = !term || article.textContent.toLocaleLowerCase('ko').includes(term);
+        article.hidden = !show;
+        if (show) visible++;
+      });
+      buttons.forEach(button => {
+        const target = document.getElementById(button.dataset.target);
+        button.hidden = target?.hidden ?? false;
+      });
+      noResults.style.display = visible ? 'none' : 'block';
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.filter(entry => entry.isIntersecting).forEach(entry => {
+        buttons.forEach(button => button.classList.toggle('active', button.dataset.target === entry.target.id));
+      });
+    }, {rootMargin: '-20% 0px -70% 0px'});
+    articles.forEach(article => observer.observe(article));
+  </script>
+</body>
+</html>
